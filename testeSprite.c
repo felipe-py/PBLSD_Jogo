@@ -13,6 +13,7 @@ int main() {
     set_cor_background_wbr(7, 7, 7); 
 
 //-----------------------------------------------------------------------------------------------------------------------//   
+//QUADRADO
 
     int y,x;
 
@@ -28,96 +29,159 @@ int main() {
     }
 
 //-----------------------------------------------------------------------------------------------------------------------//
+//LOSANGO
 
-    // Inicializa o sprite com pixels transparentes
+// Iterar por cada pixel do sprite de 20x20
+for (x = 0; x < 20; x++) {
     for (y = 0; y < 20; y++) {
-        for (x = 0; x < 20; x++) {
-            edit_sprite_wsm(10400 + y * 20 + x, 7, 7, 6);
-        }
-    }
+        int endereco = 10400 + y * 20 + x;
 
-    // Desenhar triângulo maior (verde)
-    for (y = 0; y < 20; y++) {
-        for (x = 0; x < 20; x++) {
-            if (y <= 19 - x && y <= x){
-                edit_sprite_wsm(10400 + y * 20 + x, 0, 7, 0);  // Verde
-            }
-        }
-    }
+        // Desenhar o fundo como cor nula (0, 0, 0)
+        int azul = 7;
+        int verde = 7;
+        int vermelho = 6;
 
-    // Desenhar triângulo menor (vermelho)
-    for (y = 5; y <= 14; y++) {
-        for (x = 5; x <= 14; x++) {
-            if (y <= 14 - x + 5 && y <= x - 5){
-                edit_sprite_wsm(10400 + y * 20 + x, 0, 0, 7);  // vermelho
+        // Desenhar o contorno verde
+        if ((abs(x - 9) + abs(y - 9) >= 7 && abs(x - 9) + abs(y - 9) <= 8) ||
+            (abs(x - 10) + abs(y - 10) >= 7 && abs(x - 10) + abs(y - 10) <= 8)) {
+            azul = 0;
+            verde = 7;
+            vermelho = 0;
+        }
+
+        // Desenhar o losango vermelho
+        if ((abs(x - 9) + abs(y - 9) >= 5 && abs(x - 9) + abs(y - 9) <= 6) ||
+            (abs(x - 10) + abs(y - 10) >= 5 && abs(x - 10) + abs(y - 10) <= 6)) {
+            azul = 0;
+            verde = 0;
+            vermelho = 7;
+        }
+
+        // Desenhar a cruz azul
+        if (x == 9 || x == 10 || y == 9 || y == 10) {
+            azul = 7;
+            verde = 0;
+            vermelho = 0;
+        }
+
+        edit_sprite_wsm(endereco, azul, verde, vermelho);
+    }
+}
+//-----------------------------------------------------------------------------------------------------------------------//
+//PAUSE
+
+    //Loop através de cada pixel
+    for (int y = 0; y < 20; y++) {
+        for (int x = 0; x < 20; x++) {
+            int endereco = 10800 + y * 20 + x;
+            int vermelho = 6, verde = 7, azul = 7;
+
+            // Desenha a borda do retângulo
+            if ((x >= 3 && x <= 4 && y >= 3 && y <= 16) || // Linha vertical esquerda engrossada
+                (x >= 15 && x <= 16 && y >= 3 && y <= 16) || // Linha vertical direita engrossada
+                (y >= 3 && y <= 4 && x >= 3 && x <= 16) || // Linha horizontal superior engrossada
+                (y >= 15 && y <= 16 && x >= 3 && x <= 16) || // Linha horizontal inferior engrossada
+                (x >= 8 && x <= 9 && y >= 8 && y <= 11) || // Linha vertical interna esquerda engrossada
+                (x >= 11 && x <= 12 && y >= 8 && y <= 11)) // Linha vertical interna direita engrossada
+            {
+                vermelho = 7;
+                verde = 0;
+                azul = 0;
             }
+
+            // Atualiza o pixel
+            edit_sprite_wsm(endereco, azul, verde, vermelho);
         }
     }
 
 //-----------------------------------------------------------------------------------------------------------------------//
+//LOUD
 
-    // Inicializa o sprite com pixels transparentes
-    for (y = 0; y < 20; y++) {
-        for (x = 0; x < 20; x++) {
-            edit_sprite_wsm(10800 + y * 20 + x, 7, 7, 6); // Transparente
+// Loop para percorrer os pixels da imagem 20x20
+for (int y = 0; y < 20; y++) {
+    for (int x = 0; x < 20; x++) {
+        int endereco = 11200 + y * 20 + x;
+        int azul = 7, verde = 7, vermelho = 6;
+
+        // Desenhando o triângulo conforme a imagem fornecida
+        if (x <= 10 && y >= x && y <= 19 - x) {
+            verde = 7;  // Definindo o pixel como verde
+            vermelho = 0;
+            azul = 0;
         }
+
+        // Chamando a função para cada pixel
+        edit_sprite_wsm(endereco, azul, verde, vermelho);
     }
-
-    // Desenhar a letra "E" (preto)
-    for (y = 0; y < 20; y++) {
-        for (x = 0; x < 20; x++) {
-            // Linha superior da letra "E"
-            if (y == 0) {
-                edit_sprite_wsm(10800 + y * 20 + x, 0, 0, 0); // preto
-            }
-            // Linha intermediária da letra "E"
-            if (y == 9) {
-                edit_sprite_wsm(10800 + y * 20 + x, 0, 0, 0); // preto
-            }
-            // Linha inferior da letra "E"
-            if (y == 19) {
-                edit_sprite_wsm(10800 + y * 20 + x, 0, 0, 0); // preto
-            }
-        }
-
-        // Pernas verticais da letra "E"
-        if (y >= 0 && y <= 19) {
-            edit_sprite_wsm(10800 + y * 20 + 0, 0, 0, 0); // preto
-        }
-    }
+}
 
 //-----------------------------------------------------------------------------------------------------------------------//
+//X
 
-    // Inicializa o sprite com pixels transparentes
-    for (y = 0; y < 20; y++) {
-        for (x = 0; x < 20; x++) {
-            edit_sprite_wsm(11200 + y * 20 + x, 7, 7, 6); // Transparente
+// Loop para percorrer os pixels da imagem 20x20
+for (int y = 0; y < 20; y++) {
+    for (int x = 0; x < 20; x++) {
+        int endereco = 11600 + y * 20 + x;
+        int azul = 7, verde = 7, vermelho = 6;
+
+        // Desenhando o "X" com linhas mais grossas
+        if (abs(x - y) <= 1 || abs(x - (19 - y)) <= 1) {
+            vermelho = 7;  // Definindo o pixel como vermelho
+            verde = 0;
+            azul = 0;
+        }
+
+        // Chamando a função para cada pixel
+        edit_sprite_wsm(endereco, azul, verde, vermelho);
+    }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------//
+//COROA
+
+    // Loop para percorrer os pixels da imagem 20x20
+    for (int y = 0; y < 20; y++) {
+        for (int x = 0; x < 20; x++) {
+            int endereco = 12000+y * 20 + x;
+            int azul = 7, verde = 7, vermelho = 6;
+
+            // Desenhando a coroa conforme a imagem fornecida
+            if (
+                // Parte amarela
+                (y == 10 && (x >= 0 && x <= 4 || x >= 6 && x <= 8 || x >= 12 && x <= 14 || x >= 16 && x <= 19)) ||
+                (y == 11 && (x >= 0 && x <= 19)) ||
+                (y == 12 && (x >= 0 && x <= 19)) ||
+                (y == 13 && (x >= 0 && x <= 19)) ||
+                (y == 14 && (x >= 0 && x <= 19)) ||
+                (y == 15 && (x >= 0 && x <= 19)) ||
+                (y == 16 && (x >= 0 && x <= 19)) ||
+                (y == 17 && (x >= 0 && x <= 19)) ||
+                (y == 18 && (x >= 0 && x <= 19)) ||
+                (y == 19 && (x >= 0 && x <= 19)) ||
+                
+                // Parte vermelha
+                (y == 9 && (x >= 5 && x <= 15)) ||
+                (y == 8 && (x >= 6 && x <= 14)) ||
+                (y == 7 && (x >= 7 && x <= 13)) ||
+                (y == 6 && (x >= 8 && x <= 12)) ||
+                (y == 5 && (x >= 9 && x <= 11)) ||
+                (y == 4 && x == 10)
+            ) {
+                if (y >= 10) {
+                    verde = 6;  // Definindo a parte inferior como amarela
+                    vermelho = 6;
+                    azul = 0;
+                } else {
+                    vermelho = 6;  // Definindo a parte superior como vermelha
+                    azul=0;
+                    verde=0;
+                }
+            }
+
+            // Chamando a função para cada pixel
+            edit_sprite_wsm(endereco, azul, verde, vermelho);
         }
     }
-
-    // Desenhar a letra "A" (preto)
-    for (y = 0; y < 20; y++) {
-        for (x = 0; x < 20; x++) {
-            if ((y == 0 && x >= 5 && x <= 14) ||  // Linha superior da letra "A"
-                (y > 0 && y < 10 && (x == 4 - y / 2 || x == 15 + y / 2)) ||  // Pernas diagonais da letra "A"
-                (y == 10 && x >= 5 && x <= 14) ||  // Linha intermediária da letra "A"
-                (y > 10 && (x == y - 6 || x == 26 - y))) {  // Pernas verticais da letra "A"
-                edit_sprite_wsm(11200 + y * 20 + x, 0, 0, 0); // preto
-            }
-        }
-    }
-
-    /*// Desenhar a letra "A" (preto)
-    for (y = 0; y < 20; y++) {
-        for (x = 0; x < 20; x++) {
-            if ((y == 0) ||                  // Linha superior da letra "A"
-                (y == 10) ||                 // Linha intermediária da letra "A"
-                (x == 0) ||                  // Pernas verticais da letra "A" à esquerda
-                (x == 19)) {                 // Pernas verticais da letra "A" à direita
-                edit_sprite_wsm(11200 + y * 20 + x, 0, 0, 0); // preto
-            }
-        }
-    }*/
 
 //-----------------------------------------------------------------------------------------------------------------------//
 
@@ -127,11 +191,17 @@ int main() {
     //Sprite triangulo
     set_sprite_wbr(1, 360, 240, 26, 2);
 
-    //Sprite E 
+    //Sprite pause 
     set_sprite_wbr(1, 400, 240, 27, 3);
 
-    //Sprite A 
-    set_sprite_wbr(1, 440, 240, 28, 4);
+    //Sprite loud
+    set_sprite_wbr(1, 280, 240, 28, 4);
+
+    //Sprite X
+    set_sprite_wbr(1, 280, 200, 29, 5);
+
+    //Sprite COROA
+    set_sprite_wbr(1, 320, 200, 30, 6);
 
 //-----------------------------------------------------------------------------------------------------------------------//
 
