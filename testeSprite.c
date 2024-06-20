@@ -64,6 +64,12 @@ for (x = 0; x < 20; x++) {
             vermelho = 0;
         }
 
+        if (y == 0) {
+            azul = 7; 
+            verde = 7; 
+            vermelho = 6;
+        }
+
         edit_sprite_wsm(endereco, azul, verde, vermelho);
     }
 }
@@ -129,6 +135,12 @@ for (int y = 0; y < 20; y++) {
             vermelho = 7;  // Definindo o pixel como vermelho
             verde = 0;
             azul = 0;
+        }
+
+        if (y == 0) {
+            azul = 7; 
+            verde = 7; 
+            vermelho = 6;
         }
 
         // Chamando a função para cada pixel
