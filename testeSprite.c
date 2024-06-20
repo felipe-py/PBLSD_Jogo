@@ -16,17 +16,14 @@ int main() {
 
     int y,x;
 
-    // Desenhar quadrado maior (verde)
     for (x = 0; x < 20; x++) {
         for (y = 0; y < 20; y++) {
-            edit_sprite_wsm(10000 + y * 20 + x, 0, 7, 0);
-        }
-    }
-
-    // Desenhar quadrado menor (azul)
-    for (x = 5; x < 15; x++) {
-        for (y = 5; y < 15; y++) {
-            edit_sprite_wsm(10000 + y * 20 + x, 7, 0, 7);  // Azul
+            edit_sprite_wsm(10000 + y * 20 + x, 0, 7, 0); // Verde
+            
+            // Adicionar condição para desenhar o quadrado menor (azul)
+            if (x >= 5 && x < 15 && y >= 5 && y < 15) {
+                edit_sprite_wsm(10000 + y * 20 + x, 7, 0, 0); // Azul
+            }
         }
     }
 
