@@ -1,3 +1,6 @@
+#ifndef MAPEAMENTO_H
+#define MAPEAMENTO_H
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -6,7 +9,6 @@
 #define LW_BRIDGE_SPAN 0x80
 
 #define KEYS_BASE 0x0
-#define KEYS_EDGECAPTURE 0xC
 
 #define HEX5_BASE 0x10
 #define HEX4_BASE 0x20
@@ -16,7 +18,7 @@
 #define HEX0_BASE 0x60
 
 //0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -
-int numeros[11] = {63, 6, 91, 79, 102, 109, 125, 7, 127, 111, 64};
+int numeros[11] = {64, 121, 36, 48, 25, 18, 2, 120, 0, 16, 63};
 
 //Ponteiro de endereço virtual para os digitos do display de 7seg e botões
 volatile int *HEX5_ptr;
@@ -55,7 +57,6 @@ int inicia_map(){
     HEX0_ptr = (int *)(LW_virtual + HEX0_BASE);
 
     KEYS_BASE_ptr = (int *)(LW_virtual + KEYS_BASE);
-    KEYS_EDGECAPTURE_ptr = (int *)(LW_virtual + KEYS_EDGECAPTURE);
 
     return 0;
 }
@@ -85,44 +86,48 @@ void inicia_display(){
 }
 
 void att_placar(int pont_quadrado, int pont_triangulo){
-    *HEX0_ptr = numeros[pont_quadrado % 10];
+    if(pont_quadrado > 0 && pont_quadrado < 100){
+        *HEX0_ptr = numeros[pont_quadrado % 10];
 
-    if(pont_quadrado >= 10){
-        *HEX1_ptr = numeros[pont_quadrado / 10];
+        if(pont_quadrado >= 10){
+            *HEX1_ptr = numeros[pont_quadrado / 10];
+        }
     }
 
-    *HEX4_ptr = numeros[pont_triangulo % 10];
+    if(pont_triangulo > 0 && pont_triangulo < 100){
+        *HEX4_ptr = numeros[pont_triangulo % 10];
 
-    if(pont_triangulo >= 10){
-        *HEX5_ptr = numeros[pont_triangulo / 10];
+        if(pont_triangulo >= 10){
+            *HEX5_ptr = numeros[pont_triangulo / 10];
+        }
     }
 }
 
 int verifica_botao(){
-    //Ordem botões: 4, 3, 2, 1
+    //Ordem botões: 3, 2, 1, 0
 
     //nenhum botão
-    if(*KEYS_BASE_ptr == 0){
+    if(*KEYS_BASE_ptr == 15){
         return 0;
     }
 
-    //botão 1 -> Encerra jogo
-    else if(*KEYS_BASE_ptr == 1){
+    //botão 0 -> Encerra jogo
+    else if(*KEYS_BASE_ptr == 14){
         return 1;
     }
 
-    //botão 2 -> Reinicia Jogo
-    else if(*KEYS_BASE_ptr == 2){
+    //botão 1 -> Reinicia Jogo
+    else if(*KEYS_BASE_ptr == 13){
         return 2;
     }
 
-    //botão 3 -> Despausa Jogo
-    else if(*KEYS_BASE_ptr == 4){
+    //botão 2 -> Despausa Jogo
+    else if(*KEYS_BASE_ptr == 11){
         return 3;
     }
 
-    //botão 4 -> Pause Jogo
-    else if(*KEYS_BASE_ptr == 8){
+    //botão 3 -> Pause Jogo
+    else if(*KEYS_BASE_ptr == 7){
         return 4;
     }
 
@@ -131,3 +136,5 @@ int verifica_botao(){
         return -1;
     }
 }
+
+#endif
