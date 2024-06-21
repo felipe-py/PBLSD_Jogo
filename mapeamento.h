@@ -29,7 +29,6 @@ volatile int *HEX1_ptr;
 volatile int *HEX0_ptr;
 
 volatile int *KEYS_BASE_ptr;
-volatile int *KEYS_EDGECAPTURE_ptr;
 
 int fd = -1; //Usado para abrir /dev/mem
 void *LW_virtual; //Endereços físicos para a ponte (light-weight bridge)
