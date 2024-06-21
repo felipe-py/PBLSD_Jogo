@@ -1,4 +1,6 @@
 #include "biblioteca_gpu.h"
+#include <stdlib.h>
+#include <math.h>
 
 int main() {
 
@@ -13,20 +15,53 @@ int main() {
     set_cor_background_wbr(7, 7, 7); 
 
 //-----------------------------------------------------------------------------------------------------------------------//   
-//QUADRADO
+//CIRCULO
 
-    int y,x;
+int x, y;
 
+for (y = 0; y < 20; y++) {
     for (x = 0; x < 20; x++) {
-        for (y = 0; y < 20; y++) {
-            edit_sprite_wsm(10000 + y * 20 + x, 0, 7, 0); // Verde
-            
-            // Adicionar condição para desenhar o quadrado menor (azul)
-            if (x >= 5 && x < 15 && y >= 5 && y < 15) {
-                edit_sprite_wsm(10000 + y * 20 + x, 7, 0, 0); // Azul
-            }
+        int endereco = 10000 + y * 20 + x;
+        int azul = 7, verde = 7, vermelho = 6; // Cor padrão (transparente)
+
+        // Condições para a borda verde
+        if ((x == 2 && (y >= 6 && y <= 13)) ||
+            (x == 3 && (y >= 4 && y <= 15)) ||
+            (x == 4 && (y >= 3 && y <= 16)) ||
+            (x == 5 && (y >= 2 && y <= 17)) ||
+            (x == 6 && (y >= 1 && y <= 18)) ||
+            (x == 7 && (y >= 1 && y <= 18)) ||
+            (x == 8 && (y >= 1 && y <= 18)) ||
+            (x == 9 && (y >= 1 && y <= 18)) ||
+            (x == 10 && (y >= 1 && y <= 18)) ||
+            (x == 11 && (y >= 1 && y <= 18)) ||
+            (x == 12 && (y >= 1 && y <= 18)) ||
+            (x == 13 && (y >= 1 && y <= 18)) ||
+            (x == 14 && (y >= 2 && y <= 17)) ||
+            (x == 15 && (y >= 3 && y <= 16)) ||
+            (x == 16 && (y >= 4 && y <= 15)) ||
+            (x == 17 && (y >= 6 && y <= 13))) {
+            vermelho = 0;
+            verde = 7;
+            azul = 0;
         }
+
+        // Condições para o preenchimento azul do círculo
+        if ((x >= 3 && x <= 16) &&
+            ((y >= 5 && y <= 14) ||
+            (x >= 4 && x <= 15 && (y >= 4 && y <= 15)) ||
+            (x >= 5 && x <= 14 && (y >= 3 && y <= 16)) ||
+            (x >= 6 && x <= 13 && (y >= 2 && y <= 17)) ||
+            (x >= 7 && x <= 12 && (y >= 2 && y <= 17)) ||
+            (x >= 8 && x <= 11 && (y >= 1 && y <= 18)))) {
+            vermelho = 0;
+            verde = 0;
+            azul = 7;
+        }
+
+        edit_sprite_wsm(endereco, azul, verde, vermelho);
     }
+}
 
 //-----------------------------------------------------------------------------------------------------------------------//
 //LOSANGO
@@ -105,8 +140,8 @@ int main() {
 //LOUD
 
 // Loop para percorrer os pixels da imagem 20x20
-for (int y = 0; y < 20; y++) {
-    for (int x = 0; x < 20; x++) {
+for (y = 0; y < 20; y++) {
+    for (x = 0; x < 20; x++) {
         int endereco = 11200 + y * 20 + x;
         int azul = 7, verde = 7, vermelho = 6;
 
@@ -131,15 +166,23 @@ for (int y = 0; y < 20; y++) {
 //X
 
 // Loop para percorrer os pixels da imagem 20x20
-for (int y = 0; y < 20; y++) {
-    for (int x = 0; x < 20; x++) {
+for (y = 0; y < 20; y++) {
+    for (x = 0; x < 20; x++) {
         int endereco = 11600 + y * 20 + x;
-        int azul = 7, verde = 7, vermelho = 6;
+        int azul = 7, verde = 7, vermelho = 6; // Cor padrão (transparente)
 
-        // Desenhando o "X" com linhas mais grossas
+        // Desenhando o "X" vermelho com borda verde
         if (abs(x - y) <= 1 || abs(x - (19 - y)) <= 1) {
             vermelho = 7;  // Definindo o pixel como vermelho
             verde = 0;
+            azul = 0;
+        }
+
+        // Adicionando a borda verde ao redor do "X"
+        if ((abs(x - y) == 2 || abs(x - (19 - y)) == 2) || 
+            (abs(x - y) == 1 && abs(x - (19 - y)) == 1)) {
+            vermelho = 0;
+            verde = 7;
             azul = 0;
         }
 
@@ -157,8 +200,8 @@ for (int y = 0; y < 20; y++) {
 //COROA
 
     // Loop para percorrer os pixels da imagem 20x20
-    for (int y = 0; y < 20; y++) {
-        for (int x = 0; x < 20; x++) {
+    for (y = 0; y < 20; y++) {
+        for (x = 0; x < 20; x++) {
             int endereco = 12000+y * 20 + x;
             int azul = 7, verde = 7, vermelho = 6;
 
