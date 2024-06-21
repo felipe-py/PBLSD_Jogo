@@ -31,48 +31,49 @@ int main() {
 //-----------------------------------------------------------------------------------------------------------------------//
 //LOSANGO
 
-// Iterar por cada pixel do sprite de 20x20
-for (x = 0; x < 20; x++) {
-    for (y = 0; y < 20; y++) {
-        int endereco = 10400 + y * 20 + x;
+    // Iterar por cada pixel do sprite de 20x20
+    for (x = 0; x < 20; x++) {
+        for (y = 0; y < 20; y++) {
+            int endereco = 10400 + y * 20 + x;
 
-        // Desenhar o fundo como cor nula (0, 0, 0)
-        int azul = 7;
-        int verde = 7;
-        int vermelho = 6;
+            // Desenhar o fundo como cor nula (0, 0, 0)
+            int azul = 7;
+            int verde = 7;
+            int vermelho = 6;
 
-        // Desenhar o contorno verde
-        if ((abs(x - 9) + abs(y - 9) >= 7 && abs(x - 9) + abs(y - 9) <= 8) ||
-            (abs(x - 10) + abs(y - 10) >= 7 && abs(x - 10) + abs(y - 10) <= 8)) {
-            azul = 0;
-            verde = 7;
-            vermelho = 0;
+            // Desenhar o contorno verde
+            if ((abs(x - 9) + abs(y - 9) >= 7 && abs(x - 9) + abs(y - 9) <= 8) ||
+                (abs(x - 10) + abs(y - 10) >= 7 && abs(x - 10) + abs(y - 10) <= 8)) {
+                azul = 0;
+                verde = 7;
+                vermelho = 0;
+            }
+
+            // Desenhar o losango vermelho
+            if ((abs(x - 9) + abs(y - 9) >= 5 && abs(x - 9) + abs(y - 9) <= 6) ||
+                (abs(x - 10) + abs(y - 10) >= 5 && abs(x - 10) + abs(y - 10) <= 6)) {
+                azul = 0;
+                verde = 0;
+                vermelho = 7;
+            }
+
+            // Desenhar a cruz azul
+            if (x == 9 || x == 10 || y == 9 || y == 10) {
+                azul = 7;
+                verde = 0;
+                vermelho = 0;
+            }
+
+            if (y == 0) {
+                azul = 7; 
+                verde = 7; 
+                vermelho = 6;
+            }
+
+            edit_sprite_wsm(endereco, azul, verde, vermelho);
         }
-
-        // Desenhar o losango vermelho
-        if ((abs(x - 9) + abs(y - 9) >= 5 && abs(x - 9) + abs(y - 9) <= 6) ||
-            (abs(x - 10) + abs(y - 10) >= 5 && abs(x - 10) + abs(y - 10) <= 6)) {
-            azul = 0;
-            verde = 0;
-            vermelho = 7;
-        }
-
-        // Desenhar a cruz azul
-        if (x == 9 || x == 10 || y == 9 || y == 10) {
-            azul = 7;
-            verde = 0;
-            vermelho = 0;
-        }
-
-        if (y == 0) {
-            azul = 7; 
-            verde = 7; 
-            vermelho = 6;
-        }
-
-        edit_sprite_wsm(endereco, azul, verde, vermelho);
     }
-}
+
 //-----------------------------------------------------------------------------------------------------------------------//
 //PAUSE
 
@@ -116,7 +117,12 @@ for (int y = 0; y < 20; y++) {
             azul = 0;
         }
 
-        // Chamando a função para cada pixel
+        if (y == 0) {
+            azul = 7; 
+            verde = 7; 
+            vermelho = 6;
+        }
+
         edit_sprite_wsm(endereco, azul, verde, vermelho);
     }
 }
@@ -143,7 +149,6 @@ for (int y = 0; y < 20; y++) {
             vermelho = 6;
         }
 
-        // Chamando a função para cada pixel
         edit_sprite_wsm(endereco, azul, verde, vermelho);
     }
 }
@@ -190,7 +195,6 @@ for (int y = 0; y < 20; y++) {
                 }
             }
 
-            // Chamando a função para cada pixel
             edit_sprite_wsm(endereco, azul, verde, vermelho);
         }
     }
