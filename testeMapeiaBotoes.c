@@ -1,4 +1,4 @@
-#include "mapeamento.c"
+#include "mapeamento.h"
 #include <unistd.h>
 
 int main() {
@@ -14,14 +14,16 @@ int main() {
             break;
 
         else if(sla == 1)
-            printf("Botão 1 clicado\n");
+            printf("Botão 0 clicado\n");
         
         else if(sla == 2)
-            printf("Botão 2 clicado\n");
+            printf("Botão 1 clicado\n");
 
         else if(sla == 3)
-            printf("Botão 3 clicado\n");
+            printf("Botão 2 clicado\n");
     }
+
+    printf("Botão 3 clicado, gg\n");
 
     if(encerra_map() == -1){
         return -1;
