@@ -1,5 +1,4 @@
 #include "mapeamento.h"
-#include <unistd.h>
 
 int main() {
 
