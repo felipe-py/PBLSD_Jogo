@@ -198,10 +198,10 @@ for (y = 0; y < 20; y++) {
 
 //-----------------------------------------------------------------------------------------------------------------------//
 
-    //Sprite quadrado
+    //Sprite O
     set_sprite_wbr(1, 320, 240, 25, 1);
 
-    //Sprite triangulo
+    //Sprite losango
     set_sprite_wbr(1, 360, 240, 26, 2);
 
     //Sprite pause 
