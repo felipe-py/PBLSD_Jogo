@@ -6,7 +6,6 @@
 
 int fd_mouse;
 struct input_event ev;
-ssize_t n;
 
 int abrir_mouse(){
     // Abrir o dispositivo do mouse
@@ -24,7 +23,7 @@ void fechar_mouse(){
 }
 
 int ler_mouse(){
-    n = read(fd_mouse, &ev, sizeof(ev));
+    ssize_t n = read(fd_mouse, &ev, sizeof(ev));
         
     if (n == (ssize_t)-1) {
         fprintf(stderr, "Erro de leitura\n");
@@ -44,15 +43,13 @@ int movimenta_mouse(int *x_real, int *y_real){
         return -1;
     }
 
-    int x_mouse, y_mouse;
-
     if (ev.type == EV_REL && ev.code == REL_X) {
-        x_mouse = ev.value;
+        int x_mouse = ev.value;
         *x_real += x_mouse;
     }
 
     if (ev.type == EV_REL && ev.code == REL_Y) {
-        y_mouse = ev.value;
+        int y_mouse = ev.value;
         *y_real += y_mouse;
     }
 
