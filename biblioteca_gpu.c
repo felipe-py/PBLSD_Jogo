@@ -57,9 +57,9 @@ close_driver() {
 }
 
 /**Função para mudar a cor do background
- * parâmetros ->    azul: tom de azul
- *                  verde: tom de verde
- *                  vermelho: tom de vermelho
+ * parâmetros ->    azul: tom de azul (0 ao 7)
+ *                  verde: tom de verde (0 ao 7)
+ *                  vermelho: tom de vermelho (0 ao 7)
  * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
  */
 int 
@@ -136,10 +136,10 @@ set_sprite_wbr(int ativa_sprite, int cord_x, int cord_y, int offset, int registr
 /**Função para editar um bloco do background
  * parâmetros ->    bloco_x: valor da coluna do bloco (0 ao 79)
  *                  bloco_y: valor da linha do bloco (0 ao 59)
- *                  azul: tom de azul
- *                  verde: tom de verde
- *                  vermelho: tom de vermelho
- *                  bloco: variável usada para calcular valor referente ao endereço de memória de um bloco
+ *                  azul: tom de azul (0 ao 7)
+ *                  verde: tom de verde (0 ao 7)
+ *                  vermelho: tom de vermelho (0 ao 7)
+ *                  bloco: variável usada para calcular valor referente ao endereço de memória de um bloco (0 ao 4799)
  * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
  */
 int 
@@ -188,7 +188,7 @@ edit_bloco_background_wbm(int bloco_x, int bloco_y, int azul, int verde, int ver
 /**Função para desabilitar um bloco do background
  * parâmetros ->    bloco_x: valor da coluna do bloco (0 ao 79)
  *                  bloco_y: valor da linha do bloco (0 ao 59)
- *                  bloco: variável usada para calcular valor referente ao endereço de memória de um bloco
+ *                  bloco: variável usada para calcular valor referente ao endereço de memória de um bloco (0 ao 4799)
  * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
  */
 int 
@@ -220,10 +220,10 @@ desabilita_bloco_background_wbm(int bloco_x, int bloco_y) {
 }
 
 /**Função para editar um pixel de um sprite armazenado ou criar um pixel de um novo sprite
- * parâmetros ->    endereco: valor referente ao endereço de memória a ser editado
- *                  azul: tom de azul
- *                  verde: tom de verde
- *                  vermelho: tom de vermelho
+ * parâmetros ->    endereco: valor referente ao endereço de memória a ser editado (0 ao 11999)
+ *                  azul: tom de azul (0 ao 7)
+ *                  verde: tom de verde (0 ao 7)
+ *                  vermelho: tom de vermelho (0 ao 7)
  * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
  */
 int 
@@ -251,9 +251,9 @@ edit_sprite_wsm(int endereco, int azul, int verde, int vermelho) {
 }
 
 /**Função para exibir quadrado
- * parâmetros ->    azul: tom de azul
- *                  verde: tom de verde
- *                  vermelho: tom de vermelho
+ * parâmetros ->    azul: tom de azul (0 ao 7)
+ *                  verde: tom de verde (0 ao 7)
+ *                  vermelho: tom de vermelho (0 ao 7)
  *                  tamanho: tamanho do quadrado (0 ao 15)
  *                  ref_x: coordenada X do ponto de referência do polígono (0 ao 511)
  *                  ref_y: coordenada Y do ponto de referência do polígono (0 ao 479)
@@ -310,9 +310,9 @@ set_quadrado_dp(int azul, int verde, int vermelho, int tamanho, int ref_x, int r
 }
 
 /**Função para exibir triangulo
- * parâmetros ->    azul: tom de azul
- *                  verde: tom de verde
- *                  vermelho: tom de vermelho
+ * parâmetros ->    azul: tom de azul (0 ao 7)
+ *                  verde: tom de verde (0 ao 7)
+ *                  vermelho: tom de vermelho (0 ao 7)
  *                  tamanho: tamanho do triangulo (0 ao 15)
  *                  ref_x: coordenada X do ponto de referência do polígono (0 ao 511)
  *                  ref_y: coordenada Y do ponto de referência do polígono (0 ao 479)
