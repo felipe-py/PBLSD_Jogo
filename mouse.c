@@ -30,7 +30,7 @@ int ler_mouse(){
         return -1;
     } 
     
-    else if (n != sizeof(ev)) {
+    if (n != sizeof(ev)) {
         fprintf(stderr, "Erro ao ler %ld bytes, o esperado era %ld\n", n, sizeof(ev));
         return -1;
     }
@@ -43,14 +43,16 @@ int movimenta_mouse(int *x_real, int *y_real){
         return -1;
     }
 
-    if (ev.type == EV_REL && ev.code == REL_X) {
-        int x_mouse = ev.value;
-        *x_real += x_mouse;
-    }
-
-    if (ev.type == EV_REL && ev.code == REL_Y) {
-        int y_mouse = ev.value;
-        *y_real += y_mouse;
+    if (ev.type == EV_REL) {
+        if (ev.code == REL_X) {
+            int x_mouse = ev.value;
+            *x_real += x_mouse;
+        } 
+        
+        else if (ev.code == REL_Y) {
+            int y_mouse = ev.value;
+            *y_real += y_mouse;
+        }
     }
 
     //Limitar as coordenadas acumuladas
