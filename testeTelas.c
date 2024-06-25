@@ -371,19 +371,26 @@ int main() {
 
 //JOGADAS TABUELEIRO
     //Sprite X
-    set_sprite_wbr(1, 224, 144, 29, 7);       //Quadrante 0
+    set_sprite_wbr(1, 224, 176, 29, 7);       //Quadrante 0
 
     //Sprite X
-    set_sprite_wbr(1, 304, 144, 29, 8);       //Quadrante 1
+    set_sprite_wbr(1, 304, 176, 29, 8);       //Quadrante 1
 
     //Sprite X
-    set_sprite_wbr(1, 312, 144, 29, 9);      //Quadrante 2
+    set_sprite_wbr(1, 384, 176, 29, 9);      //Quadrante 2
 
     //Sprite O
-    set_sprite_wbr(1, 224, 224, 25, 10);       //Quadrante 3
+    set_sprite_wbr(1, 224, 256, 25, 10);       //Quadrante 3
 
     //Sprite O
-    set_sprite_wbr(1, 304, 224, 25, 11);       //Quadrante 4
+    set_sprite_wbr(1, 304, 256, 25, 11);       //Quadrante 4
+
+//PINTANDO QUADRANTES VENCEDORES
+    set_quadrado_dp(0, 7, 0, 2, 236, 188, 0);       //Quadrante 0 - MEIO
+
+    set_quadrado_dp(0, 7, 0, 2, 316, 188, 1);       //Quadrante 1 - MEIO
+
+    set_quadrado_dp(0, 7, 0, 2, 396, 188, 2);       //Quadrante 2 - MEIO
 
 //TABELA INFORMAÇÃO
     //Moldura - SUPERIOR    
@@ -497,35 +504,36 @@ int main() {
         edit_bloco_background_wbm(34, y, 0, 3, 5);
         edit_bloco_background_wbm(44, y, 0, 3, 5);
     }
+
 //JOGADAS NO TABULEIRO
     //Sprite X
-    set_sprite_wbr(1, 224, 144, 29, 7);       //Quadrante 0
+    set_sprite_wbr(1, 224, 176, 29, 7);       //Quadrante 0
 
     //Sprite X
-    set_sprite_wbr(1, 304, 144, 29, 8);       //Quadrante 1
+    set_sprite_wbr(1, 304, 176, 29, 8);       //Quadrante 1
 
     //Sprite X
-    set_sprite_wbr(1, 312, 144, 29, 9);      //Quadrante 2
+    set_sprite_wbr(1, 384, 176, 29, 9);      //Quadrante 2
 
 
     //Sprite X
-    set_sprite_wbr(1, 224, 224, 29, 10);       //Quadrante 3
+    set_sprite_wbr(1, 224, 256, 29, 10);       //Quadrante 3
 
     //Sprite O
-    set_sprite_wbr(1, 304, 224, 25, 11);       //Quadrante 4
+    set_sprite_wbr(1, 304, 256, 25, 11);       //Quadrante 4
 
     //Sprite O
-    set_sprite_wbr(1, 384, 224, 25, 12);       //Quadrante 5
+    set_sprite_wbr(1, 384, 256, 25, 12);       //Quadrante 5
 
 
     //Sprite O
-    set_sprite_wbr(1, 224, 304, 25, 13);       //Quadrante 6
+    set_sprite_wbr(1, 224, 336, 25, 13);       //Quadrante 6
 
     //Sprite O
-    set_sprite_wbr(1, 304, 304, 25, 14);       //Quadrante 7
+    set_sprite_wbr(1, 304, 336, 25, 14);       //Quadrante 7
 
     //Sprite O
-    set_sprite_wbr(1, 384, 304, 25, 15);       //Quadrante 8
+    set_sprite_wbr(1, 384, 336, 25, 15);       //Quadrante 8
 
 //TABELA INFORMAÇÃO
     //Moldura - SUPERIOR
@@ -624,7 +632,7 @@ int main() {
     set_sprite_wbr(1, 304, 144, 29, 8);       //Quadrante 1
 
     //Sprite X
-    set_sprite_wbr(1, 312, 144, 29, 9);      //Quadrante 2
+    set_sprite_wbr(1, 384, 144, 29, 9);      //Quadrante 2
 
 
     //Sprite X
