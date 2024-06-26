@@ -19,7 +19,7 @@ int main() {
 
 int x, y;
 
-for (y = 0; y < 20; y++) {
+for (y = 0; y < 21; y++) {
     for (x = 0; x < 20; x++) {
         int endereco = 10000 + y * 20 + x;
         int azul = 7, verde = 7, vermelho = 6; // Cor padrão (transparente)
@@ -57,6 +57,12 @@ for (y = 0; y < 20; y++) {
             vermelho = 3;
             verde = 4;
             azul = 6;
+        }
+
+        if (y == 0 || y == 20) {
+            azul = 7; 
+            verde = 7; 
+            vermelho = 6;
         }
 
         edit_sprite_wsm(endereco, azul, verde, vermelho);
@@ -99,7 +105,7 @@ for (y = 0; y < 20; y++) {
                 vermelho = 3;
             }
 
-            if (y == 0) {
+            if (y == 0 || y == 20) {
                 azul = 7; 
                 verde = 7; 
                 vermelho = 6;
@@ -113,7 +119,7 @@ for (y = 0; y < 20; y++) {
 //PAUSE -> Pause
 
     //Loop através de cada pixel
-    for (int y = 0; y < 20; y++) {
+    for (int y = 0; y < 21; y++) {
         for (int x = 0; x < 20; x++) {
             int endereco = 10800 + y * 20 + x;
             int vermelho = 6, verde = 7, azul = 7;
@@ -131,6 +137,12 @@ for (y = 0; y < 20; y++) {
                 azul = 0;
             }
 
+            if (y == 0 || y == 20) {
+                azul = 7; 
+                verde = 7; 
+                vermelho = 6;
+            }
+
             // Atualiza o pixel
             edit_sprite_wsm(endereco, azul, verde, vermelho);
         }
@@ -140,7 +152,7 @@ for (y = 0; y < 20; y++) {
 //LOUD -> Jogar Novamente
 
 // Loop para percorrer os pixels da imagem 20x20
-for (y = 0; y < 20; y++) {
+for (y = 0; y < 21; y++) {
     for (x = 0; x < 20; x++) {
         int endereco = 11200 + y * 20 + x;
         int azul = 7, verde = 7, vermelho = 6;
@@ -152,7 +164,7 @@ for (y = 0; y < 20; y++) {
             azul = 0;
         }
 
-        if (y == 0) {
+        if (y == 0 || y == 20) {
             azul = 7; 
             verde = 7; 
             vermelho = 6;
@@ -166,7 +178,7 @@ for (y = 0; y < 20; y++) {
 //X -> Jogador X
 
 // Loop para percorrer os pixels da imagem 20x20
-for (y = 0; y < 20; y++) {
+for (y = 0; y < 21; y++) {
     for (x = 0; x < 20; x++) {
         int endereco = 11600 + y * 20 + x;
         int azul = 7, verde = 7, vermelho = 6; // Cor padrão (transparente)
@@ -186,7 +198,7 @@ for (y = 0; y < 20; y++) {
             azul = 0;
         }
 
-        if (y == 0) {
+        if (y == 0 || y == 20) {
             azul = 7; 
             verde = 7; 
             vermelho = 6;
@@ -197,7 +209,6 @@ for (y = 0; y < 20; y++) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------//
-
     //Sprite O
     set_sprite_wbr(1, 320, 240, 25, 1);
 
@@ -215,12 +226,7 @@ for (y = 0; y < 20; y++) {
 
 //-----------------------------------------------------------------------------------------------------------------------//
 
-    //Remove estruturas da tela
-    //limpar_tela();
-
-//-----------------------------------------------------------------------------------------------------------------------//
-
-    //Fecha arquivo de comunicação com o driver
+    //Fecha arquivo de comunicação com o drivertesteSprite
     close_driver();
 
     return 0;
