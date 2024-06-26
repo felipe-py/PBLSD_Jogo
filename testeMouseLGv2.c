@@ -25,6 +25,9 @@ int main() {
 
     int x_real = 320, y_real = 240;
     int x_mouse, y_mouse;
+    int x_sprite = 400, y_sprite = 300;
+
+    set_sprite_wbr(1, x_sprite, y_sprite, 1, 2);
 
     // Loop infinito para receber as coordenadas do mouse
     while (1) {
@@ -70,6 +73,20 @@ int main() {
         if (y_real > 459) y_real = 459;
         
         set_sprite_wbr(1, x_real, y_real, 0, 1);
+
+        //COLISÃO
+        if (x_real < x_sprite + 22 && 
+            x_real + 22 > x_sprite && 
+            y_real < y_sprite + 23 && 
+            y_real + 23 > y_sprite) {
+                
+            printf("COLISÃO\n");
+            break;
+        }
+
+        else{
+            printf("NÃO TEVE COLISÃO\n");
+        }
     }
 
     // Fechar os dispositivos
