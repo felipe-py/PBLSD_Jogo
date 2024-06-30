@@ -9,33 +9,36 @@ int main() {
 
     int x,y;
 
+    //Branco
+    set_cor_background_wbr(7, 7, 7);
+
 /*
 //-----------------------------------------------------------------------------------------------------------------------//
 //TELA BYE
 
 //ENVOLTO TITULO 
     for (x = 4; x <= 6; x++) {
-        edit_bloco_background_wbm(x, 14, 0, 3, 5);
-        edit_bloco_background_wbm(x, 16, 0, 3, 5);
-        edit_bloco_background_wbm(x, 42, 0, 3, 5);
-        edit_bloco_background_wbm(x, 44, 0, 3, 5);
+        edit_bloco_background_wbm(x, 14, 0, 0, 0);
+        edit_bloco_background_wbm(x, 16, 0, 0, 0);
+        edit_bloco_background_wbm(x, 42, 0, 0, 0);
+        edit_bloco_background_wbm(x, 44, 0, 0, 0);
     }
 
     for (x = 74; x <= 76; x++) {
-        edit_bloco_background_wbm(x, 14, 0, 3, 5);
-        edit_bloco_background_wbm(x, 16, 0, 3, 5);
-        edit_bloco_background_wbm(x, 42, 0, 3, 5);
-        edit_bloco_background_wbm(x, 44, 0, 3, 5);
+        edit_bloco_background_wbm(x, 14, 0, 0, 0);
+        edit_bloco_background_wbm(x, 16, 0, 0, 0);
+        edit_bloco_background_wbm(x, 42, 0, 0, 0);
+        edit_bloco_background_wbm(x, 44, 0, 0, 0);
     }
 
     for (x = 4; x < 77; x++) {
-        edit_bloco_background_wbm(x, 15, 0, 3, 5);
-        edit_bloco_background_wbm(x, 43, 0, 3, 5);
+        edit_bloco_background_wbm(x, 15, 0, 0, 0);
+        edit_bloco_background_wbm(x, 43, 0, 0, 0);
     }
 
     for (y = 17; y < 42; y++) {
-        edit_bloco_background_wbm(5, y, 0, 3, 5);
-        edit_bloco_background_wbm(75, y, 0, 3, 5);
+        edit_bloco_background_wbm(5, y, 0, 0, 0);
+        edit_bloco_background_wbm(75, y, 0, 0, 0);
     }
 
 //LETRAS E ASTERISCOS
@@ -78,7 +81,7 @@ int main() {
                 
                 (y == 37 && (x == 11 || (x >= 14 && x <= 17) || (x >= 29 && x <= 34) || (x >= 43 && x <= 50) || x == 55 || x == 57 || x == 61 || x == 63 || x == 67 || x == 69))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
@@ -89,34 +92,34 @@ int main() {
 //ENVOLTO TITULO
     //superior e inferior esquerdo
     for (x = 2; x <= 5; x++) {
-        edit_bloco_background_wbm(x, 6, 0, 3, 5);
-        edit_bloco_background_wbm(x, 8, 0, 3, 5);
-        edit_bloco_background_wbm(x, 9, 0, 3, 5);
-        edit_bloco_background_wbm(x, 36, 0, 3, 5);
-        edit_bloco_background_wbm(x, 37, 0, 3, 5);
-        edit_bloco_background_wbm(x, 39, 0, 3, 5);
+        edit_bloco_background_wbm(x, 6, 0, 0, 0);
+        edit_bloco_background_wbm(x, 8, 0, 0, 0);
+        edit_bloco_background_wbm(x, 9, 0, 0, 0);
+        edit_bloco_background_wbm(x, 36, 0, 0, 0);
+        edit_bloco_background_wbm(x, 37, 0, 0, 0);
+        edit_bloco_background_wbm(x, 39, 0, 0, 0);
     }
 
     //superior e inferior direito
     for (x = 74; x <= 77; x++) {
-        edit_bloco_background_wbm(x, 6, 0, 3, 5);
-        edit_bloco_background_wbm(x, 8, 0, 3, 5);
-        edit_bloco_background_wbm(x, 9, 0, 3, 5);
-        edit_bloco_background_wbm(x, 36, 0, 3, 5);
-        edit_bloco_background_wbm(x, 37, 0, 3, 5);
-        edit_bloco_background_wbm(x, 39, 0, 3, 5);
+        edit_bloco_background_wbm(x, 6, 0, 0, 0);
+        edit_bloco_background_wbm(x, 8, 0, 0, 0);
+        edit_bloco_background_wbm(x, 9, 0, 0, 0);
+        edit_bloco_background_wbm(x, 36, 0, 0, 0);
+        edit_bloco_background_wbm(x, 37, 0, 0, 0);
+        edit_bloco_background_wbm(x, 39, 0, 0, 0);
     }
 
     //linha superior e inferior
     for (x = 2; x < 78; x++) {
-        edit_bloco_background_wbm(x, 7, 0, 3, 5);
-        edit_bloco_background_wbm(x, 38, 0, 3, 5);
+        edit_bloco_background_wbm(x, 7, 0, 0, 0);
+        edit_bloco_background_wbm(x, 38, 0, 0, 0);
     }
 
     //coluna superior e inferior
     for (y = 10; y < 36; y++) {
-        edit_bloco_background_wbm(3, y, 0, 3, 5);
-        edit_bloco_background_wbm(76, y, 0, 3, 5);
+        edit_bloco_background_wbm(3, y, 0, 0, 0);
+        edit_bloco_background_wbm(76, y, 0, 0, 0);
     }
 
 //ENVOLTO BOTOES
@@ -132,7 +135,7 @@ int main() {
 
                 ((y == 52 || y == 53 || y == 54) && (x == 10 || x == 22))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
@@ -149,17 +152,17 @@ int main() {
 
                 ((y == 52 || y == 53 || y == 54) && (x == 56 || x == 68))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
 
 //BOTOES - SPRITES 
     //Sprite loud - PLAY
-    set_sprite_wbr(1, 128, 416, 28, 4);
+    set_sprite_wbr(1, 128, 416, 28, 16);
 
     //Sprite losango - SAIR
-    set_sprite_wbr(1, 488, 416, 26, 5);
+    set_sprite_wbr(1, 488, 416, 26, 17);
 
 //SHADOW
     for(y=12; y<=19; y++){
@@ -188,7 +191,7 @@ int main() {
             (y == 19 && ((x >= 21 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
                 (x >= 39 && x <= 42) || (x >= 45 && x <= 49) || x == 53 || x == 55))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
@@ -227,44 +230,45 @@ int main() {
             (y == 33 && ((x >= 14 && x <= 18) || (x >= 20 && x <= 24) || (x >= 26 && x <= 30) || (x >= 32 && x <= 36) || (x >= 38 && x <= 41) || 
                 (x >= 43 && x <= 47) || (x >= 49 && x <= 52) || (x >= 54 && x <= 58) || (x >= 60 && x <= 61) || x == 64 || x == 65))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
+
 //-----------------------------------------------------------------------------------------------------------------------//
 //TELA VENCEDOR
 
 //ENVOLTO TITULO
     //superior e inferior esquerdo
     for (x = 15; x <= 18; x++) {
-        edit_bloco_background_wbm(x, 11, 0, 3, 5);
-        edit_bloco_background_wbm(x, 13, 0, 3, 5);
-        edit_bloco_background_wbm(x, 14, 0, 3, 5);
-        edit_bloco_background_wbm(x, 27, 0, 3, 5);
-        edit_bloco_background_wbm(x, 28, 0, 3, 5);
-        edit_bloco_background_wbm(x, 30, 0, 3, 5);
+        edit_bloco_background_wbm(x, 11, 0, 0, 0);
+        edit_bloco_background_wbm(x, 13, 0, 0, 0);
+        edit_bloco_background_wbm(x, 14, 0, 0, 0);
+        edit_bloco_background_wbm(x, 27, 0, 0, 0);
+        edit_bloco_background_wbm(x, 28, 0, 0, 0);
+        edit_bloco_background_wbm(x, 30, 0, 0, 0);
     }
 
     //superior e inferior direito
     for (x = 63; x <= 66; x++) {
-        edit_bloco_background_wbm(x, 11, 0, 3, 5);
-        edit_bloco_background_wbm(x, 13, 0, 3, 5);
-        edit_bloco_background_wbm(x, 14, 0, 3, 5);
-        edit_bloco_background_wbm(x, 27, 0, 3, 5);
-        edit_bloco_background_wbm(x, 28, 0, 3, 5);
-        edit_bloco_background_wbm(x, 30, 0, 3, 5);
+        edit_bloco_background_wbm(x, 11, 0, 0, 0);
+        edit_bloco_background_wbm(x, 13, 0, 0, 0);
+        edit_bloco_background_wbm(x, 14, 0, 0, 0);
+        edit_bloco_background_wbm(x, 27, 0, 0, 0);
+        edit_bloco_background_wbm(x, 28, 0, 0, 0);
+        edit_bloco_background_wbm(x, 30, 0, 0, 0);
     }
 
     //linha superior e inferior
     for (x = 15; x < 67; x++) {
-        edit_bloco_background_wbm(x, 12, 0, 3, 5);
-        edit_bloco_background_wbm(x, 29, 0, 3, 5);
+        edit_bloco_background_wbm(x, 12, 0, 0, 0);
+        edit_bloco_background_wbm(x, 29, 0, 0, 0);
     }
 
     //coluna superior e inferior
     for (y = 15; y < 27; y++) {
-        edit_bloco_background_wbm(16, y, 0, 3, 5);
-        edit_bloco_background_wbm(65, y, 0, 3, 5);
+        edit_bloco_background_wbm(16, y, 0, 0, 0);
+        edit_bloco_background_wbm(65, y, 0, 0, 0);
     }
 
 //YOU WON
@@ -292,7 +296,7 @@ int main() {
             (y == 24 && ((x >= 23 && x <= 24) || (x >= 27 && x <= 31) || (x >= 33 && x <= 37) || x == 43 || x == 45 || (x >= 49 && x <= 53) || (x >= 55 && x <= 56 ) || 
                 (x >= 59 && x <= 60)))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
@@ -310,7 +314,7 @@ int main() {
 
                 ((y == 52 || y == 53 || y == 54) && (x == 10 || x == 22))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
@@ -327,17 +331,17 @@ int main() {
 
                 ((y == 52 || y == 53 || y == 54) && (x == 56 || x == 68))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
 
 //Botoes - SPRITES 
     //Sprite loud - PLAY
-    set_sprite_wbr(1, 128, 416, 28, 4);
+    set_sprite_wbr(1, 128, 416, 28, 16);
 
     //Sprite losango - SAIR
-    set_sprite_wbr(1, 488, 416, 26, 5);
+    set_sprite_wbr(1, 488, 416, 26, 17);
 /*
 //-----------------------------------------------------------------------------------------------------------------------//
 //TELA DERROTA
@@ -355,7 +359,7 @@ int main() {
 
                 ((y == 52 || y == 53 || y == 54) && (x == 10 || x == 22))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
@@ -372,49 +376,49 @@ int main() {
 
                 ((y == 52 || y == 53 || y == 54) && (x == 56 || x == 68))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
 
 //BOTOES - SPRITES 
     //Sprite loud - PLAY
-    set_sprite_wbr(1, 128, 416, 28, 4);
+    set_sprite_wbr(1, 128, 416, 28, 16);
 
     //Sprite losango - SAIR
-    set_sprite_wbr(1, 488, 416, 26, 5);
+    set_sprite_wbr(1, 488, 416, 26, 17);
 
 //ENVOLTO TITULO
     //superior e inferior esquerdo
     for (x = 9; x <= 12; x++) {
-        edit_bloco_background_wbm(x, 11, 0, 3, 5);
-        edit_bloco_background_wbm(x, 13, 0, 3, 5);
-        edit_bloco_background_wbm(x, 14, 0, 3, 5);
-        edit_bloco_background_wbm(x, 27, 0, 3, 5);
-        edit_bloco_background_wbm(x, 28, 0, 3, 5);
-        edit_bloco_background_wbm(x, 30, 0, 3, 5);
+        edit_bloco_background_wbm(x, 11, 0, 0, 0);
+        edit_bloco_background_wbm(x, 13, 0, 0, 0);
+        edit_bloco_background_wbm(x, 14, 0, 0, 0);
+        edit_bloco_background_wbm(x, 27, 0, 0, 0);
+        edit_bloco_background_wbm(x, 28, 0, 0, 0);
+        edit_bloco_background_wbm(x, 30, 0, 0, 0);
     }
 
     //superior e inferior direito
     for (x = 68; x <= 71; x++) {
-        edit_bloco_background_wbm(x, 11, 0, 3, 5);
-        edit_bloco_background_wbm(x, 13, 0, 3, 5);
-        edit_bloco_background_wbm(x, 14, 0, 3, 5);
-        edit_bloco_background_wbm(x, 27, 0, 3, 5);
-        edit_bloco_background_wbm(x, 28, 0, 3, 5);
-        edit_bloco_background_wbm(x, 30, 0, 3, 5);
+        edit_bloco_background_wbm(x, 11, 0, 0, 0);
+        edit_bloco_background_wbm(x, 13, 0, 0, 0);
+        edit_bloco_background_wbm(x, 14, 0, 0, 0);
+        edit_bloco_background_wbm(x, 27, 0, 0, 0);
+        edit_bloco_background_wbm(x, 28, 0, 0, 0);
+        edit_bloco_background_wbm(x, 30, 0, 0, 0);
     }
 
     //linha superior e inferior
     for (x = 9; x < 72; x++) {
-        edit_bloco_background_wbm(x, 12, 0, 3, 5);
-        edit_bloco_background_wbm(x, 29, 0, 3, 5);
+        edit_bloco_background_wbm(x, 12, 0, 0, 0);
+        edit_bloco_background_wbm(x, 29, 0, 0, 0);
     }
 
     //coluna superior e inferior
     for (y = 15; y < 27; y++) {
-        edit_bloco_background_wbm(10, y, 0, 3, 5);
-        edit_bloco_background_wbm(70, y, 0, 3, 5);
+        edit_bloco_background_wbm(10, y, 0, 0, 0);
+        edit_bloco_background_wbm(70, y, 0, 0, 0);
     }
 
     //GAME OVER
@@ -448,7 +452,7 @@ int main() {
             (y == 24 && ((x >= 15 && x <= 19) || (x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 32 && x <= 33) || (x >= 35 && x <= 39) || (x >= 43 && x <= 47) || 
                 (x >= 51 && x <= 53) || (x >= 55 && x <= 59) || (x >= 61 && x <= 62) || (x >= 64 && x <= 65)))
             ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
+                edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
         }
     }
@@ -456,60 +460,119 @@ int main() {
 //-----------------------------------------------------------------------------------------------------------------------//
 //TELA PADRAO
 
-//TABULEIRO
+//ESTRUTURAS
 
-    //Linhas
-    for(x=25; x<=53; x++){
-        edit_bloco_background_wbm(x, 24, 0, 3, 5);
-        edit_bloco_background_wbm(x, 34, 0, 3, 5);
+    //Quadrado da esquerda
+    set_quadrado_dp(0, 0, 0, 11, 304, 416, 0);
+
+    //Coluna da esquerda grande, direita grande e esquerda menor
+    for(y=0; y<=53; y++){
+        edit_bloco_background_wbm(9, y, 0, 0, 0);
+        edit_bloco_background_wbm(55, y, 0, 0, 0);
+        
+        if(y >= 6 && y <= 17){
+            edit_bloco_background_wbm(17, y, 0, 0, 0);
+        }
     }
 
-    //Colunas
-    for(y=15; y<=43; y++){
-        edit_bloco_background_wbm(34, y, 0, 3, 5);
-        edit_bloco_background_wbm(44, y, 0, 3, 5);
+    //Linha esquerda pequena
+    for(x=10; x<=16; x++){
+        edit_bloco_background_wbm(x, 17, 0, 0, 0);
     }
+
+    //Linha central grande
+    for(x=15; x<=54; x++){
+        edit_bloco_background_wbm(x, 33, 0, 0, 0);
+    }
+
+    //Linha direita superior 1 e 2 (antes do buraco), e direita inferior
+    for(x=56; x<=73; x++){
+        edit_bloco_background_wbm(x, 44, 0, 0, 0);
+
+        if(x <= 70){
+            edit_bloco_background_wbm(x, 7, 0, 0, 0);
+        }
+
+        if(x <= 64){
+            edit_bloco_background_wbm(x, 14, 0, 0, 0);
+        }
+    }
+
+    //Linha direita superior 1 e 2 (depois do buraco)
+    for(x=70; x<=79; x++){
+        edit_bloco_background_wbm(x, 14, 0, 0, 0);
+
+        if(x >= 76){
+            edit_bloco_background_wbm(x, 7, 0, 0, 0);
+        }
+    }
+
+    //Estrutura quadrado da direita
+        //Linha topo, meio, base
+        for(x=65; x<=79; x++){
+            if(x <= 72){
+                edit_bloco_background_wbm(x, 23, 0, 0, 0);
+                edit_bloco_background_wbm(x, 32, 0, 0, 0);
+            }
+
+            else if(x >= 74){
+                edit_bloco_background_wbm(x, 27, 0, 0, 0);
+            }
+        }
+
+        //Coluna esquerda e direita
+        for(y=23; y<=32; y++){
+            edit_bloco_background_wbm(64, y, 0, 0, 0);
+            edit_bloco_background_wbm(73, y, 0, 0, 0);
+        }
+
+//SPRITE
+
+    //Sprite Ladrão
+    set_sprite_wbr(1, 456, 32, 25, 1);
+
+    //Sprite Porta
+    set_sprite_wbr(1, 456, 0, 31, 1);
+
+    //Sprite troféu esquerdo
+    set_sprite_wbr(1, 24, 16, 24, 3);
+
+    //Sprite troféu direito
+    set_sprite_wbr(1, 96, 104, 24, 4);
 
     //Sprite Pause
-    set_sprite_wbr(1, 520, 0, 27, 6);
-
-//INIMIGOS
-    //Sprite Inimigo azul - CIMA
-    set_sprite_wbr(1, 304, 64, 0, 2);
-
-    //Sprite Inimigo laranja - BAIXO
-    set_sprite_wbr(1, 304, 384, 1, 3);
+    set_sprite_wbr(1, 608, 0, 27, 5);
 
 
-//JOGADAS TABUELEIRO
-    //Sprite X
-    set_sprite_wbr(1, 224, 144, 29, 7);       //Quadrante 0
+    //Sprite policial 1
+    set_sprite_wbr(1, 160, 8, 30, 6);
 
-    //Sprite X
-    set_sprite_wbr(1, 304, 144, 29, 8);       //Quadrante 1
+    //Sprite policial 2
+    set_sprite_wbr(1, 600, 72, 30, 7);
 
-    //Sprite X
-    set_sprite_wbr(1, 384, 144, 29, 9);      //Quadrante 2
+    //Sprite policial 3
+    set_sprite_wbr(1, 456, 128, 30, 8);
 
+    //Sprite policial 4
+    set_sprite_wbr(1, 400, 160, 30, 9);
 
-    //Sprite X
-    set_sprite_wbr(1, 224, 224, 29, 10);       //Quadrante 3
+    //Sprite policial 5
+    set_sprite_wbr(1, 88, 216, 30, 10);
 
-    //Sprite O
-    set_sprite_wbr(1, 304, 224, 25, 11);       //Quadrante 4
+    //Sprite policial 6
+    set_sprite_wbr(1, 608, 296, 30, 11);
 
-    //Sprite O
-    set_sprite_wbr(1, 384, 224, 25, 12);       //Quadrante 5
+    //Sprite policial 7
+    set_sprite_wbr(1, 392, 336, 30, 12);
 
+    //Sprite policial 8
+    set_sprite_wbr(1, 96, 384, 30, 13);
 
-    //Sprite O
-    set_sprite_wbr(1, 224, 304, 25, 13);       //Quadrante 6
+    //Sprite policial 9
+    set_sprite_wbr(1, 456, 368, 30, 14);
 
-    //Sprite O
-    set_sprite_wbr(1, 304, 304, 25, 14);       //Quadrante 7
-
-    //Sprite O
-    set_sprite_wbr(1, 384, 304, 25, 15);       //Quadrante 8
+    //Sprite policial 10
+    set_sprite_wbr(1, 208, 448, 30, 15);
 
 //-----------------------------------------------------------------------------------------------------------------------//
     
