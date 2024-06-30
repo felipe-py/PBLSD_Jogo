@@ -15,7 +15,7 @@ int main() {
     set_cor_background_wbr(7, 7, 7); 
 
 //-----------------------------------------------------------------------------------------------------------------------//   
-//CIRCULO -> Jogador O
+//LADRÃO PADRÃO
 
 int x, y;
 
@@ -24,39 +24,60 @@ for (y = 0; y < 21; y++) {
         int endereco = 10000 + y * 20 + x;
         int azul = 7, verde = 7, vermelho = 6; // Cor padrão (transparente)
 
-        // Condições para a borda verde
-        if ((x == 2 && (y >= 6 && y <= 13)) ||
-            (x == 3 && (y >= 4 && y <= 15)) ||
-            (x == 4 && (y >= 3 && y <= 16)) ||
-            (x == 5 && (y >= 2 && y <= 17)) ||
-            (x == 6 && (y >= 1 && y <= 18)) ||
-            (x == 7 && (y >= 1 && y <= 18)) ||
-            (x == 8 && (y >= 1 && y <= 18)) ||
-            (x == 9 && (y >= 1 && y <= 18)) ||
-            (x == 10 && (y >= 1 && y <= 18)) ||
-            (x == 11 && (y >= 1 && y <= 18)) ||
-            (x == 12 && (y >= 1 && y <= 18)) ||
-            (x == 13 && (y >= 1 && y <= 18)) ||
-            (x == 14 && (y >= 2 && y <= 17)) ||
-            (x == 15 && (y >= 3 && y <= 16)) ||
-            (x == 16 && (y >= 4 && y <= 15)) ||
-            (x == 17 && (y >= 6 && y <= 13))) {
+        //Condições para preto
+        if (
+            ((x == 5 || x == 15) && (y >= 8 && y <= 11)) ||
+
+            ((x == 6 || x == 14 ) && ((y >= 3 && y <= 5) || (y >= 7 && y <= 11))) ||
+
+            (x == 7 && ((y >= 2 && y <= 9) || (y >= 12 && y <= 18))) ||
+
+            (x == 8 && ((y >= 1 && y <= 2) || (y >= 5 && y <= 8) || (y >= 12 && y <= 18))) ||
+
+            (x == 9 && ((y >= 1 && y <= 3) || (y >= 5 && y <= 7) || (y >= 12 && y <= 18))) ||
+
+            (x == 10 && ((y >= 1 && y <= 2) || (y >= 5 && y <= 6) || (y >= 11 && y <= 13))) ||
+
+            (x == 11 && ((y >= 1 && y <= 3) || (y >= 5 && y <= 6) || (y >= 10 && y <= 18))) ||
+
+            (x == 12 && ((y >= 1 && y <= 2) || (y >= 5 && y <= 6) || (y >= 9 && y <= 18))) ||
+
+            (x == 13 && ((y >= 2 && y <= 6) || (y >= 8 && y <= 18)))
+        ) {
             vermelho = 0;
-            verde = 7;
+            verde = 0;
             azul = 0;
         }
 
-        // Condições para o preenchimento azul do círculo
-        if ((x >= 3 && x <= 16) &&
-            ((y >= 5 && y <= 14) ||
-            (x >= 4 && x <= 15 && (y >= 4 && y <= 15)) ||
-            (x >= 5 && x <= 14 && (y >= 3 && y <= 16)) ||
-            (x >= 6 && x <= 13 && (y >= 2 && y <= 17)) ||
-            (x >= 7 && x <= 12 && (y >= 2 && y <= 17)) ||
-            (x >= 8 && x <= 11 && (y >= 1 && y <= 18)))) {
-            vermelho = 3;
-            verde = 4;
-            azul = 6;
+        //Condições para marrom
+        else if (
+            (x == 7 && (y >= 10 && y <= 11)) ||
+
+            (x == 8 && (y >= 9 && y <= 11)) ||
+
+            (x == 9 && (y >= 8 && y <= 11)) ||
+
+            (x == 10 && (y >= 7 && y <= 10)) ||
+
+            (x == 11 && (y >= 7 && y <= 9)) ||
+
+            (x == 12 && (y >= 7 && y <= 8)) ||
+
+            (x == 13 && y == 7)
+        ) {
+            vermelho = 4;
+            verde = 2;
+            azul = 2;
+        }
+
+        //Condições para branco
+        else if (
+            ((x == 8 || x == 12 || x == 10) && (y >= 3 && y <= 4)) ||
+            ((x == 9 || x == 11) && y == 4)
+        ) {
+            vermelho = 7;
+            verde = 7;
+            azul = 7;
         }
 
         if (y == 0 || y == 20) {
@@ -78,13 +99,12 @@ for (y = 0; y < 21; y++) {
             int endereco = 10400 + y * 20 + x;
 
             // Desenhar o fundo como cor nula (0, 0, 0)
-            int azul = 7;
-            int verde = 7;
-            int vermelho = 6;
+            int azul = 7, verde = 7, vermelho = 6;
 
             // Desenhar o contorno verde
             if ((abs(x - 9) + abs(y - 9) >= 7 && abs(x - 9) + abs(y - 9) <= 8) ||
-                (abs(x - 10) + abs(y - 10) >= 7 && abs(x - 10) + abs(y - 10) <= 8)) {
+                (abs(x - 10) + abs(y - 10) >= 7 && abs(x - 10) + abs(y - 10) <= 8)
+            ) {
                 azul = 0;
                 verde = 7;
                 vermelho = 0;
@@ -92,7 +112,8 @@ for (y = 0; y < 21; y++) {
 
             // Desenhar o losango vermelho
             if ((abs(x - 9) + abs(y - 9) >= 5 && abs(x - 9) + abs(y - 9) <= 6) ||
-                (abs(x - 10) + abs(y - 10) >= 5 && abs(x - 10) + abs(y - 10) <= 6)) {
+                (abs(x - 10) + abs(y - 10) >= 5 && abs(x - 10) + abs(y - 10) <= 6)
+            ) {
                 azul = 0;
                 verde = 0;
                 vermelho = 7;
@@ -175,26 +196,147 @@ for (y = 0; y < 21; y++) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------//
-//X -> Jogador X
+//LADRÃO FURTIVO
 
-// Loop para percorrer os pixels da imagem 20x20
 for (y = 0; y < 21; y++) {
     for (x = 0; x < 20; x++) {
         int endereco = 11600 + y * 20 + x;
         int azul = 7, verde = 7, vermelho = 6; // Cor padrão (transparente)
 
-        // Desenhando o "X" vermelho com borda verde
-        if (abs(x - y) <= 1 || abs(x - (19 - y)) <= 1) {
-            vermelho = 7;  // Definindo o pixel como vermelho
-            verde = 0;
+        //Condições para AMARELO
+        if (
+            ((x == 5 || x == 15) && (y >= 8 && y <= 11)) ||
+
+            ((x == 6 || x == 14 ) && ((y >= 3 && y <= 5) || (y >= 7 && y <= 11))) ||
+
+            (x == 7 && ((y >= 2 && y <= 9) || (y >= 12 && y <= 18))) ||
+
+            (x == 8 && ((y >= 1 && y <= 2) || (y >= 5 && y <= 8) || (y >= 12 && y <= 18))) ||
+
+            (x == 9 && ((y >= 1 && y <= 3) || (y >= 5 && y <= 7) || (y >= 12 && y <= 18))) ||
+
+            (x == 10 && ((y >= 1 && y <= 2) || (y >= 5 && y <= 6) || (y >= 11 && y <= 13))) ||
+
+            (x == 11 && ((y >= 1 && y <= 3) || (y >= 5 && y <= 6) || (y >= 10 && y <= 18))) ||
+
+            (x == 12 && ((y >= 1 && y <= 2) || (y >= 5 && y <= 6) || (y >= 9 && y <= 18))) ||
+
+            (x == 13 && ((y >= 2 && y <= 6) || (y >= 8 && y <= 18)))
+        ) {
+            vermelho = 6;
+            verde = 6;
             azul = 0;
         }
 
-        // Adicionando a borda verde ao redor do "X"
-        if ((abs(x - y) == 2 || abs(x - (19 - y)) == 2) || 
-            (abs(x - y) == 1 && abs(x - (19 - y)) == 1)) {
-            vermelho = 0;
+        //Condições para marrom
+        else if ((x == 7 && (y >= 10 && y <= 11)) ||
+
+            (x == 8 && (y >= 9 && y <= 11)) ||
+
+            (x == 9 && (y >= 8 && y <= 11)) ||
+
+            (x == 10 && (y >= 7 && y <= 10)) ||
+
+            (x == 11 && (y >= 7 && y <= 9)) ||
+
+            (x == 12 && (y >= 7 && y <= 8)) ||
+
+            (x == 13 && y == 7)
+        ) {
+            vermelho = 4;
+            verde = 2;
+            azul = 2;
+        }
+
+        //Condições para branco
+        else if (
+            ((x == 8 || x == 12 || x == 10) && (y >= 3 && y <= 4)) ||
+            ((x == 9 || x == 11) && y == 4)
+        ) {
+            vermelho = 7;
             verde = 7;
+            azul = 7;
+        }
+
+        if (y == 0 || y == 20) {
+            azul = 7; 
+            verde = 7; 
+            vermelho = 6;
+        }
+
+        edit_sprite_wsm(endereco, azul, verde, vermelho);
+    }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------//
+//POLICIA
+
+for (y = 0; y < 21; y++) {
+    for (x = 0; x < 20; x++) {
+        int endereco = 12000 + y * 20 + x;
+        int azul = 7, verde = 7, vermelho = 6; // Cor padrão (transparente)
+        
+        //Condições para Azul escuro
+        if (
+            ((x == 4 || x == 16) && (y >= 8 && y <= 10)) ||
+
+            ((x == 5 || x == 15) && (y >= 7 && y <= 10)) ||
+
+            ((x == 6 || x == 14) && (y >= 6 && y <= 9)) ||
+
+            ((x == 7 || x == 13) && (y == 2 || (y >= 6 && y <= 10) || (y >= 12 && y <= 16))) ||
+
+            (x == 8 && ((y >= 1 && y <= 2) || (y >= 5 && y <= 10) || (y >= 12 && y <= 16))) ||
+
+            (x == 9 && (y == 2 || (y >= 5 && y <= 10) || (y >= 12 && y <= 16))) ||
+
+            (x == 10 && (y == 2 || (y >= 5 && y <= 10) || (y >= 12 && y <= 13))) ||
+
+            (x == 11 && (y == 2 || (y >= 5 && y <= 6) || (y >= 9 && y <= 10) || (y >= 12 && y <= 16))) ||
+
+            (x == 12 && ((y >= 1 && y <= 2) || (y >= 5 && y <= 6) || (y >= 9 && y <= 10) || (y >= 12 && y <= 16)))
+        ) {
+            vermelho = 0;
+            verde = 0;
+            azul = 7;
+        }
+
+        //Condições para amarelo
+        else if ((x == 3 && (y >= 10 && y <= 12)) ||
+
+            ((x == 4 || x == 5) && (y >= 11 && y <= 12)) ||
+
+            (x == 9 && y == 1) ||
+
+            (x == 10 && (y == 1 || y == 11)) ||
+
+            (x == 11 && (y == 1 || (y >= 7 && y <= 8))) ||
+
+            (x == 12 && (y >= 7 && y <= 8))
+        ) {
+            vermelho = 6;
+            verde = 6;
+            azul = 0;
+        }
+
+        //Condições para branco
+        else if (
+            ((x == 8 || x == 12 || x == 10) && (y >= 3 && y <= 4)) ||
+            ((x == 9 || x == 11) && y == 4)
+        ) {
+            vermelho = 7;
+            verde = 7;
+            azul = 7;
+        }
+
+        
+        //Condições para preto
+        else if (((x == 7 || x == 8 || x == 12 || x == 13) && (y == 11 || (y >= 17 && y <= 18))) ||
+
+            ((x == 9 || x == 11) && (y == 3 || y == 11 || (y >= 17 && y <= 18)))
+        ) {
+            vermelho = 0;
+            verde = 0;
             azul = 0;
         }
 
@@ -209,7 +351,89 @@ for (y = 0; y < 21; y++) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------//
-    //Sprite O
+//PORTA
+
+for (y = 0; y < 21; y++) {
+    for (x = 0; x < 20; x++) {
+        int endereco = 12400 + y * 20 + x;
+        int azul = 7, verde = 7, vermelho = 6; // Cor padrão (transparente)
+
+        //Condições para preto
+        if (
+            (x == 3 && (y >= 5 && y <= 17)) ||
+            (x == 4 && ((y >= 4 && y <= 5) || y == 18)) ||
+            (x == 5 && ((y >= 3 && y <= 4) || y == 18)) ||
+            (x == 6 && ((y >= 2 && y <= 3) || y == 18)) ||
+            (x == 7 && ((y >= 1 && y <= 2) || y == 18)) ||
+
+            ((x >= 8 && x <= 11) && (y == 1 || y == 18)) ||
+
+            (x == 12 && ((y >= 1 && y <= 2) || y == 18)) ||
+            (x == 13 && ((y >= 2 && y <= 3) || y == 18)) ||
+            (x == 14 && ((y >= 3 && y <= 4) || y == 18)) ||
+            (x == 15 && ((y >= 4 && y <= 5) || y == 18)) ||
+            (x == 16 && (y >= 5 && y <= 17))
+        ) {
+            vermelho = 0;
+            verde = 0;
+            azul = 0;
+        }
+
+        //Condições para maçaneta
+        else if (((x == 12 || x == 13) && (y >= 11 && y <= 12))) {
+            vermelho = 4;
+            verde = 4;
+            azul = 4;
+        }
+
+        //Condições para cor esquerda
+        else if (
+            ((x == 4 || x == 15) && (y >= 6 && y <= 17)) ||
+
+            (x == 6 && (y >= 4 && y <= 17)) ||
+
+            (x == 13 && ((y >= 4 && y <= 11) || (y >= 13 && y <= 17))) ||
+            
+            ((x == 8 || x == 11) && (y >= 3 && y <= 17))
+        ) {
+            vermelho = 4;
+            verde = 3;
+            azul = 2;
+        }
+
+        //Condições para cor direita
+        else if (
+            ((x == 5 || x == 14) && (y >= 5 && y <= 17)) ||
+
+            (x == 7 && (y >= 3 && y <= 17)) ||
+
+            (x == 12 && ((y >= 3 && y <= 10) || (y >= 13 && y <= 17)))
+        ) {
+            vermelho = 4;
+            verde = 2;
+            azul = 0;
+        }
+
+        //Condições para cor central
+        else if (((x == 9 || x == 10) && (y >= 2 && y <= 17))) {
+            vermelho = 4;
+            verde = 3;
+            azul = 3;
+        }
+
+        if (y == 0 || y == 20) {
+            azul = 7; 
+            verde = 7; 
+            vermelho = 6;
+        }
+
+        edit_sprite_wsm(endereco, azul, verde, vermelho);
+    }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------//
+
+    //Sprite ladrão padrão
     set_sprite_wbr(1, 320, 240, 25, 1);
 
     //Sprite losango
@@ -221,8 +445,14 @@ for (y = 0; y < 21; y++) {
     //Sprite loud
     set_sprite_wbr(1, 280, 240, 28, 4);
 
-    //Sprite X
-    set_sprite_wbr(1, 280, 200, 29, 5);
+    //Sprite ladrão furtivo
+    set_sprite_wbr(1, 240, 240, 29, 5);
+
+    //Sprite policia
+    set_sprite_wbr(1, 200, 240, 30, 6);
+
+    //Sprite porta
+    set_sprite_wbr(1, 160, 240, 31, 7);
 
 //-----------------------------------------------------------------------------------------------------------------------//
 

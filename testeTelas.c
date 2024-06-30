@@ -82,7 +82,7 @@ int main() {
             }
         }
     }
-
+*/
 //-----------------------------------------------------------------------------------------------------------------------//
 //TELA INICIO
     
@@ -161,39 +161,32 @@ int main() {
     //Sprite losango - SAIR
     set_sprite_wbr(1, 488, 416, 26, 5);
 
-//TIC-TAC-TOE
+//SHADOW
     for(y=12; y<=19; y++){
-        for(x=8; x<=70; x++){
+        for(x=21; x<=57; x++){
             if (
-            (y == 12 && ((x >= 8 && x <= 11) || (x >= 13 && x <= 16) || (x >= 18 && x <= 22) || (x >= 30 && x <= 34) || (x >= 36 && x <= 40) || 
-                (x >= 42 && x <= 46) || (x >= 55 && x <= 58) || (x >= 60 && x <= 64) || (x >= 66 && x <= 70))) ||
+            (y == 12 && ((x >= 21 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 37) || (x >= 39 && x <= 42) || 
+                (x >= 45 && x <= 49) || (x >= 51 && x <= 52) || (x >= 56 && x <= 57))) ||
 
-            (y == 13 && ((x >= 9 && x <= 10) || (x >= 14 && x <= 15) || (x >= 18 && x <= 19) || (x >= 21 && x <= 22) || (x >= 32 && x <= 33) ||
-                (x >= 36 && x <= 37) || (x >= 39 && x <= 40) || (x >= 42 && x <= 43) || (x >= 45 && x <= 46) || (x >= 56 && x <= 57) ||
-                (x >= 60 && x <= 61) || (x >= 63 && x <= 64) || (x >= 66 && x <= 67) || (x >= 69 && x <= 70))) ||
+            (y == 13 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) ||
+                (x >= 36 && x <= 37) || (x >= 39 && x <= 40) || (x >= 42 && x <= 43) || (x >= 45 && x <= 46) || (x >= 48 && x <= 49) ||
+                (x >= 51 && x <= 52) || (x >= 56 && x <= 57))) ||
 
-            (y == 14 && ((x >= 9 && x <= 10) || (x >= 14 && x <= 15) || (x >= 18 && x <= 19) || (x >= 32 && x <= 33) || (x >= 36 && x <= 37) ||
-                (x >= 39 && x <= 40) || (x >= 42 && x <= 43) || (x >= 56 && x <= 57) ||
-                (x >= 60 && x <= 61) || (x >= 63 && x <= 64) || (x >= 66 && x <= 67))) ||
+            (y == 14 && ((x >= 21 && x <= 22) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) ||
+                (x >= 39 && x <= 40) || (x >= 42 && x <= 43) || (x >= 45 && x <= 46) || (x >= 48 && x <= 49) || (x >= 51 && x <= 52) || (x >= 56 && x <= 57))) ||
 
-            (y == 15 && ((x >= 9 && x <= 10) || (x >= 14 && x <= 15) || (x >= 18 && x <= 19) || (x >= 24 && x <= 29) || (x >= 32 && x <= 33) || 
-                (x >= 36 && x <= 40) || (x >= 42 && x <= 43) || (x >= 48 && x <= 53) || (x >= 56 && x <= 57) ||
-                (x >= 60 && x <= 61) || (x >= 63 && x <= 64) || (x >= 66 && x <= 69))) ||
+            (y == 15 && ((x >= 22 && x <= 24) || (x >= 27 && x <= 30) || (x >= 33 && x <= 37) || (x >= 39 && x <= 40) || 
+                (x >= 42 && x <= 43) || (x >= 45 && x <= 46) || (x >= 48 && x <= 49) || (x >= 51 && x <= 52) || (x >= 56 && x <= 57))) ||
 
-            (y == 16 && ((x >= 9 && x <= 10) || (x >= 14 && x <= 15) || (x >= 18 && x <= 19) || (x >= 24 && x <= 29) || (x >= 32 && x <= 33) || 
-                (x >= 36 && x <= 37) || (x >= 39 && x <= 40) || (x >= 42 && x <= 43) || (x >= 48 && x <= 53) || (x >= 56 && x <= 57) ||
-                (x >= 60 && x <= 61) || (x >= 63 && x <= 64) || (x >= 66 && x <= 69))) ||
-                
-            (y == 17 && ((x >= 9 && x <= 10) || (x >= 14 && x <= 15) || (x >= 18 && x <= 19) || (x >= 32 && x <= 33) || (x >= 36 && x <= 37) ||
-                (x >= 39 && x <= 40) || (x >= 42 && x <= 43) || (x >= 56 && x <= 57) ||
-                (x >= 60 && x <= 61) || (x >= 63 && x <= 64) || (x >= 66 && x <= 67))) ||
+            ((y == 16 || y == 17) && ((x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || (x >= 39 && x <= 40) || 
+                (x >= 42 && x <= 43) || (x >= 45 && x <= 46) || (x >= 48 && x <= 49) || (x >= 51 && x <= 52) || x == 54 || (x >= 56 && x <= 57))) ||
 
-            (y == 18 && ((x >= 9 && x <= 10) || (x >= 14 && x <= 15) || (x >= 18 && x <= 19) || (x >= 21 && x <= 22) || (x >= 32 && x <= 33) ||
-                (x >= 36 && x <= 37) || (x >= 39 && x <= 40) || (x >= 42 && x <= 43) || (x >= 45 && x <= 46) || (x >= 56 && x <= 57) ||
-                (x >= 60 && x <= 61) || (x >= 63 && x <= 64) || (x >= 66 && x <= 67) || (x >= 69 && x <= 70))) ||
+            (y == 18 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) ||
+                (x >= 36 && x <= 37) || (x >= 39 && x <= 40) || (x >= 42 && x <= 43) || (x >= 45 && x <= 46) || (x >= 48 && x <= 49) ||
+                (x >= 52 && x <= 56))) ||
 
-            (y == 19 && ((x >= 9 && x <= 10) || (x >= 13 && x <= 16) || (x >= 18 && x <= 22) || x == 32 || x == 33 || x == 36 || x == 37 || x == 39 || x == 40 ||
-                (x >= 42 && x <= 46) || x == 56 || x == 57 || (x >= 60 && x <= 64) || (x >= 66 && x <= 70)))
+            (y == 19 && ((x >= 21 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
+                (x >= 39 && x <= 42) || (x >= 45 && x <= 49) || x == 53 || x == 55))
             ) {
                 edit_bloco_background_wbm(x, y, 0, 3, 5);
             }
@@ -238,9 +231,71 @@ int main() {
             }
         }
     }
-
 //-----------------------------------------------------------------------------------------------------------------------//
 //TELA VENCEDOR
+
+//ENVOLTO TITULO
+    //superior e inferior esquerdo
+    for (x = 15; x <= 18; x++) {
+        edit_bloco_background_wbm(x, 11, 0, 3, 5);
+        edit_bloco_background_wbm(x, 13, 0, 3, 5);
+        edit_bloco_background_wbm(x, 14, 0, 3, 5);
+        edit_bloco_background_wbm(x, 27, 0, 3, 5);
+        edit_bloco_background_wbm(x, 28, 0, 3, 5);
+        edit_bloco_background_wbm(x, 30, 0, 3, 5);
+    }
+
+    //superior e inferior direito
+    for (x = 63; x <= 66; x++) {
+        edit_bloco_background_wbm(x, 11, 0, 3, 5);
+        edit_bloco_background_wbm(x, 13, 0, 3, 5);
+        edit_bloco_background_wbm(x, 14, 0, 3, 5);
+        edit_bloco_background_wbm(x, 27, 0, 3, 5);
+        edit_bloco_background_wbm(x, 28, 0, 3, 5);
+        edit_bloco_background_wbm(x, 30, 0, 3, 5);
+    }
+
+    //linha superior e inferior
+    for (x = 15; x < 67; x++) {
+        edit_bloco_background_wbm(x, 12, 0, 3, 5);
+        edit_bloco_background_wbm(x, 29, 0, 3, 5);
+    }
+
+    //coluna superior e inferior
+    for (y = 15; y < 27; y++) {
+        edit_bloco_background_wbm(16, y, 0, 3, 5);
+        edit_bloco_background_wbm(65, y, 0, 3, 5);
+    }
+
+//YOU WON
+    for(y=17; y<=24; y++){
+        for(x=21; x<=60; x++){
+            if (
+            (y == 17 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
+                (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 53) || (x >= 55 && x <= 56) || (x >= 59 && x <= 60))) ||
+
+            (y == 18 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
+                (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 57) || (x >= 59 && x <= 60))) ||
+
+            (y == 19 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
+                (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 60))) ||
+
+            (y == 20 && ((x >= 22 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
+                (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 53) || (x >= 55 && x <= 56) || (x >= 58 && x <= 60))) ||
+
+            ((y == 21 || y == 22) && ((x >= 23 && x <= 24) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || (x >= 41 && x <= 42) || 
+                x == 44 || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 56) || (x >= 59 && x <= 60))) ||
+
+            (y == 23 && ((x >= 23 && x <= 24) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || (x >= 42 && x <= 46) || 
+                (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 56) || (x >= 59 && x <= 60))) ||
+
+            (y == 24 && ((x >= 23 && x <= 24) || (x >= 27 && x <= 31) || (x >= 33 && x <= 37) || x == 43 || x == 45 || (x >= 49 && x <= 53) || (x >= 55 && x <= 56 ) || 
+                (x >= 59 && x <= 60)))
+            ) {
+                edit_bloco_background_wbm(x, y, 0, 3, 5);
+            }
+        }
+    }
 
 //ENVOLTO BOTOES
     //Botao esquerdo
@@ -283,100 +338,9 @@ int main() {
 
     //Sprite losango - SAIR
     set_sprite_wbr(1, 488, 416, 26, 5);
-
-//TABULEIRO
-    //Linhas
-    for(x=25; x<=53; x++){
-        edit_bloco_background_wbm(x, 28, 0, 3, 5);
-        edit_bloco_background_wbm(x, 38, 0, 3, 5);
-    }
-
-    //Colunas
-    for(y=19; y<=47; y++){
-        edit_bloco_background_wbm(34, y, 0, 3, 5);
-        edit_bloco_background_wbm(44, y, 0, 3, 5);
-    }
-
-//JOGADAS TABUELEIRO
-    //Sprite X
-    set_sprite_wbr(1, 224, 176, 29, 7);       //Quadrante 0
-
-    //Sprite X
-    set_sprite_wbr(1, 304, 176, 29, 8);       //Quadrante 1
-
-    //Sprite X
-    set_sprite_wbr(1, 384, 176, 29, 9);      //Quadrante 2
-
-    //Sprite O
-    set_sprite_wbr(1, 224, 256, 25, 10);       //Quadrante 3
-
-    //Sprite O
-    set_sprite_wbr(1, 304, 256, 25, 11);       //Quadrante 4
-
-//PINTANDO QUADRANTES VENCEDORES
-    set_quadrado_dp(0, 7, 0, 2, 233, 186, 0);       //Quadrante 0 - MEIO
-
-    set_quadrado_dp(0, 7, 0, 2, 313, 186, 1);       //Quadrante 1 - MEIO
-
-    set_quadrado_dp(0, 7, 0, 2, 393, 186, 2);       //Quadrante 2 - MEIO
-
-//TABELA INFORMAÇÃO
-    //Moldura - SUPERIOR    
-    for(y=1; y<=4; y++){
-        for(x=31; x<=48; x++){
-            if (
-            (y == 1 && (x >= 39 && x <= 40)) ||
-            (y == 2 && ((x >= 31 && x <= 34) || (x >= 39 && x <= 40) || (x >= 45 && x <= 48))) ||
-            (y == 3 && (x == 31 || (x >= 34 && x <= 45) || x == 48)) ||
-            (y == 4 && ((x >= 31 && x <= 33) || (x >= 46 && x <= 48)))
-            ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
-            }
-        }
-    }
-
-    //Moldura - MEIO - coluna esquerda e direita
-    for(y=5; y<=9; y++){
-        edit_bloco_background_wbm(33, y, 0, 3, 5);
-        edit_bloco_background_wbm(46, y, 0, 3, 5);
-    }
-
-    //Moldura - MEIO - bingula esquerda
-    for(y = 7; y <= 8; y++) {
-        for(x = 29; x <= 32; x++) {
-            edit_bloco_background_wbm(x, y, 0, 3, 5);
-        }
-    }
-
-    //Moldura - MEIO - bingula direita
-    for(y = 7; y <= 8; y++) {
-        for(x = 47; x <= 50; x++) {
-            edit_bloco_background_wbm(x, y, 0, 3, 5);
-        }
-    }
-
-    //Moldura - INFERIOR
-    for(y=10; y<=13; y++){
-        for(x=31; x<=48; x++){
-            if (
-            (y == 13 && (x >= 39 && x <= 40)) ||
-            (y == 12 && ((x >= 31 && x <= 34) || (x >= 39 && x <= 40) || (x >= 45 && x <= 48))) ||
-            (y == 11 && (x == 31 || (x >= 34 && x <= 45) || x == 48)) ||
-            (y == 10 && ((x >= 31 && x <= 33) || (x >= 46 && x <= 48)))
-            ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
-            }
-        }
-    }
-
-    //Sprite taça - VENCEDOR
-    set_sprite_wbr(1, 288, 48, 24, 20);
-
-    //Sprite X - JOGADOR 1
-    set_sprite_wbr(1, 328, 48, 29, 16);
-
+/*
 //-----------------------------------------------------------------------------------------------------------------------//
-//TELA EMPATE
+//TELA DERROTA
 
 //ENVOLTO BOTOES
     //Botao esquerdo
@@ -420,109 +384,74 @@ int main() {
     //Sprite losango - SAIR
     set_sprite_wbr(1, 488, 416, 26, 5);
 
-//TABULEIRO
-    //Linhas
-    for(x=25; x<=53; x++){
+//ENVOLTO TITULO
+    //superior e inferior esquerdo
+    for (x = 9; x <= 12; x++) {
+        edit_bloco_background_wbm(x, 11, 0, 3, 5);
+        edit_bloco_background_wbm(x, 13, 0, 3, 5);
+        edit_bloco_background_wbm(x, 14, 0, 3, 5);
+        edit_bloco_background_wbm(x, 27, 0, 3, 5);
         edit_bloco_background_wbm(x, 28, 0, 3, 5);
-        edit_bloco_background_wbm(x, 38, 0, 3, 5);
+        edit_bloco_background_wbm(x, 30, 0, 3, 5);
     }
 
-    //Colunas
-    for(y=19; y<=47; y++){
-        edit_bloco_background_wbm(34, y, 0, 3, 5);
-        edit_bloco_background_wbm(44, y, 0, 3, 5);
+    //superior e inferior direito
+    for (x = 68; x <= 71; x++) {
+        edit_bloco_background_wbm(x, 11, 0, 3, 5);
+        edit_bloco_background_wbm(x, 13, 0, 3, 5);
+        edit_bloco_background_wbm(x, 14, 0, 3, 5);
+        edit_bloco_background_wbm(x, 27, 0, 3, 5);
+        edit_bloco_background_wbm(x, 28, 0, 3, 5);
+        edit_bloco_background_wbm(x, 30, 0, 3, 5);
     }
 
-//JOGADAS NO TABULEIRO
-    //Sprite X
-    set_sprite_wbr(1, 224, 176, 29, 7);       //Quadrante 0
+    //linha superior e inferior
+    for (x = 9; x < 72; x++) {
+        edit_bloco_background_wbm(x, 12, 0, 3, 5);
+        edit_bloco_background_wbm(x, 29, 0, 3, 5);
+    }
 
-    //Sprite X
-    set_sprite_wbr(1, 304, 176, 29, 8);       //Quadrante 1
+    //coluna superior e inferior
+    for (y = 15; y < 27; y++) {
+        edit_bloco_background_wbm(10, y, 0, 3, 5);
+        edit_bloco_background_wbm(70, y, 0, 3, 5);
+    }
 
-    //Sprite X
-    set_sprite_wbr(1, 384, 176, 29, 9);      //Quadrante 2
-
-
-    //Sprite X
-    set_sprite_wbr(1, 224, 256, 29, 10);       //Quadrante 3
-
-    //Sprite O
-    set_sprite_wbr(1, 304, 256, 25, 11);       //Quadrante 4
-
-    //Sprite O
-    set_sprite_wbr(1, 384, 256, 25, 12);       //Quadrante 5
-
-
-    //Sprite O
-    set_sprite_wbr(1, 224, 336, 25, 13);       //Quadrante 6
-
-    //Sprite O
-    set_sprite_wbr(1, 304, 336, 25, 14);       //Quadrante 7
-
-    //Sprite O
-    set_sprite_wbr(1, 384, 336, 25, 15);       //Quadrante 8
-
-//TABELA INFORMAÇÃO
-    //Moldura - SUPERIOR
-    for(y=1; y<=4; y++){
-        for(x=29; x<=51; x++){
+    //GAME OVER
+    for(y=17; y<=24; y++){
+        for(x=15; x<=65; x++){
             if (
-            (y == 1 && (x >= 39 && x <= 40)) ||
-            (y == 2 && ((x >= 29 && x <= 32) || (x >= 39 && x <= 40) || (x >= 48 && x <= 51))) ||
-            (y == 3 && (x == 29 || (x >= 32 && x <= 48) || x == 51)) ||
-            (y == 4 && ((x >= 29 && x <= 31) || (x >= 49 && x <= 51)))
+            (y == 17 && ((x >= 15 && x <= 19) || (x >= 21 && x <= 25) || (x >= 27 && x <= 28) || (x >= 32 && x <= 33) || 
+                (x >= 35 && x <= 39) || (x >= 43 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || 
+                (x >= 55 && x <= 59) || (x >= 61 && x <= 65))) ||
+
+            (y == 18 && ((x >= 15 && x <= 16) || (x >= 18 && x <= 19) || (x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 29) || (x >= 31 && x <= 33) || 
+                (x >= 35 && x <= 36) || (x >= 38 && x <= 39) || (x >= 43 && x <= 44) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 56) || 
+                (x >= 58 && x <= 59) || (x >= 61 && x <= 62) || (x >= 64 && x <= 65))) ||
+
+            (y == 19 && ((x >= 15 && x <= 16) || (x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 33) || 
+                (x >= 35 && x <= 36) || (x >= 43 && x <= 44) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || 
+                (x >= 55 && x <= 56) || (x >= 61 && x <= 62) || (x >= 64 && x <= 65))) ||
+
+            (y == 20 && ((x >= 15 && x <= 16) || (x >= 18 && x <= 19) || (x >= 21 && x <= 25) || (x >= 27 && x <= 28) || x == 30 || 
+                (x >= 32 && x <= 33) || (x >= 35 && x <= 38) || (x >= 43 && x <= 44) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || 
+                (x >= 55 && x <= 58) || (x >= 61 && x <= 64))) ||
+
+            ((y == 21 || y == 22) && ((x >= 15 && x <= 16) || (x >= 18 && x <= 19) || (x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || 
+                (x >= 32 && x <= 33) || (x >= 35 && x <= 36) || (x >= 43 && x <= 44) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || 
+                (x >= 55 && x <= 56) || (x >= 58 && x <= 59) || (x >= 61 && x <= 62) || (x >= 64 && x <= 65))) ||
+
+            (y == 23 && ((x >= 15 && x <= 16) || (x >= 18 && x <= 19) || (x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 32 && x <= 33) || 
+                (x >= 35 && x <= 36) || (x >= 38 && x <= 39) || (x >= 43 && x <= 44) || (x >= 46 && x <= 47) || (x >= 50 && x <= 53) || (x >= 55 && x <= 56) || 
+                (x >= 58 && x <= 59) || (x >= 61 && x <= 62) || (x >= 64 && x <= 65))) ||
+
+            (y == 24 && ((x >= 15 && x <= 19) || (x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 32 && x <= 33) || (x >= 35 && x <= 39) || (x >= 43 && x <= 47) || 
+                (x >= 51 && x <= 53) || (x >= 55 && x <= 59) || (x >= 61 && x <= 62) || (x >= 64 && x <= 65)))
             ) {
                 edit_bloco_background_wbm(x, y, 0, 3, 5);
             }
         }
     }
-
-    //Moldura - MEIO - coluna esquerda e direita
-    for(y=5; y<=9; y++){
-        edit_bloco_background_wbm(31, y, 0, 3, 5);
-        edit_bloco_background_wbm(49, y, 0, 3, 5);
-    }
-
-    //Moldura - MEIO - bingula esquerda
-    for(y = 7; y <= 8; y++) {
-        for(x = 27; x <= 30; x++) {
-            edit_bloco_background_wbm(x, y, 0, 3, 5);
-        }
-    }
-
-    //Moldura - MEIO - bingula direita
-    for(y = 7; y <= 8; y++) {
-        for(x = 50; x <= 53; x++) {
-            edit_bloco_background_wbm(x, y, 0, 3, 5);
-        }
-    }
-
-    //Moldura - INFERIOR
-    for(y=10; y<=13; y++){
-        for(x=29; x<=51; x++){
-            if (
-            (y == 13 && (x >= 39 && x <= 40)) ||
-            (y == 12 && ((x >= 29 && x <= 32) || (x >= 39 && x <= 40) || (x >= 48 && x <= 51))) ||
-            (y == 11 && (x == 29 || (x >= 32 && x <= 48) || x == 51)) ||
-            (y == 10 && ((x >= 29 && x <= 31) || (x >= 49 && x <= 51)))
-            ) {
-                edit_bloco_background_wbm(x, y, 0, 3, 5);
-            }
-        }
-    }
-
-    //Sprite BARRA DEITADA 1 - EMPATE
-    set_sprite_wbr(1, 312, 40, 13, 18);
-
-    //Sprite BARRA DEITADA 2 - EMPATE
-    set_sprite_wbr(1, 312, 56, 13, 19);
-
-    //Sprite X - JOGADOR 1
-    set_sprite_wbr(1, 272, 48, 29, 16);
-
-    //Sprite O - JOGADOR 2
-    set_sprite_wbr(1, 352, 48, 25, 17);
 */
 //-----------------------------------------------------------------------------------------------------------------------//
 //TELA PADRAO
