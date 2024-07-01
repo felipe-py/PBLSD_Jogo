@@ -81,6 +81,9 @@ int main() {
         }
 
         /*
+        bloco_x *= 8;
+        bloco_y *= 8;
+
         //COLISÃO BLOCO
         if (x_real + 5 <= bloco_x + 8 &&        //esquerda
             x_real + 15 >= bloco_x &&           //direita
