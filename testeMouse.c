@@ -72,12 +72,12 @@ int main() {
         if (y_real > 459) y_real = 459;
 
         //COLISÃO POLICIA
-        if (x_real + 4 <= x_sprite + 16 &&        //esquerda
-            x_real + 16 >= x_sprite + 3 &&        //direita
-            y_real <= y_sprite + 18 &&        //cima
-            y_real + 19 >= y_sprite + 1) {        //baixo
+        if (x_real + 5 <= x_sprite + 16 &&        //esquerda
+            x_real + 15 >= x_sprite + 3 &&        //direita
+            y_real + 1 <= y_sprite + 18 &&        //cima
+            y_real + 18 >= y_sprite + 1) {        //baixo
                 
-            printf("COLISÃO\n");
+            printf("ENTROU\n");
         }
 
         /*
@@ -85,14 +85,15 @@ int main() {
         bloco_y *= 8;
 
         //COLISÃO BLOCO
-        if (x_real + 4 <= bloco_x + 8 &&        //esquerda
-            x_real + 16 >= bloco_x &&           //direita
-            y_real <= bloco_y + 8 &&        //cima
-            y_real + 19 >= bloco_y) {           //baixo
+        if (x_real + 5 <= bloco_x + 7 &&        //esquerda
+            x_real + 15 >= bloco_x &&           //direita
+            y_real + 1 <= bloco_y + 7 &&        //cima
+            y_real + 18 >= bloco_y) {           //baixo
                 
-            printf("COLISÃO\n");
+            printf("ENTROU\n");
         }*/
         
+        //ENCOSTOU
         else{
             set_sprite_wbr(1, x_real, y_real, 0, 1);
         }

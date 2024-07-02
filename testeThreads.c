@@ -115,10 +115,10 @@ int main() {
         set_sprite_wbr(1, x_real, y_real, 0, 1);
 
         //COLISÃO
-        if (x_real <= x_sprite + 21 && 
-            x_real + 21 >= x_sprite && 
-            y_real <= 224 + 22 && 
-            y_real + 22 >= 224) {
+        if (x_real <= x_sprite + 21 &&      //esquerda 
+            x_real + 21 >= x_sprite &&      //direita
+            y_real <= 224 + 22 &&           //cima
+            y_real + 22 >= 224) {           //baixo
             
             printf("COLISÃO\n");
             colisao = 1;
