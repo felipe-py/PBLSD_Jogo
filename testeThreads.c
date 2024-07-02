@@ -35,11 +35,11 @@ void* movimenta_sprite(void* arg) {
                 sentido = 1;
             }
         }
-        
-        set_sprite_wbr(1, x_sprite, 224, 1, 2);
 
         pthread_mutex_unlock(&x_sprite_mutex);
         
+        set_sprite_wbr(1, x_sprite, 224, 1, 2);
+
         if (colisao) break;
         
         usleep(500000);
