@@ -8,7 +8,7 @@
 
 #define MOUSE_DEVICE "/dev/input/event0"
 
-volatile int x_sprite = 120;
+volatile int x_sprite = 0;
 volatile int colisao = 0;
 
 pthread_mutex_t x_sprite_mutex; 
@@ -17,33 +17,32 @@ void* movimenta_sprite(void* arg) {
     int sentido = 1;
     
     while(colisao!=1){
+        //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
+        usleep(11300);
+        
+        if (colisao) break;
+
         pthread_mutex_lock(&x_sprite_mutex);
 
         //Desloca da esquerda para direita
         if(sentido == 1){
             x_sprite += 1;     
-            if(x_sprite == 520){
+            if(x_sprite == 619){
                 sentido = 0;
             }
         }
 
         //Desloca da direita para esquerda
         else {
-            //512 ao 1 (/2)
             x_sprite -= 1;       
-            if(x_sprite == 120){
+            if(x_sprite == 0){
                 sentido = 1;
             }
         }
 
         pthread_mutex_unlock(&x_sprite_mutex);
         
-        set_sprite_wbr(1, x_sprite, 224, 1, 2);
-
-        if (colisao) break;
-        
-        //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
-        usleep(11300);
+        set_sprite_wbr(1, x_sprite, 240, 1, 2);
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
@@ -74,7 +73,7 @@ int main() {
     set_sprite_wbr(1, x_real, y_real, 0, 1);
 
     //Bixo correndo
-    set_sprite_wbr(1, x_sprite, 224, 0, 2);
+    set_sprite_wbr(1, x_sprite, 240, 0, 2);
 
     // Inicializa o mutex de sprite
     pthread_mutex_init(&x_sprite_mutex, NULL);
