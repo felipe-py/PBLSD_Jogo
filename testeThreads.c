@@ -21,7 +21,7 @@ void* movimenta_sprite(void* arg) {
 
         //Desloca da esquerda para direita
         if(sentido == 1){
-            x_sprite += 16;     
+            x_sprite += 1;     
             if(x_sprite == 520){
                 sentido = 0;
             }
@@ -30,7 +30,7 @@ void* movimenta_sprite(void* arg) {
         //Desloca da direita para esquerda
         else {
             //512 ao 1 (/2)
-            x_sprite -= 16;       
+            x_sprite -= 1;       
             if(x_sprite == 120){
                 sentido = 1;
             }
@@ -42,7 +42,8 @@ void* movimenta_sprite(void* arg) {
 
         if (colisao) break;
         
-        usleep(500000);
+        //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
+        usleep(11300);
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
