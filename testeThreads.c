@@ -11,10 +11,14 @@
 volatile int x_sprite = 120;
 volatile int colisao = 0;
 
+pthread_mutex_t x_sprite_mutex; 
+
 void* movimenta_sprite(void* arg) {
     int sentido = 1;
     
     while(colisao!=1){
+        pthread_mutex_lock(&x_sprite_mutex);
+
         //Desloca da esquerda para direita
         if(sentido == 1){
             x_sprite += 16;     
@@ -33,6 +37,8 @@ void* movimenta_sprite(void* arg) {
         }
         
         set_sprite_wbr(1, x_sprite, 224, 1, 2);
+
+        pthread_mutex_unlock(&x_sprite_mutex);
         
         if (colisao) break;
         
@@ -68,6 +74,9 @@ int main() {
 
     //Bixo correndo
     set_sprite_wbr(1, x_sprite, 224, 0, 2);
+
+    // Inicializa o mutex de sprite
+    pthread_mutex_init(&x_sprite_mutex, NULL);
     
     if (pthread_create(&thread_id, NULL, movimenta_sprite, NULL) != 0) {
         perror("pthread_create");
@@ -113,10 +122,14 @@ int main() {
         if (y_real > 459) y_real = 459;
 
         set_sprite_wbr(1, x_real, y_real, 0, 1);
+    
+        pthread_mutex_lock(&x_sprite_mutex);
+        int temp_x_sprite = x_sprite;
+        pthread_mutex_unlock(&x_sprite_mutex);
 
         //COLISÃO
-        if (x_real <= x_sprite + 21 &&      //esquerda 
-            x_real + 21 >= x_sprite &&      //direita
+        if (x_real <= temp_x_sprite + 21 &&      //esquerda 
+            x_real + 21 >= temp_x_sprite &&      //direita
             y_real <= 224 + 22 &&           //cima
             y_real + 22 >= 224) {           //baixo
             
@@ -134,6 +147,8 @@ int main() {
         perror("pthread_join");
         return 1;
     }
+
+    pthread_mutex_destroy(&x_sprite_mutex);
 
     // Fechar os dispositivos
     close(fd_mouse);
