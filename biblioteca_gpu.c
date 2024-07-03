@@ -220,7 +220,7 @@ desabilita_bloco_background_wbm(int bloco_x, int bloco_y) {
 }
 
 /**Função para editar um pixel de um sprite armazenado ou criar um pixel de um novo sprite
- * parâmetros ->    endereco: valor referente ao endereço de memória a ser editado (0 ao 11999)
+ * parâmetros ->    endereco: valor referente ao endereço de memória a ser editado (0 ao 12819)
  *                  azul: tom de azul (0 ao 7)
  *                  verde: tom de verde (0 ao 7)
  *                  vermelho: tom de vermelho (0 ao 7)
@@ -229,7 +229,7 @@ desabilita_bloco_background_wbm(int bloco_x, int bloco_y) {
 int 
 edit_sprite_wsm(int endereco, int azul, int verde, int vermelho) {
     /* Verificações de dados recebidos */
-    if (endereco > 12799 || azul > 7 || verde > 7 || vermelho > 7) {
+    if (endereco > 12819 || azul > 7 || verde > 7 || vermelho > 7) {
         fprintf(stderr, ERRO_EDIT_SPRITE"Valor acima do permitido\n");
         return -1;
     } else if (endereco < 0 || azul < 0 || verde < 0 || vermelho < 0) {
