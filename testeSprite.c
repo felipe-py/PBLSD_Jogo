@@ -1,6 +1,5 @@
 #include "biblioteca_gpu.h"
 #include <stdlib.h>
-#include <math.h>
 
 int main() {
 
@@ -418,7 +417,7 @@ for (y = 0; y < 21; y++) {
         }
 
         //Condições para cor central
-        else if (((x == 9 || x == 10) && (y >= 2 && y <= 17))) {
+        else if (((x >= 8 && x <= 11) && (y >= 2 && y <= 17))) {
             vermelho = 4;
             verde = 3;
             azul = 3;
