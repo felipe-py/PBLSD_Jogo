@@ -10,10 +10,10 @@ int bateu_parede(int ladrao_x, int ladrao_y, int bloco_x, int bloco_y){
     bloco_x *= 8;
     bloco_y *= 8;
 
-    if (ladrao_x + 5 <= bloco_x + 8 &&   //esquerda
+    if (ladrao_x <= bloco_x + 2 &&   //esquerda
         ladrao_x + 15 >= bloco_x &&      //direita
-        ladrao_y + 1 <= bloco_y + 8 &&       //cima
-        ladrao_y + 18 >= bloco_y) {      //baixo
+        ladrao_y <= bloco_y + 6 &&       //baixo
+        ladrao_y + 18 >= bloco_y) {      //cima
         
         return 1; // Colisão detectada
     }
@@ -23,10 +23,10 @@ int bateu_parede(int ladrao_x, int ladrao_y, int bloco_x, int bloco_y){
 
 int bateu_policia(int ladrao_x, int ladrao_y, int policia_x, int policia_y){
 
-    if (ladrao_x + 5 <= policia_x + 16 &&   //esquerda
-        ladrao_x + 15 >= policia_x + 3 &&      //direita
-        ladrao_y + 1 <= policia_y + 18 &&       //cima
-        ladrao_y + 18 >= policia_y + 1) {      //baixo
+    if (ladrao_x <= policia_x + 15 &&   //esquerda
+        ladrao_x + 15 >= policia_x &&      //direita
+        ladrao_y <= policia_y + 19 &&       //baixo
+        ladrao_y + 18 >= policia_y) {      //cima
         
         return 1; // Colisão detectada
     }
@@ -72,10 +72,12 @@ int main() {
         if (ev.type == EV_REL) {
             if (ev.code == REL_X) {
                 x_real += ev.value;
+                printf("x: %d\n", ev.value);
             } 
             
             else if (ev.code == REL_Y) {
                 y_real += ev.value;
+                printf("y: %d\n", ev.value);
             }
         }
 
