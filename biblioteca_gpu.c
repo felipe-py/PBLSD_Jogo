@@ -379,21 +379,21 @@ limpar_tela() {
     set_cor_background_wbr(0, 0, 0);
 
     /* Remove apenas blocos editados do background */
-    for (i = 0; i < qtd_blocos_editados; ++i) {
+    for (i = 0; i <= qtd_blocos_editados; ++i) {
         if (desabilita_bloco_background_wbm(blocos_editados_x[i], blocos_editados_y[i]) == -1) {
             break;
         }
     }
 
     /* Remove apenas Sprites utilizados */
-    for (i = 0; i < qtd_sprites_setados; ++i) {
+    for (i = 1; i <= qtd_sprites_setados; ++i) {
         if (set_sprite_wbr(0, 0, 0, 0, registrador_sprites_setados[i]) == -1) {
             break; 
         }
     }
 
     /* Remove apenas Poligonos utilizados */
-    for (i = 0; i < qtd_poligonos_setados; ++i) {
+    for (i = 0; i <= qtd_poligonos_setados; ++i) {
         if (set_quadrado_dp(0, 0, 0, 0, 0, 0, registrador_poligonos_setados[i]) == -1) {
             break; 
         }
