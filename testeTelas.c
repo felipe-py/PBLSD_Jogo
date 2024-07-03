@@ -461,8 +461,12 @@ int main() {
 
 //ESTRUTURAS
 
-    //Quadrado da esquerda
-    set_quadrado_dp(0, 0, 0, 11, 304, 419, 0);
+    //Estrutura quadrado da esquerda
+    for(x=31; x<=45; x++){
+        for(y=45; y<=59; y++){
+            edit_bloco_background_wbm(x,y,0,0,0);
+        }
+    }
 
     //Coluna da esquerda grande, direita grande e esquerda menor
     for(y=0; y<=53; y++){
@@ -587,8 +591,12 @@ int main() {
         if (set_sprite_wbr(0, 0, 0, 0, x) == -1) {
             break; 
         }
+    }
+    
+    for (x=0; x<16; x++){
+        set_quadrado_dp(0,0,0,0,0,0,x);
     }*/
-
+    
     //Fecha arquivo de comunicação com o driver
     close_driver();
 
