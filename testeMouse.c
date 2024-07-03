@@ -28,10 +28,13 @@ int main() {
     int x_real = 320, y_real = 240;
     
     int x_sprite = 400, y_sprite = 300;
-    int bloco_x = 200, bloco_y = 150;
+    int bloco_x = 25, bloco_y = 18;
 
-    set_sprite_wbr(1, x_sprite, y_sprite, 30, 2);
+    set_sprite_wbr(1, x_sprite, y_sprite, 30, 1);
     edit_bloco_background_wbm(bloco_x, bloco_y, 0, 0, 0);
+
+    bloco_x *= 8;
+    bloco_y *= 8;
 
     // Loop infinito para receber as coordenadas do mouse
     while (1) {
@@ -72,30 +75,26 @@ int main() {
         if (y_real > 459) y_real = 459;
 
         //COLISÃO POLICIA
-        if (x_real + 5 <= x_sprite + 16 &&        //esquerda
-            x_real + 15 >= x_sprite + 3 &&        //direita
-            y_real + 1 <= y_sprite + 18 &&        //cima
-            y_real + 18 >= y_sprite + 1) {        //baixo
+        /*if (x_real <= x_sprite + 15 &&        //esquerda
+            x_real + 15 >= x_sprite &&        //direita
+            y_real <= y_sprite + 19 &&        //baixo
+            y_real + 18 >= y_sprite) {        //cima
                 
-            printf("ENTROU\n");
-        }
-
-        /*
-        bloco_x *= 8;
-        bloco_y *= 8;
+            break;
+        }*/
 
         //COLISÃO BLOCO
-        if (x_real + 5 <= bloco_x + 7 &&        //esquerda
+        if (x_real <= bloco_x + 2 &&        //esquerda
             x_real + 15 >= bloco_x &&           //direita
-            y_real + 1 <= bloco_y + 7 &&        //cima
-            y_real + 18 >= bloco_y) {           //baixo
+            y_real <= bloco_y + 6 &&        //baixo
+            y_real + 18 >= bloco_y) {           //cima
                 
-            printf("ENTROU\n");
-        }*/
+            break;
+        }
         
         //ENCOSTOU
         else{
-            set_sprite_wbr(1, x_real, y_real, 0, 1);
+            set_sprite_wbr(1, x_real, y_real, 25, 2);
         }
     }
 
