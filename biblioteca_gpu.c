@@ -387,7 +387,7 @@ limpar_tela() {
 
     /* Remove apenas Sprites utilizados */
     for (i = 1; i <= qtd_sprites_setados; ++i) {
-        if (set_sprite_wbr(0, 0, 0, 0, registrador_sprites_setados[i]) == -1) {
+        if (set_sprite_wbr(0, 0, 0, 0, registrador_sprites_setados[i-1]) == -1) {
             break; 
         }
     }
