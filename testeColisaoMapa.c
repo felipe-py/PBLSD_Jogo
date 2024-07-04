@@ -72,7 +72,38 @@ int main() {
         if (ev.type == EV_REL) {
             if (ev.code == REL_X) {
                 teste = x_real + ev.value;
-                if(x_real >= 448 && teste < 448 && (y_real >= 0 && y_real < 56)
+                    //AREA CIMA DIREITA
+                if((x_real >= 448 && (y_real >= 0 && y_real < 35) && teste < 448) ||
+                    
+                    //PASSAGEM 1
+                    ((x_real >= 568 && x_real < 608) && (y_real > 35 && y_real < 64) && (teste < 568 || teste >= 608)) ||
+                    
+                    //AREA 2 CIMA DIREITA
+                    (x_real >= 448 && (y_real >= 64 && y_real < 91) && teste < 448) ||
+
+                    //PASSAGEM 2
+                    ((x_real >= 520 && x_real < 560) && (y_real > 91 && y_real < 120) && (teste < 520 || teste >= 620)) ||
+
+                    //AREA 3 MEIO DIREITA (ACIMA DO QUADRADO)
+                    (x_real >= 448 && (y_real >= 120 && y_real < 163) && teste < 448) ||
+
+                    //AREA 3 MEIO DIREITA (LADO DIREITO DO QUADRADO SUPERIOR)
+                    (x_real >= 592 && (y_real >= 163 && y_real < 195) && teste < 592) ||
+
+                    //AREA 3 MEIO DIREITA (LADO ESQUERDO DO QUADRADO)
+                    ((x_real >= 448 && x_real < 512) && (y_real >= 183 && y_real < 264) && (teste < 448 || teste >= 512)) ||
+
+                    //AREA 3 MEIO DIREITA (ABAIXO DO QUADRADO)
+                    (x_real >= 448 && (y_real >= 264 && y_real < 331) && teste < 448) ||
+
+                    //AREA 3 MEIO DIREITA (LADO DIREITO DO QUADRADO INFERIOR)
+                    (x_real >= 592 && (y_real >= 228 && y_real < 264) && teste < 592) ||
+
+                    //PASSAGEM 3
+                    (x_real >= 592 && (y_real > 331 && y_real < 360) && teste < 592) ||
+
+                    //AREA 3 BAIXO DIREITA
+                    (x_real >= 448 && (y_real >= 360 && y_real < 432) && teste < 448) ||
 
                 ){}
 
@@ -82,7 +113,38 @@ int main() {
             
             else if (ev.code == REL_Y) {
                 teste = y_real + ev.value;
-                if(y_real <= 35 && teste > 35 && x_real >= 448
+
+                    //AREA CIMA DIREITA
+                if((y_real <= 35 && ((x_real >= 448 && x_real < 568) || (x_real >= 608)) && teste > 35) ||
+
+
+                    //AREA 2 CIMA DIREITA - VERIFICA BAIXO
+                    (y_real <= 91 && ((x_real >= 448 && x_real < 520) || (x_real >= 560)) && teste > 91) ||
+
+                    //AREA 2 CIMA DIREITA - VERIFICA CIMA
+                    (y_real >= 64 && ((x_real >= 448 && x_real < 568) || (x_real >= 608)) && teste < 64) ||
+
+
+                    //AREA 3 MEIO DIREITA - VERIFICA CIMA
+                    (y_real >= 120 && ((x_real >= 448 && x_real < 520) || x_real >= 560) && teste < 120) ||
+
+                    //AREA 3 MEIO DIREITA (QUADRADO SUPERIOR) - VERIFICA BAIXO
+                    (y_real <= 163 && (x_real >= 512 && x_real < 592) && teste > 163) ||
+
+                    //AREA 3 MEIO DIREITA (DIREITA DO QUADRADO SUPERIOR) - VERIFICA BAIXO
+                    (y_real <= 195 && (x_real >= 592) && teste > 195) ||
+
+                    
+                    //AREA 3 MEIO DIREITA (ESQUERDA DO QUADRADO) - VERIFICA BAIXO
+                    (y_real <= 331 && (x_real >= 448 && x_real < 592) && teste > 331) ||
+
+
+                    //AREA 3 MEIO DIREITA (QUADRADO INFERIOR) - VERIFICA BAIXO
+                    (y_real <= 264 && (x_real >= 512 && x_real < 592) && teste < 264) ||
+
+                    //AREA 3 MEIO DIREITA (DIREITA DO QUADRADO INFERIOR) - VERIFICA BAIXO
+                    (y_real <= 224 && (x_real >= 592) && teste < 224) ||
+
 
                 ){}
 
