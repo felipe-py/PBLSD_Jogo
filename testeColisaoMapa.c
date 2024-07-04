@@ -45,13 +45,14 @@ int main() {
             if (ev.code == REL_X) {
                 verificar = x_real + ev.value;
                     //AREA 1, 2, 3, 4 - COLUNA ESQUERDA
-                if((x_real >= 448 && (y_real >= 0 && y_real < 432) && verificar < 448) ||
+                if(
+                    (x_real >= 448 && (y_real >= 0 && y_real < 432) && verificar < 448) ||
                     
                     //PASSAGEM 1
-                    ((x_real >= 568 && x_real < 608) && (y_real > 35 && y_real < 64) && (verificar < 568 || verificar >= 608)) ||
+                    ((x_real >= 568 && x_real < 608) && (y_real > 35 && y_real < 64) && (verificar < 568 || verificar > 587)) ||
 
                     //PASSAGEM 2
-                    ((x_real >= 520 && x_real < 560) && (y_real > 91 && y_real < 120) && (verificar < 520 || verificar >= 560)) ||
+                    parei aqui ((x_real >= 520 && x_real < 560) && (y_real > 91 && y_real < 120) && (verificar < 520 || verificar > 539)) ||
 
                     
                     //AREA 3 MEIO DIREITA (LADO DIREITO DO QUADRADO SUPERIOR)
@@ -95,8 +96,9 @@ int main() {
 
 
                     //AREA 8 TAÇA DIREITA
-                    (x_real <= 115 && (y_real > 27 && y_real < 115) && verificar > 115) ||
-                ){}
+                    (x_real <= 115 && (y_real > 27 && y_real < 115) && verificar > 115)
+                    
+                    ){}
 
                 else
                     x_real += ev.value;
@@ -106,22 +108,23 @@ int main() {
                 verificar = y_real + ev.value;
 
                     //AREA 1 CIMA DIREITA  - VERIFICA BAIXO
-                if((y_real <= 35 && ((x_real >= 448 && x_real < 568) || (x_real >= 608)) && verificar > 35) ||
+                if(
+                    (y_real <= 35 && ((x_real >= 448 && x_real < 568) || (x_real > 587)) && verificar > 35) ||
 
 
                     //AREA 2 CIMA DIREITA - VERIFICA BAIXO
-                    (y_real <= 91 && ((x_real >= 448 && x_real < 520) || (x_real >= 560)) && verificar > 91) ||
+                    (y_real <= 91 && ((x_real >= 448 && x_real < 520) || (x_real > 539)) && verificar > 91) ||
 
                     //AREA 2 CIMA DIREITA - VERIFICA CIMA
-                    (y_real >= 64 && ((x_real >= 448 && x_real < 568) || (x_real >= 608)) && verificar < 64) ||
+                    (y_real >= 64 && ((x_real >= 448 && x_real < 568) || (x_real > 587)) && verificar < 64) ||
 
 
                     //AREA 3 MEIO DIREITA - VERIFICA CIMA
-                    (y_real >= 120 && ((x_real >= 448 && x_real < 520) || x_real >= 560) && verificar < 120) ||
+                    (y_real >= 120 && ((x_real >= 448 && x_real < 520) || x_real > 539) && verificar < 120) ||
 
 
                     //AREA 3 MEIO DIREITA (TOPO QUADRADO SUPERIOR) - VERIFICA BAIXO
-                    (y_real <= 163 && (x_real >= 512 && x_real < 592) && verificar > 163) ||
+                    parei aqui (y_real <= 163 && (x_real > 491 && x_real < 592) && verificar > 163) ||
 
                     //AREA 3 MEIO DIREITA (DIREITA DO QUADRADO SUPERIOR) - VERIFICA BAIXO
                     (y_real <= 195 && x_real >= 592 && verificar > 195) ||
@@ -168,7 +171,7 @@ int main() {
                     (y_real <= 115 && (x_real >= 80 && x_real < 115) && verificar > 115) ||
 
                     //AREA 8 TAÇA - PASSAGEM
-                    (y_real <= 27 && (x_real > 115 && x_real < 144) && verificar > 27) ||
+                    (y_real <= 27 && (x_real > 115 && x_real < 144) && verificar > 27)
                 ){}
 
                 else
