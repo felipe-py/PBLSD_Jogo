@@ -6,34 +6,6 @@
    
 #define MOUSE_DEVICE "/dev/input/event0"
 
-int bateu_parede(int ladrao_x, int ladrao_y, int bloco_x, int bloco_y){
-    bloco_x *= 8;
-    bloco_y *= 8;
-
-    if (ladrao_x <= bloco_x + 2 &&   //esquerda
-        ladrao_x + 15 >= bloco_x &&      //direita
-        ladrao_y <= bloco_y + 6 &&       //baixo
-        ladrao_y + 18 >= bloco_y) {      //cima
-        
-        return 1; // Colisão detectada
-    }
-
-    return 0; // Sem colisão
-}
-
-int bateu_policia(int ladrao_x, int ladrao_y, int policia_x, int policia_y){
-
-    if (ladrao_x <= policia_x + 15 &&   //esquerda
-        ladrao_x + 15 >= policia_x &&      //direita
-        ladrao_y <= policia_y + 19 &&       //baixo
-        ladrao_y + 18 >= policia_y) {      //cima
-        
-        return 1; // Colisão detectada
-    }
-
-    return 0; // Sem colisão
-}
-
 int main() {
     int fd_mouse;
     struct input_event ev;
@@ -52,7 +24,7 @@ int main() {
     }
 
     int x_real = 456, y_real = 32;
-    int teste;
+    int verificar;
 
     // Loop infinito para receber as coordenadas do mouse
     while (1) {
@@ -71,40 +43,59 @@ int main() {
 
         if (ev.type == EV_REL) {
             if (ev.code == REL_X) {
-                teste = x_real + ev.value;
-                    //AREA CIMA DIREITA
-                if((x_real >= 448 && (y_real >= 0 && y_real < 35) && teste < 448) ||
+                verificar = x_real + ev.value;
+                    //AREA 1, 2, 3, 4 - COLUNA ESQUERDA
+                if((x_real >= 448 && (y_real >= 0 && y_real < 432) && verificar < 448) ||
                     
                     //PASSAGEM 1
-                    ((x_real >= 568 && x_real < 608) && (y_real > 35 && y_real < 64) && (teste < 568 || teste >= 608)) ||
-                    
-                    //AREA 2 CIMA DIREITA
-                    (x_real >= 448 && (y_real >= 64 && y_real < 91) && teste < 448) ||
+                    ((x_real >= 568 && x_real < 608) && (y_real > 35 && y_real < 64) && (verificar < 568 || verificar >= 608)) ||
 
                     //PASSAGEM 2
-                    ((x_real >= 520 && x_real < 560) && (y_real > 91 && y_real < 120) && (teste < 520 || teste >= 620)) ||
+                    ((x_real >= 520 && x_real < 560) && (y_real > 91 && y_real < 120) && (verificar < 520 || verificar >= 560)) ||
 
-                    //AREA 3 MEIO DIREITA (ACIMA DO QUADRADO)
-                    (x_real >= 448 && (y_real >= 120 && y_real < 163) && teste < 448) ||
-
+                    
                     //AREA 3 MEIO DIREITA (LADO DIREITO DO QUADRADO SUPERIOR)
-                    (x_real >= 592 && (y_real >= 163 && y_real < 195) && teste < 592) ||
+                    (x_real >= 592 && (y_real >= 163 && y_real < 195) && verificar < 592) ||
 
                     //AREA 3 MEIO DIREITA (LADO ESQUERDO DO QUADRADO)
-                    ((x_real >= 448 && x_real < 512) && (y_real >= 183 && y_real < 264) && (teste < 448 || teste >= 512)) ||
-
-                    //AREA 3 MEIO DIREITA (ABAIXO DO QUADRADO)
-                    (x_real >= 448 && (y_real >= 264 && y_real < 331) && teste < 448) ||
+                    ((x_real >= 448 && x_real < 491) && (y_real >= 163 && y_real < 264) && verificar < 448) ||
 
                     //AREA 3 MEIO DIREITA (LADO DIREITO DO QUADRADO INFERIOR)
-                    (x_real >= 592 && (y_real >= 228 && y_real < 264) && teste < 592) ||
+                    (x_real >= 592 && (y_real >= 224 && y_real < 264) && verificar < 592) ||
+
 
                     //PASSAGEM 3
-                    (x_real >= 592 && (y_real > 331 && y_real < 360) && teste < 592) ||
+                    (x_real >= 592 && (y_real > 331 && y_real < 360) && verificar < 592) ||
 
-                    //AREA 3 BAIXO DIREITA
-                    (x_real >= 448 && (y_real >= 360 && y_real < 432) && teste < 448) ||
 
+                    //AREA 5 E 7 - COLUNA DIREITA
+                    (x_real <= 419 && (y_real >= 0 && y_real < 432) && verificar > 416) ||
+
+                    //AREA 5 E 7 E 8 - COLUNA ESQUERDA
+                    (x_real >= 80 && (y_real >= 0 && y_real < 432) && verificar < 80) ||
+
+
+                    //AREA 5 INFERIOR CENTRAL - DIREITA DO QUADRADO
+                    (x_real >= 368 && y_real > 339 && verificar < 368) ||
+
+                    //AREA 5 INFERIOR CENTRAL - ESQUERDA DO QUADRADO
+                    (x_real <= 227 && y_real > 339 && verificar > 227) ||
+
+
+                    //AREA 5 INFERIOR CENTRAL - PASSAGEM CIMA
+                    ((x_real >= 80 && x_real < 120) && (y_real > 243 && y_real < 272) && (verificar < 80 || verificar >= 120)) ||
+
+
+                    //AREA 6 ESQUERDA TOTAL
+                    (x_real <= 51 && (y_real >= 0 && y_real < 432) && verificar > 51) ||
+
+
+                    //AREA 7 CENTRO SUPERIOR - MOLDURA
+                    (x_real >= 144 && (y_real >= 27 && y_real < 144) && verificar < 144) ||
+
+
+                    //AREA 8 TAÇA DIREITA
+                    (x_real <= 115 && (y_real > 27 && y_real < 115) && verificar > 115) ||
                 ){}
 
                 else
@@ -112,40 +103,72 @@ int main() {
             } 
             
             else if (ev.code == REL_Y) {
-                teste = y_real + ev.value;
+                verificar = y_real + ev.value;
 
-                    //AREA CIMA DIREITA
-                if((y_real <= 35 && ((x_real >= 448 && x_real < 568) || (x_real >= 608)) && teste > 35) ||
+                    //AREA 1 CIMA DIREITA  - VERIFICA BAIXO
+                if((y_real <= 35 && ((x_real >= 448 && x_real < 568) || (x_real >= 608)) && verificar > 35) ||
 
 
                     //AREA 2 CIMA DIREITA - VERIFICA BAIXO
-                    (y_real <= 91 && ((x_real >= 448 && x_real < 520) || (x_real >= 560)) && teste > 91) ||
+                    (y_real <= 91 && ((x_real >= 448 && x_real < 520) || (x_real >= 560)) && verificar > 91) ||
 
                     //AREA 2 CIMA DIREITA - VERIFICA CIMA
-                    (y_real >= 64 && ((x_real >= 448 && x_real < 568) || (x_real >= 608)) && teste < 64) ||
+                    (y_real >= 64 && ((x_real >= 448 && x_real < 568) || (x_real >= 608)) && verificar < 64) ||
 
 
                     //AREA 3 MEIO DIREITA - VERIFICA CIMA
-                    (y_real >= 120 && ((x_real >= 448 && x_real < 520) || x_real >= 560) && teste < 120) ||
+                    (y_real >= 120 && ((x_real >= 448 && x_real < 520) || x_real >= 560) && verificar < 120) ||
 
-                    //AREA 3 MEIO DIREITA (QUADRADO SUPERIOR) - VERIFICA BAIXO
-                    (y_real <= 163 && (x_real >= 512 && x_real < 592) && teste > 163) ||
+
+                    //AREA 3 MEIO DIREITA (TOPO QUADRADO SUPERIOR) - VERIFICA BAIXO
+                    (y_real <= 163 && (x_real >= 512 && x_real < 592) && verificar > 163) ||
 
                     //AREA 3 MEIO DIREITA (DIREITA DO QUADRADO SUPERIOR) - VERIFICA BAIXO
-                    (y_real <= 195 && (x_real >= 592) && teste > 195) ||
+                    (y_real <= 195 && x_real >= 592 && verificar > 195) ||
 
                     
-                    //AREA 3 MEIO DIREITA (ESQUERDA DO QUADRADO) - VERIFICA BAIXO
-                    (y_real <= 331 && (x_real >= 448 && x_real < 592) && teste > 331) ||
+                    //AREA 3 MEIO DIREITA - VERIFICA BAIXO
+                    (y_real <= 331 && (x_real >= 448 && x_real < 592) && verificar > 331) ||
 
 
-                    //AREA 3 MEIO DIREITA (QUADRADO INFERIOR) - VERIFICA BAIXO
-                    (y_real <= 264 && (x_real >= 512 && x_real < 592) && teste < 264) ||
+                    //AREA 3 MEIO DIREITA (QUADRADO INFERIOR) - VERIFICA CIMA
+                    (y_real >= 264 && (x_real >= 512 && x_real < 592) && verificar < 264) ||
 
-                    //AREA 3 MEIO DIREITA (DIREITA DO QUADRADO INFERIOR) - VERIFICA BAIXO
-                    (y_real <= 224 && (x_real >= 592) && teste < 224) ||
+                    //AREA 3 MEIO DIREITA (DIREITA DO QUADRADO INFERIOR) - VERIFICA CIMA
+                    (y_real >= 224 && x_real >= 592 && verificar < 224) ||
 
 
+                    //AREA 4 INFERIOR DIREITA - VERIFICA CIMA
+                    (y_real >= 360 && (x_real >= 448 && x_real < 592) && verificar < 360) ||
+
+                    //AREA 4 INFERIOR DIREITA - PASSAGEM - VERIFICA CIMA
+                    (y_real >= 432 && (x_real > 419 && x_real < 448) && verificar < 432) ||
+
+
+                    //AREA 5 INFERIOR CENTRO - VERIFICA CIMA
+                    (y_real >= 272 && (x_real >= 120 && x_real < 440) && verificar < 272) ||
+
+
+                    //AREA 5 INFERIOR CENTRO - VERIFICA BAIXO (TOPO DO QUADRADO)
+                    (y_real <= 339 && (x_real > 227 && x_real < 368) && verificar > 339) ||
+
+
+                    //AREA 5 INFERIOR CENTRO - PASSAGEM ESQUERDA - VERIFICA CIMA
+                    (y_real >= 432 && (x_real > 51 && x_real < 80) && verificar < 432) ||
+
+
+                    //AREA 7 SUPERIOR CENTRO - VERIFICA CIMA MOLDURA
+                    (y_real >= 144 && (x_real >= 80 && x_real < 144) && verificar < 144) ||
+
+                    //AREA 7 SUPERIOR CENTRO - VERIFICA BAIXO
+                    (y_real <= 243 && (x_real >= 120 && x_real < 419) && verificar > 243) ||
+
+
+                    //AREA 8 TAÇA - VERIFICA BAIXO
+                    (y_real <= 115 && (x_real >= 80 && x_real < 115) && verificar > 115) ||
+
+                    //AREA 8 TAÇA - PASSAGEM
+                    (y_real <= 27 && (x_real > 115 && x_real < 144) && verificar > 27) ||
                 ){}
 
                 else
