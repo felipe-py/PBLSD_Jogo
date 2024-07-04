@@ -74,7 +74,7 @@ int main() {
         if (y_real < 0) y_real = 0;
         if (y_real > 459) y_real = 459;
 
-        //COLISÃO POLICIA
+        //COLISÃO POLICIA E TROFEU
         /*if (x_real <= x_sprite + 15 &&        //esquerda
             x_real + 15 >= x_sprite &&        //direita
             y_real <= y_sprite + 19 &&        //baixo
@@ -82,6 +82,12 @@ int main() {
                 
             break;
         }*/
+
+         //COLISÃO PORTA
+        if (x_real == x_sprite && y_real == y_sprite) {
+            printf("colidou\n"); 
+            break;
+        }
 
         //COLISÃO BLOCO
         if (x_real <= bloco_x + 2 &&        //esquerda
