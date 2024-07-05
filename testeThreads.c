@@ -53,9 +53,9 @@ void* movimenta_mouse(void* arg) {
         if (y_real < 0) y_real = 0;
         if (y_real > 459) y_real = 459;
 
-        set_sprite_wbr(1, x_real, y_real, 0, 1);
-
         pthread_mutex_unlock(&lock);
+
+        set_sprite_wbr(1, x_real, y_real, 0, 1);
 
         if (ev.type == EV_KEY && ev.code == BTN_LEFT) {
             if (ev.value == 1) {
