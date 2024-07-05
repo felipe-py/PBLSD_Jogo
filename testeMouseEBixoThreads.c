@@ -11,8 +11,6 @@
 volatile int x_real = 0;
 volatile int y_real = 0;
 
-volatile int stop = 0;
-
 volatile int x_sprite = 0;
 
 int fd_mouse;
@@ -22,11 +20,9 @@ pthread_mutex_t lock;
 
 void* movimenta_mouse(void* arg) {
     ssize_t n;
-    
+
     while(1){
         n = read(fd_mouse, &ev, sizeof(ev));
-        
-        if(stop) break;
             
         if (n == (ssize_t)-1) {
             fprintf(stderr, "Erro de leitura\n");
@@ -70,8 +66,6 @@ void* movimenta_bixo(void* arg) {
     int sentido = 1;
 
     while(1){
-        if(stop) break;
-
         //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
         usleep(10000);
 
@@ -139,8 +133,6 @@ int main() {
     }
     
     while(1){
-        if(stop) break;
-
         pthread_mutex_lock(&lock);
 
         //COLISÃO
@@ -150,13 +142,22 @@ int main() {
             y_real + 22 >= 224) {           //cima
             
             pthread_mutex_unlock(&lock);
-            
-            stop = 1;
+    
             printf("COLIDIU\n");
             break;
         }
 
         pthread_mutex_unlock(&lock);
+    }
+
+    if(pthread_cancel(thread_id) != 0){
+        perror("falhou cancel\n");
+        return 1;
+    }
+
+    if(pthread_cancel(thread_id2) != 0){
+        perror("falhou cancel\n");
+        return 1;
     }
 
     //AGUARDA A FINALIZAÇÃO DE DETERMINADA THREAD
