@@ -27,7 +27,7 @@ int main() {
     int verificar;
 
     int colisao_esq = 5;
-    int colisao_dir = 4;
+    int colisao_dir = 5;
 
     // Loop infinito para receber as coordenadas do mouse
     while (1) {
