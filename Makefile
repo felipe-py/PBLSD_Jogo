@@ -5,7 +5,7 @@ obj-m += driver_tp01_g02.o
 KDIR := /lib/modules/$(shell uname -r)/build
 
 # Diretório atual do projeto
-PWD := /home/aluno/TEC499/TP01/G02
+PWD := /home/aluno/G02
 
 # Regra padrão para compilar módulo kernel, inserí-lo no kernel dinamicamente e criar um nó de dispositivo de caractere (arquivo especial)
 all:
@@ -13,7 +13,7 @@ all:
 
 	insmod driver_tp01_g02.ko
 
-	mknod /dev/driver_tp01_g02 c 241 0
+	mknod /dev/driver_tp01_g02 c 248 0
 
 # Regra para limpar os arquivos gerados de compilação do módulo, remover módulo do kernel e seu nó de dispositivo de caractere (arquivo especial)
 clean:
@@ -25,7 +25,7 @@ clean:
 
 # Regra para compilar e executar programa de usuário
 run:
-	gcc main.c biblioteca_gpu.c -std=c99 -o programa
+	gcc testeMouseEBixoThreads.c biblioteca_gpu.c -std=c99 -o programa -pthread
 
 	./programa
 
