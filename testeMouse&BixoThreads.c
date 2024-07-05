@@ -25,6 +25,8 @@ void* movimenta_mouse(void* arg) {
     
     while(1){
         n = read(fd_mouse, &ev, sizeof(ev));
+        
+        if(stop) break;
             
         if (n == (ssize_t)-1) {
             fprintf(stderr, "Erro de leitura\n");
@@ -54,23 +56,9 @@ void* movimenta_mouse(void* arg) {
         if (y_real < 0) y_real = 0;
         if (y_real > 459) y_real = 459;
 
-        pthread_mutex_unlock(&lock);
+        //Mouse
+        set_sprite_wbr(1, x_real, y_real, 0, 1);
 
-        if (ev.type == EV_KEY && ev.code == BTN_LEFT) {
-            if (ev.value == 1) {
-                pthread_mutex_lock(&lock);
-                stop = 1;
-                pthread_mutex_unlock(&lock);
-
-                break;
-            } 
-        }
-
-        pthread_mutex_lock(&lock);
-        if(stop){
-            pthread_mutex_unlock(&lock);
-            break;
-        }
         pthread_mutex_unlock(&lock);
     }
     
@@ -82,6 +70,8 @@ void* movimenta_bixo(void* arg) {
     int sentido = 1;
 
     while(1){
+        if(stop) break;
+
         //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
         usleep(10000);
 
@@ -101,11 +91,9 @@ void* movimenta_bixo(void* arg) {
                 sentido = 1;
             }
         }
-
-        if(stop){
-            pthread_mutex_unlock(&lock);
-            break;
-        }
+        
+        //Bixo
+        set_sprite_wbr(1, x_sprite, 224, 1, 2);
 
         pthread_mutex_unlock(&lock);
     }
@@ -135,7 +123,7 @@ int main() {
     set_sprite_wbr(1, x_real, y_real, 0, 1);
 
     //Bixo correndo
-    set_sprite_wbr(1, x_sprite, 240, 0, 2);
+    set_sprite_wbr(1, x_sprite, 224, 0, 2);
 
     // Inicializa o mutex de sprite
     pthread_mutex_init(&lock, NULL);
@@ -151,24 +139,20 @@ int main() {
     }
     
     while(1){
+        if(stop) break;
+
         pthread_mutex_lock(&lock);
-        //Bixo
-        set_sprite_wbr(1, x_sprite, 240, 1, 2);
-        
-        //Mouse
-        set_sprite_wbr(1, x_real, y_real, 0, 1);
 
         //COLISÃO
         if (x_real <= x_sprite + 21 &&      //esquerda 
             x_real + 21 >= x_sprite &&      //direita
             y_real <= 224 + 22 &&           //baixo
             y_real + 22 >= 224) {           //cima
-
-            stop = 1;
+            
             pthread_mutex_unlock(&lock);
-
+            
+            stop = 1;
             printf("COLIDIU\n");
-
             break;
         }
 
