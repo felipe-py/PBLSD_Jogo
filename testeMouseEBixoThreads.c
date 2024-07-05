@@ -13,6 +13,8 @@ volatile int y_real = 0;
 
 volatile int x_sprite = 0;
 
+volatile int clicou = 0;
+
 int fd_mouse;
 struct input_event ev;
 
@@ -56,6 +58,14 @@ void* movimenta_mouse(void* arg) {
         set_sprite_wbr(1, x_real, y_real, 0, 1);
 
         pthread_mutex_unlock(&lock);
+        
+        if (ev.type == EV_KEY && ev.code == BTN_LEFT) {
+            if (ev.value == 1) {
+                pthread_mutex_lock(&lock);
+                clicou = 1;
+                pthread_mutex_unlock(&lock);
+            } 
+        }
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
@@ -146,7 +156,13 @@ int main() {
             printf("COLIDIU\n");
             break;
         }
+        pthread_mutex_unlock(&lock);
 
+        pthread_mutex_lock(&lock);
+        if(clicou){
+            pthread_mutex_unlock(&lock);
+            break;
+        }
         pthread_mutex_unlock(&lock);
     }
 
