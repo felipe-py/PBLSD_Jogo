@@ -23,6 +23,8 @@ pthread_mutex_t lock;
 void* movimenta_mouse(void* arg) {
     ssize_t n;
 
+    int verificar;
+
     while(1){
         n = read(fd_mouse, &ev, sizeof(ev));
             
