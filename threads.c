@@ -114,21 +114,17 @@ void* movimenta_mouse(void* arg) {
                 pthread_mutex_unlock(&lock);
                 
                 if (ev.type == EV_REL) {
+                    pthread_mutex_lock(&lock);
                     if (ev.code == REL_X) {
-                        pthread_mutex_lock(&lock);
-                        
                         verificar = x_ladrao + ev.value;
                             
                         if (verifica_colisao_parede(x_ladrao, y_ladrao, verificar, 'x')){}
 
                         else
                             x_ladrao += ev.value;
-
-                        pthread_mutex_unlock(&lock);
                     } 
                     
                     else if (ev.code == REL_Y) {
-                        pthread_mutex_lock(&lock);
 
                         verificar = y_ladrao + ev.value;
 
@@ -136,19 +132,18 @@ void* movimenta_mouse(void* arg) {
 
                         else
                             y_ladrao += ev.value;
-
-                        pthread_mutex_unlock(&lock);
                     }
                 }
 
-                pthread_mutex_lock(&lock);
                 //Limitar as coordenadas acumuladas
                 if (x_ladrao < 0) x_ladrao = 0;
                 if (x_ladrao > 619) x_ladrao = 619;
                 if (y_ladrao < 0) y_ladrao = 0;
                 if (y_ladrao > 459) y_ladrao = 459;
-                pthread_mutex_unlock(&lock);
             }
+            
+            //LADRAO
+            set_sprite_wbr(1, x_ladrao, y_ladrao, offset_ladrao, 15);
             pthread_mutex_unlock(&lock);
 
             //SE NÃO TIVER MAIS HABILIDADES, NÃO PRECISA VERIFICAR AÇÃO DE FURTIVIDADE
@@ -181,11 +176,6 @@ void* movimenta_mouse(void* arg) {
                     }
                 }
             }
-            pthread_mutex_unlock(&lock);
-
-            pthread_mutex_lock(&lock);
-            //LADRAO
-            set_sprite_wbr(1, x_ladrao, y_ladrao, offset_ladrao, 15);
             pthread_mutex_unlock(&lock);
         }
 
