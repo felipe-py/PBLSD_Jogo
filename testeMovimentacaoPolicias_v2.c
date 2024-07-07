@@ -630,11 +630,11 @@ int main() {
     set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
 
     //POLICIA 1
-    set_sprite_wbr(1, INICIO_POLICIAL_1_X, FIM_POLICIAL_1_Y, 30, 5);
+    set_sprite_wbr(1, INICIO_POLICIAL_1_X, INICIO_POLICIAL_1_Y, 30, 5);
     //POLICIA 2
     set_sprite_wbr(1, INICIO_POLICIAL_2_X, INICIO_FIM_POLICIAL_2_Y, 30, 6);
     //POLICIA 3
-    set_sprite_wbr(1, INICIO_POLICIAL_3_X, FIM_POLICIAL_3_Y, 30, 7);
+    set_sprite_wbr(1, INICIO_POLICIAL_3_X, INICIO_POLICIAL_3_Y, 30, 7);
     //POLICIA 4
     set_sprite_wbr(1, INICIO_POLICIAL_4_X, INICIO_FIM_POLICIAL_4_Y, 30, 8);
     //POLICIA 5
@@ -642,13 +642,13 @@ int main() {
     //POLICIA 6
     set_sprite_wbr(1, INICIO_POLICIAL_6_X, INICIO_FIM_POLICIAL_6_Y, 30, 10);
     //POLICIA 7
-    set_sprite_wbr(1, INICIO_POLICIAL_7_X, FIM_POLICIAL_7_Y, 30, 11);
+    set_sprite_wbr(1, INICIO_POLICIAL_7_X, INICIO_POLICIAL_7_Y, 30, 11);
     //POLICIA 8
     set_sprite_wbr(1, INICIO_POLICIAL_8_X, INICIO_FIM_POLICIAL_8_Y, 30, 12);
     //POLICIA 9
-    set_sprite_wbr(1, INICIO_POLICIAL_9_X, FIM_POLICIAL_9_Y, 30, 13);
+    set_sprite_wbr(1, INICIO_POLICIAL_9_X, INICIO_POLICIAL_9_Y, 30, 13);
     //POLICIA 10
-    set_sprite_wbr(1, INICIO_POLICIAL_10_X, FIM_POLICIAL_10_Y, 30, 14);
+    set_sprite_wbr(1, INICIO_POLICIAL_10_X, INICIO_POLICIAL_10_Y, 30, 14);
 
     //Inicializa o mutex de LOCK
     pthread_mutex_init(&lock, NULL);
