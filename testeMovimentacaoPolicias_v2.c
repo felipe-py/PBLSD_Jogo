@@ -1,4 +1,5 @@
 #include "biblioteca_gpu.h"
+#include "carrega_telas_sprites.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -117,10 +118,9 @@ void* movimenta_mouse(void* arg) {
             break;
         }
 
-        pthread_mutex_lock(&lock);
-
         if (ev.type == EV_REL) {
             if (ev.code == REL_X) {
+                pthread_mutex_lock(&lock);
                 verificar = x_ladrao + ev.value;
                     
                 if(
@@ -183,9 +183,12 @@ void* movimenta_mouse(void* arg) {
 
                 else
                     x_ladrao += ev.value;
+                
+                pthread_mutex_unlock(&lock);
             } 
             
             else if (ev.code == REL_Y) {
+                pthread_mutex_lock(&lock);
                 verificar = y_ladrao + ev.value;
 
                 if(
@@ -258,9 +261,11 @@ void* movimenta_mouse(void* arg) {
 
                 else
                     y_ladrao += ev.value;
+                pthread_mutex_unlock(&lock);
             }
         }
         
+        pthread_mutex_lock(&lock);
         //Limitar as coordenadas acumuladas
         if (x_ladrao < 0) x_ladrao = 0;
         if (x_ladrao > 619) x_ladrao = 619;
@@ -269,7 +274,6 @@ void* movimenta_mouse(void* arg) {
 
         //LADRAO
         set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
-
         pthread_mutex_unlock(&lock);
         
         if (ev.type == EV_KEY && ev.code == BTN_LEFT) {
@@ -619,36 +623,20 @@ int main() {
         return -1;
     }
 
+    //Carrega sprites do jogo na GPU
+    if (carrega_sprites() == -1){
+        return -1;
+    }
+
+    tela_padrao();
+    posicao_inicial_ladrao_policia();
+
     // Abrir o dispositivo do mouse
     fd_mouse = open(MOUSE_DEVICE, O_RDONLY);
     if (fd_mouse == -1) {
         fprintf(stderr, "Erro ao abrir o mouse\n");
         return 1;
     }
-
-    //LADRAO
-    set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
-
-    //POLICIA 1
-    set_sprite_wbr(1, INICIO_POLICIAL_1_X, INICIO_POLICIAL_1_Y, 30, 5);
-    //POLICIA 2
-    set_sprite_wbr(1, INICIO_POLICIAL_2_X, INICIO_FIM_POLICIAL_2_Y, 30, 6);
-    //POLICIA 3
-    set_sprite_wbr(1, INICIO_POLICIAL_3_X, INICIO_POLICIAL_3_Y, 30, 7);
-    //POLICIA 4
-    set_sprite_wbr(1, INICIO_POLICIAL_4_X, INICIO_FIM_POLICIAL_4_Y, 30, 8);
-    //POLICIA 5
-    set_sprite_wbr(1, INICIO_POLICIAL_5_X, INICIO_FIM_POLICIAL_5_Y, 30, 9);
-    //POLICIA 6
-    set_sprite_wbr(1, INICIO_POLICIAL_6_X, INICIO_FIM_POLICIAL_6_Y, 30, 10);
-    //POLICIA 7
-    set_sprite_wbr(1, INICIO_POLICIAL_7_X, INICIO_POLICIAL_7_Y, 30, 11);
-    //POLICIA 8
-    set_sprite_wbr(1, INICIO_POLICIAL_8_X, INICIO_FIM_POLICIAL_8_Y, 30, 12);
-    //POLICIA 9
-    set_sprite_wbr(1, INICIO_POLICIAL_9_X, INICIO_POLICIAL_9_Y, 30, 13);
-    //POLICIA 10
-    set_sprite_wbr(1, INICIO_POLICIAL_10_X, INICIO_POLICIAL_10_Y, 30, 14);
 
     //Inicializa o mutex de LOCK
     pthread_mutex_init(&lock, NULL);
@@ -886,6 +874,8 @@ int main() {
     }
 
     pthread_mutex_destroy(&lock);
+
+    limpar_tela(1);
 
     // Fechar os dispositivos
     close(fd_mouse);
