@@ -172,7 +172,9 @@ void* movimenta_mouse(void* arg) {
 
                             offset_ladrao = 25;
                         }
-                        pthread_mutex_unlock(&lock);
+
+                        else
+                            pthread_mutex_unlock(&lock);
                     }
                 }
             }

@@ -95,13 +95,17 @@ int main() {
 
                 //SE JOGO NÃO ESTÁ PAUSADO
                 if (pause == 0) {
+                    pthread_mutex_unlock(&lock);
                     
                     //Sprite Pause
                     set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
 
+                    pthread_mutex_lock(&lock);
                     //SE NÃO ESTIVER NO MODO FURTIVO, VERIFICA COLISÕES
                     if(furtivo == 0) {
+                        pthread_mutex_unlock(&lock);
 
+                        pthread_mutex_lock(&lock);
                         //VERIFICA SE LADRAO TEM 2 TROFEIS E SAIU PELA PORTA
                         if ((trofeu_dir == 1 && trofeu_esq == 1) && x_ladrao == PORTA_X && y_ladrao == PORTA_Y) {
                                 pthread_mutex_unlock(&lock);
@@ -231,12 +235,14 @@ int main() {
                     pthread_mutex_unlock(&lock);
                 }
 
+                pthread_mutex_unlock(&lock);
+
                 //SE JOGO ESTÁ PAUSADO
-                else{
+                else
                     //Sprite Pause
                     set_sprite_wbr(1, PAUSE_X, PAUSE_Y, 27, 4);
-                }
 
+                pthread_mutex_lock(&lock);     
                 //VERIFICA SE JOGADOR QUER REINICIAR OU SAIR DO JOGO (SEMPRE)
                 if (start || sair){
                     pthread_mutex_unlock(&lock);
@@ -263,9 +269,9 @@ int main() {
             if (won || lost) {
                 limpar_tela(0);
 
-                if (won) tela_win;
+                if (won) tela_win();
 
-                else if (lost) tela_lose;
+                else if (lost) tela_lose();
 
                 //ESPERA JOGADOR ESCOLHER ENTRE JOGAR DE NOVO OU SAIR
                 while (1) {
@@ -280,10 +286,14 @@ int main() {
                     pthread_mutex_unlock(&lock);
                 }
 
+                pthread_mutex_lock(&lock);
                 if(start) {
+                    pthread_mutex_unlock(&lock);
+
                     limpar_tela(0);
                     tela_padrao();
                 }
+                pthread_mutex_unlock(&lock);
             }
 
             //CLICOU EM SAIR

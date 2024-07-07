@@ -119,8 +119,9 @@ void* movimenta_mouse(void* arg) {
         }
 
         if (ev.type == EV_REL) {
+            pthread_mutex_lock(&lock);
+
             if (ev.code == REL_X) {
-                pthread_mutex_lock(&lock);
                 verificar = x_ladrao + ev.value;
                     
                 if(
@@ -183,12 +184,9 @@ void* movimenta_mouse(void* arg) {
 
                 else
                     x_ladrao += ev.value;
-                
-                pthread_mutex_unlock(&lock);
             } 
             
             else if (ev.code == REL_Y) {
-                pthread_mutex_lock(&lock);
                 verificar = y_ladrao + ev.value;
 
                 if(
@@ -261,11 +259,9 @@ void* movimenta_mouse(void* arg) {
 
                 else
                     y_ladrao += ev.value;
-                pthread_mutex_unlock(&lock);
             }
         }
         
-        pthread_mutex_lock(&lock);
         //Limitar as coordenadas acumuladas
         if (x_ladrao < 0) x_ladrao = 0;
         if (x_ladrao > 619) x_ladrao = 619;
