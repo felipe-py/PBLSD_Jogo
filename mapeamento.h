@@ -19,7 +19,7 @@ int encerra_map();
 
 void inicia_display();
 
-void att_placar(int pont_quadrado, int pont_triangulo);
+void att_display(int vidas, int habilidades);
 
 int verifica_botao();
 

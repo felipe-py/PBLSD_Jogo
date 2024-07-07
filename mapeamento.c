@@ -6,7 +6,7 @@
 //0, 1, 2, 3, -
 int numeros[11] = {64, 121, 36, 48, 63};
 
-//Ponteiro de endereço virtual para os digitos do display de 7seg e botões
+//Ponteiro de endereço virtual para os digitos do display de 7seg
 volatile int *HEX5_ptr;
 volatile int *HEX4_ptr;
 volatile int *HEX3_ptr;
@@ -14,10 +14,14 @@ volatile int *HEX2_ptr;
 volatile int *HEX1_ptr;
 volatile int *HEX0_ptr;
 
+//Ponteiro de endereço virtual para os botões
 volatile int *KEYS_BASE_ptr;
 
-int fd = -1; //Usado para abrir /dev/mem
-void *LW_virtual; //Endereços físicos para a ponte (light-weight bridge)
+//Usado para abrir /dev/mem
+int fd = -1;
+
+//Endereços físicos para a ponte (light-weight bridge)
+void *LW_virtual;
 
 int inicia_map(){
     // Abrir /dev/mem para dar acesso a endereços físicos
