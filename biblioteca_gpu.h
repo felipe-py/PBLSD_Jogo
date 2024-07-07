@@ -51,7 +51,7 @@ set_triangulo_dp(int azul, int verde, int vermelho, int tamanho, int ref_x, int 
 
 /* Função remover estruturas formadas na tela */
 int 
-limpar_tela();
+limpar_tela(int remove_fundo);
 
 /* Função para transformar inteiro em char ( buffer_user = data_b + data_a ) e enviar buffer para o driver */
 int 

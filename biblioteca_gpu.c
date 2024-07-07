@@ -369,14 +369,17 @@ set_triangulo_dp(int azul, int verde, int vermelho, int tamanho, int ref_x, int 
 }
 
 /**Função remover estruturas formadas na tela
+ * parâmetros ->    remove_fundo: flag para escolher entre remover cor do background ou não (1 ou 0)
  * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
  */
 int 
-limpar_tela() {
+limpar_tela(int remove_fundo) {
     size_t i;
 
-    /* Remove cor do background */
-    set_cor_background_wbr(0, 0, 0);
+    if (remove_fundo) {
+        /* Remove cor do background */
+        set_cor_background_wbr(0, 0, 0);
+    }
 
     /* Remove apenas blocos editados do background */
     for (i = 0; i <= qtd_blocos_editados; ++i) {
