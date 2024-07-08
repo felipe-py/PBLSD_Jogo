@@ -83,20 +83,19 @@ int main() {
 
             pthread_mutex_lock(&lock);
             habilidades = 3;
-            pthread_mutex_unlock(&lock);
-
             att_display(vidas, habilidades);
+            pthread_mutex_unlock(&lock);
 
             //LOOP DO JOGO
             while (1) {
-                pthread_mutex_lock(&lock);
 
+                pthread_mutex_lock(&lock);
                 //SE JOGO NÃO ESTÁ PAUSADO
                 if (pause == 0) {
-                    pthread_mutex_unlock(&lock);
                     
                     //Sprite Pause
                     set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
+                    pthread_mutex_unlock(&lock);
 
                     pthread_mutex_lock(&lock);
                     //SE NÃO ESTIVER NO MODO FURTIVO, VERIFICA COLISÕES
@@ -117,10 +116,10 @@ int main() {
                         if (trofeu_esq == 0 && x_ladrao < 72 && y_ladrao < 64) {
                             //Colisão com troféu esquerdo
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, TROFEU_ESQ_X, TROFEU_ESQ_Y)) {
-                                pthread_mutex_unlock(&lock);
 
                                 //DESABILITA TROFÉU ESQUERDO
                                 set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
+                                pthread_mutex_unlock(&lock);
 
                                 trofeu_esq = 1;
                             }
@@ -130,10 +129,10 @@ int main() {
                         else if (trofeu_dir == 0 && (x_ladrao > 72 && x_ladrao < 160) && y_ladrao < 152) {
                             //Colisão com troféu direito
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, TROFEU_DIR_X, TROFEU_DIR_Y)) {
-                                pthread_mutex_unlock(&lock);
 
                                 //DESABILITA TROFÉU DIREITO
                                 set_sprite_wbr(0, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
+                                pthread_mutex_unlock(&lock);
 
                                 trofeu_dir = 1;
                             }
@@ -204,7 +203,8 @@ int main() {
                             }
                         }
 
-                        pthread_mutex_unlock(&lock);
+                        else 
+                            pthread_mutex_unlock(&lock);
 
                         //SE BATEU EM ALGUM POLICIAL
                         if (colidiu) {
@@ -226,8 +226,10 @@ int main() {
                             pthread_mutex_unlock(&lock);
                         }
 
+                        pthread_mutex_lock(&lock);
                         //Atualiza display a cada iteração
                         att_display(vidas, habilidades);
+                        pthread_mutex_unlock(&lock);
                     }
 
                     pthread_mutex_unlock(&lock);
@@ -236,9 +238,12 @@ int main() {
                 pthread_mutex_unlock(&lock);
 
                 //SE JOGO ESTÁ PAUSADO
-                else
+                else{
+                    pthread_mutex_lock(&lock);
                     //Sprite Pause
                     set_sprite_wbr(1, PAUSE_X, PAUSE_Y, 27, 4);
+                    pthread_mutex_unlock(&lock);
+                }
 
                 pthread_mutex_lock(&lock);     
                 //VERIFICA SE JOGADOR QUER REINICIAR OU SAIR DO JOGO (SEMPRE)
@@ -264,6 +269,8 @@ int main() {
 
             //fecha comunicação com o mouse
             close(fd_mouse);
+
+            att_display(vidas, habilidades);
 
             if (win || lost) {
                 limpar_tela(0);
