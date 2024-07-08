@@ -56,11 +56,11 @@ int main() {
     //Se pressionou jogar
     if (start) {
         start = 0;
-        pthread_mutex_unlock(&lock);
 
         limpar_tela(0);
 
         tela_padrao();
+        pthread_mutex_unlock(&lock);
 
         //JOGAR NOVAMENTE
         while (1) {
