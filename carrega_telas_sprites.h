@@ -13,6 +13,4 @@ int tela_bye();
 
 int tela_padrao();
 
-int posicao_inicial_ladrao_policia();
-
 #endif

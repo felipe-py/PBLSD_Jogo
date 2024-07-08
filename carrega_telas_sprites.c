@@ -613,30 +613,30 @@ int tela_win() {
         edit_bloco_background_wbm(65, y, 0, 0, 0);
     }
 
-//YOU WON
+//YOU WIN
     for (y = 17; y <= 24; ++y) {
-        for (x = 21; x <= 60; ++x) {
+        for (x = 21; x <= 59; ++x) {
             if (
                 (y == 17 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
-                    (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 53) || (x >= 55 && x <= 56) || (x >= 59 && x <= 60))) ||
+                    (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 52) || (x >= 54 && x <= 55) || (x >= 58 && x <= 59))) ||
 
                 (y == 18 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
-                    (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 57) || (x >= 59 && x <= 60))) ||
+                    (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 50 && x <= 51) || (x >= 54 && x <= 56) || (x >= 58 && x <= 59))) ||
 
-                (y == 19 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
-                    (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 60))) ||
+               (y == 19 && ((x >= 21 && x <= 22) || (x >= 24 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
+                    (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 50 && x <= 51) || (x >= 54 && x <= 59))) ||
 
                 (y == 20 && ((x >= 22 && x <= 25) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || 
-                    (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 56) || (x >= 58 && x <= 60))) ||
+                    (x >= 41 && x <= 42) || (x >= 46 && x <= 47) || (x >= 50 && x <= 51) || (x >= 54 && x <= 55) || (x >= 57 && x <= 59))) ||
 
                 ((y == 21 || y == 22) && ((x >= 23 && x <= 24) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || (x >= 41 && x <= 42) || 
-                    x == 44 || (x >= 46 && x <= 47) || (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 56) || (x >= 59 && x <= 60))) ||
+                    x == 44 || (x >= 46 && x <= 47) || (x >= 50 && x <= 51) || (x >= 54 && x <= 55) || (x >= 58 && x <= 59))) ||
 
                 (y == 23 && ((x >= 23 && x <= 24) || (x >= 27 && x <= 28) || (x >= 30 && x <= 31) || (x >= 33 && x <= 34) || (x >= 36 && x <= 37) || (x >= 42 && x <= 46) || 
-                    (x >= 49 && x <= 50) || (x >= 52 && x <= 53) || (x >= 55 && x <= 56) || (x >= 59 && x <= 60))) ||
+                    (x >= 50 && x <= 51) || (x >= 54 && x <= 55) || (x >= 58 && x <= 59))) ||
 
-                (y == 24 && ((x >= 23 && x <= 24) || (x >= 27 && x <= 31) || (x >= 33 && x <= 37) || x == 43 || x == 45 || (x >= 49 && x <= 53) || (x >= 55 && x <= 56 ) || 
-                    (x >= 59 && x <= 60)))
+                (y == 24 && ((x >= 23 && x <= 24) || (x >= 27 && x <= 31) || (x >= 33 && x <= 37) || x == 43 || x == 45 || (x >= 49 && x <= 52) || (x >= 54 && x <= 55) || 
+                    (x >= 58 && x <= 59)))
             ) {
                 edit_bloco_background_wbm(x, y, 0, 0, 0);
             }
@@ -951,50 +951,11 @@ int tela_padrao() {
     //Sprite Porta
     set_sprite_wbr(1, PORTA_X, PORTA_Y, 31, 1);
 
-
     //Sprite troféu esquerdo
     set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
 
     //Sprite troféu direito
     set_sprite_wbr(1, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
-
-    return 0;
-}
-
-int posicao_inicial_ladrao_policia(){
-    //Sprite policial 1
-    set_sprite_wbr(1, INICIO_POLICIAL_1_X, INICIO_POLICIAL_1_Y, 30, 5);
-
-    //Sprite policial 2
-    set_sprite_wbr(1, INICIO_POLICIAL_2_X, INICIO_FIM_POLICIAL_2_Y, 30, 6);
-
-    //Sprite policial 3
-    set_sprite_wbr(1, INICIO_POLICIAL_3_X, INICIO_POLICIAL_3_Y, 30, 7);
-
-    //Sprite policial 4
-    set_sprite_wbr(1, INICIO_POLICIAL_4_X, INICIO_FIM_POLICIAL_4_Y, 30, 8);
-
-    //Sprite policial 5
-    set_sprite_wbr(1, INICIO_POLICIAL_5_X, INICIO_FIM_POLICIAL_5_Y, 30, 9);
-
-    //Sprite policial 6
-    set_sprite_wbr(1, INICIO_POLICIAL_6_X, INICIO_FIM_POLICIAL_6_Y, 30, 10);
-
-    //Sprite policial 7
-    set_sprite_wbr(1, INICIO_POLICIAL_7_X, INICIO_POLICIAL_7_Y, 30, 11);
-
-    //Sprite policial 8
-    set_sprite_wbr(1, INICIO_POLICIAL_8_X, INICIO_FIM_POLICIAL_8_Y, 30, 12);
-
-    //Sprite policial 9
-    set_sprite_wbr(1, INICIO_POLICIAL_9_X, INICIO_POLICIAL_9_Y, 30, 13);
-
-    //Sprite policial 10
-    set_sprite_wbr(1, INICIO_POLICIAL_10_X, INICIO_POLICIAL_10_Y, 30, 14);
-
-
-    //Sprite Ladrão
-    set_sprite_wbr(1, INICIO_LADRAO_X, INICIO_LADRAO_Y, 25, 15);
 
     return 0;
 }
