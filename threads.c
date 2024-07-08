@@ -610,28 +610,78 @@ void* movimenta_policiais_1(void* arg) {
 
 void* botao(void* arg) {
     int botao_clicou;
+
+    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE INICAR PARTIDA/REINICIAR JOGO
+    int clicou_start = 0;
+
+    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE PAUSAR JOGO
+    int clicou_pause = 0;
+
+    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE DESPAUSAR JOGO
+    int clicou_despause = 0;
     
     while(1){
         botao_clicou = verifica_botao();
 
+        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 1
+        if(clicou_start == 1 && botao_clicou != 13){
+            clicou_start == 0;
+        }
+
+        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 3
+        if(clicou_pause == 1 && botao_clicou != 7){
+            clicou_pause == 0;
+        }
+
+        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 2
+        if(clicou_despause == 1 && botao_clicou != 11){
+            clicou_despause == 0;
+        }
+
+        //BOTAO 3 - PAUSE
         if(botao_clicou == 7){
+            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 0 (JOGO NÃO ESTÁ PAUSADO)
             pthread_mutex_lock(&lock);
-            pause = 1;
-            pthread_mutex_unlock(&lock);
+            if(clicou_pause == 0 && pause == 0){
+                clicou_pause == 1;
+
+                pause = 1;
+                pthread_mutex_unlock(&lock);
+            }
+
+            else
+                pthread_mutex_unlock(&lock);
         }
 
+        //BOTAO 2 - DESPAUSE
         else if(botao_clicou == 11){
+            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 1 (JOGO ESTÁ PAUSADO)
             pthread_mutex_lock(&lock);
-            pause = 0;
-            pthread_mutex_unlock(&lock);
+            if(clicou_despause == 0 && pause == 1){
+                clicou_despause == 1;
+
+                pause = 0;
+                pthread_mutex_unlock(&lock);
+            }
+
+            else
+                pthread_mutex_unlock(&lock);
         }
 
+        //BOTAO 1 - INICIAR JOGO OU JOGAR NOVAMENTE
         else if(botao_clicou == 13){
-            pthread_mutex_lock(&lock);
-            start = 1;
-            pthread_mutex_unlock(&lock);
+
+            //SO ALTERA VARIÁVEL START UMA VEZ
+            if(clicou_start == 0){
+                clicou_start == 1;
+
+                pthread_mutex_lock(&lock);
+                start = 1;
+                pthread_mutex_unlock(&lock);
+            }
         }
 
+        //BOTAO 0 - SAIR
         else if(botao_clicou == 14){
             pthread_mutex_lock(&lock);
             sair = 1;
