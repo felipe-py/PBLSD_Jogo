@@ -91,6 +91,13 @@ void* movimenta_mouse(void* arg) {
 
     int verificar, offset_ladrao = 25;
 
+    pthread_mutex_lock(&lock);
+    x_ladrao = INICIO_LADRAO_X;
+    y_ladrao = INICIO_LADRAO_Y;
+
+    set_sprite_wbr(1, x_ladrao, y_ladrao, offset_ladrao, 15);
+    pthread_mutex_unlock(&lock);
+
     while(1){
         pthread_mutex_lock(&lock);
         if (pause == 0){
@@ -189,6 +196,27 @@ void* movimenta_mouse(void* arg) {
 }
 
 void* movimenta_policiais_2_3_6_8(void* arg) {
+    pthread_mutex_lock(&lock);
+    policia_2_x = INICIO_POLICIAL_2_X;
+    policia_3_x = INICIO_POLICIAL_3_X;
+    policia_6_x = INICIO_POLICIAL_6_X;
+    policia_8_x = INICIO_POLICIAL_8_X;
+
+    policia_2_y = INICIO_FIM_POLICIAL_2_Y;
+    policia_3_y = INICIO_POLICIAL_3_Y;
+    policia_6_y = INICIO_FIM_POLICIAL_6_Y;
+    policia_8_y = INICIO_FIM_POLICIAL_8_Y;
+
+    //POLICIA 2
+    set_sprite_wbr(1, policia_2_x, policia_2_y, 30, 6);
+    //POLICIA 3
+    set_sprite_wbr(1, policia_3_x, policia_3_y, 30, 7);
+    //POLICIA 6
+    set_sprite_wbr(1, policia_6_x, policia_6_y, 30, 10);
+    //POLICIA 8
+    set_sprite_wbr(1, policia_8_x, policia_8_y, 30, 12);
+    pthread_mutex_unlock(&lock);
+
     int sentido_policial_2 = SENTIDO_PARA_ESQUERDA;
     int sentido_policial_3 = SENTIDO_PARA_DIREITA;
     int sentido_policial_6 = SENTIDO_PARA_ESQUERDA;
@@ -300,6 +328,23 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
 }
 
 void* movimenta_policiais_4_5_7(void* arg) {
+    pthread_mutex_lock(&lock);
+    policia_4_x = INICIO_POLICIAL_4_X;
+    policia_5_x = INICIO_POLICIAL_5_X;
+    policia_7_x = INICIO_POLICIAL_7_X;
+
+    policia_4_y = INICIO_FIM_POLICIAL_4_Y;
+    policia_5_y = INICIO_FIM_POLICIAL_5_Y;
+    policia_7_y = INICIO_POLICIAL_7_Y;
+    
+    //POLICIA 4
+    set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
+    //POLICIA 5
+    set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
+    //POLICIA 7
+    set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
+    pthread_mutex_unlock(&lock);
+
     int sentido_policial_4 = SENTIDO_PARA_ESQUERDA;
     int sentido_policial_5 = SENTIDO_PARA_DIREITA;
     int sentido_policial_7 = SENTIDO_PARA_CIMA;
@@ -393,6 +438,19 @@ void* movimenta_policiais_4_5_7(void* arg) {
 }
 
 void* movimenta_policiais_9_10(void* arg) {
+    pthread_mutex_lock(&lock);
+    policia_9_x = INICIO_POLICIAL_9_X;
+    policia_10_x = INICIO_POLICIAL_10_X;
+
+    policia_9_y = INICIO_POLICIAL_9_Y;
+    policia_10_y = INICIO_POLICIAL_10_Y;
+
+    //POLICIA 9
+    set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
+    //POLICIA 10
+    set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
+    pthread_mutex_unlock(&lock);
+
     int sentido_policial_9 = SENTIDO_PARA_DIREITA;
     int sentido_policial_10 = SENTIDO_PARA_ESQUERDA;
 
@@ -486,6 +544,14 @@ void* movimenta_policiais_9_10(void* arg) {
 }
 
 void* movimenta_policiais_1(void* arg) {
+    pthread_mutex_lock(&lock);
+    policia_1_x = INICIO_POLICIAL_1_X;
+    policia_1_y = INICIO_POLICIAL_1_Y;
+
+    //POLICIA 1
+    set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
+    pthread_mutex_unlock(&lock);
+    
     int sentido_policial_1 = SENTIDO_PARA_DIREITA;
 
     while(1){

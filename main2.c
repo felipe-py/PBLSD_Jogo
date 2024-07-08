@@ -71,17 +71,15 @@ int main() {
                 return 1;
             }
 
-            posicao_inicial_ladrao_policia();
-
             if(cria_threads_jogo()) {
                 perror("pthread_create");
                 return 1;
             }
 
             int vidas = 3,
-            trofeu_dir = 0, trofeu_esq = 0,
-            colidiu = 0, 
-            won = 0, lost = 0;
+            trofeu_dir = 0, trofeu_esq = 0, 
+            win = 0, lost = 0,
+            colidiu = 0;
 
             pthread_mutex_lock(&lock);
             habilidades = 3;
@@ -106,12 +104,12 @@ int main() {
                         pthread_mutex_unlock(&lock);
 
                         pthread_mutex_lock(&lock);
-                        //VERIFICA SE LADRAO TEM 2 TROFEIS E SAIU PELA PORTA
+                        //VERIFICA SE LADRAO TEM 2 TROFEUS E SAIU PELA PORTA
                         if ((trofeu_dir == 1 && trofeu_esq == 1) && x_ladrao == PORTA_X && y_ladrao == PORTA_Y) {
                                 pthread_mutex_unlock(&lock);
 
                                 //GANHOU
-                                won = 1;
+                                win = 1;
                                 break;
                         }
 
@@ -251,7 +249,8 @@ int main() {
                 }
 
                 pthread_mutex_unlock(&lock);
-            }
+
+            } //LOOP DO JOGO
 
             if(cancela_threads_jogo()){
                 perror("falhou cancel\n");
@@ -266,10 +265,10 @@ int main() {
             //fecha comunicação com o mouse
             close(fd_mouse);
 
-            if (won || lost) {
+            if (win || lost) {
                 limpar_tela(0);
 
-                if (won) tela_win();
+                if (win) tela_win();
 
                 else if (lost) tela_lose();
 
@@ -300,7 +299,12 @@ int main() {
             pthread_mutex_lock(&lock);
             if (sair) break;
             pthread_mutex_unlock(&lock);
-        }
+
+            pthread_mutex_lock(&lock);
+            start = 0;
+            pthread_mutex_unlock(&lock);
+
+        } //LOOP JOGAR NOVAMENTE
     }
 
     pthread_mutex_unlock(&lock);

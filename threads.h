@@ -24,30 +24,30 @@ pthread_mutex_t lock;
 
 pthread_t thread_mouse, thread_policais_1, thread_policiais_2_3_6_8, thread_policiais_4_5_7, thread_policias_9_10;
 
-volatile int x_ladrao = INICIO_LADRAO_X;
-volatile int y_ladrao = INICIO_LADRAO_Y;
+volatile int x_ladrao;
+volatile int y_ladrao;
 
-volatile int policia_1_x = INICIO_POLICIAL_1_X;
-volatile int policia_2_x = INICIO_POLICIAL_2_X;
-volatile int policia_3_x = INICIO_POLICIAL_3_X;
-volatile int policia_4_x = INICIO_POLICIAL_4_X;
-volatile int policia_5_x = INICIO_POLICIAL_5_X;
-volatile int policia_6_x = INICIO_POLICIAL_6_X;
-volatile int policia_7_x = INICIO_POLICIAL_7_X;
-volatile int policia_8_x = INICIO_POLICIAL_8_X;
-volatile int policia_9_x = INICIO_POLICIAL_9_X;
-volatile int policia_10_x = INICIO_POLICIAL_10_X;
+volatile int policia_1_x;
+volatile int policia_2_x;
+volatile int policia_3_x;
+volatile int policia_4_x;
+volatile int policia_5_x;
+volatile int policia_6_x;
+volatile int policia_7_x;
+volatile int policia_8_x;
+volatile int policia_9_x;
+volatile int policia_10_x;
 
-volatile int policia_1_y = INICIO_POLICIAL_1_Y;
-volatile int policia_2_y = INICIO_FIM_POLICIAL_2_Y;
-volatile int policia_3_y = INICIO_POLICIAL_3_Y;
-volatile int policia_4_y = INICIO_FIM_POLICIAL_4_Y;
-volatile int policia_5_y = INICIO_FIM_POLICIAL_5_Y;
-volatile int policia_6_y = INICIO_FIM_POLICIAL_6_Y;
-volatile int policia_7_y = INICIO_POLICIAL_7_Y;
-volatile int policia_8_y = INICIO_FIM_POLICIAL_8_Y;
-volatile int policia_9_y = INICIO_POLICIAL_9_Y;
-volatile int policia_10_y = INICIO_POLICIAL_10_Y;
+volatile int policia_1_y;
+volatile int policia_2_y;
+volatile int policia_3_y;
+volatile int policia_4_y;
+volatile int policia_5_y;
+volatile int policia_6_y;
+volatile int policia_7_y;
+volatile int policia_8_y;
+volatile int policia_9_y;
+volatile int policia_10_y;
 
 volatile int pause = 0;
 volatile int start = 0;
