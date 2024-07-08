@@ -234,7 +234,6 @@ int main() {
 
                     pthread_mutex_unlock(&lock);
                 }
-
                 pthread_mutex_unlock(&lock);
 
                 //SE JOGO ESTÁ PAUSADO
@@ -316,14 +315,6 @@ int main() {
 
     pthread_mutex_unlock(&lock);
 
-    limpar_tela(0);
-
-    tela_bye();
-
-    sleep(5);
-
-    limpar_tela(1);
-
     //Cancela thread do botão
     if(pthread_cancel(thread_botao) != 0){
         perror("falhou cancel\n");
@@ -343,6 +334,14 @@ int main() {
     if(encerra_map() == -1){
         return -1;
     }
+
+    limpar_tela(0);
+
+    tela_bye();
+
+    sleep(5);
+
+    limpar_tela(1);
 
     //Fecha arquivo de comunicação com o driver
     close_driver();
