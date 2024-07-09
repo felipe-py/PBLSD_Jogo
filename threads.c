@@ -37,7 +37,7 @@ volatile int policia_5_y;
 volatile int policia_6_y;
 volatile int policia_7_y;
 volatile int policia_8_y;
-volatile int policia_9_y;
+volatile int policia_9_y;   
 volatile int policia_10_y;
 
 volatile int pausar = 0;
@@ -46,6 +46,8 @@ volatile int sair = 0;
 volatile int furtivo = 0;
 
 volatile int habilidades = 0;
+
+volatile int cancela = 0;
 
 int cria_threads_jogo(){
     //CRIA AS THREADS DO JOGO
@@ -622,7 +624,7 @@ void* botao(void* arg) {
     //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE DESPAUSAR JOGO
     int clicou_sair = 0;
     
-    while(1){
+    while(cancela == 0){
         botao_clicou = verifica_botao();
 
         //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 1
