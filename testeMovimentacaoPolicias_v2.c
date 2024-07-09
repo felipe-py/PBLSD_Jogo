@@ -268,9 +268,10 @@ void* movimenta_mouse(void* arg) {
         if (y_ladrao < 0) y_ladrao = 0;
         if (y_ladrao > 459) y_ladrao = 459;
 
+        pthread_mutex_unlock(&lock);
+
         //LADRAO
         set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
-        pthread_mutex_unlock(&lock);
         
         if (ev.type == EV_KEY && ev.code == BTN_LEFT) {
             if (ev.value == 1) {
@@ -371,6 +372,8 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
                 }
             }
         
+        pthread_mutex_unlock(&lock);
+        
         //atualizando posições
 
         //POLICIA 2
@@ -382,7 +385,7 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
         //POLICIA 8
         set_sprite_wbr(1, policia_8_x, policia_8_y, 30, 12);
 
-        pthread_mutex_unlock(&lock);
+        //pthread_mutex_unlock(&lock);
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
@@ -458,6 +461,8 @@ void* movimenta_policiais_4_5_7(void* arg) {
                     sentido_policial_7 = SENTIDO_PARA_CIMA;
                 }
             }
+
+                pthread_mutex_unlock(&lock);
         
         //atualizando posições
 
@@ -468,7 +473,7 @@ void* movimenta_policiais_4_5_7(void* arg) {
         //POLICIA 7
         set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
 
-        pthread_mutex_unlock(&lock);
+        //pthread_mutex_unlock(&lock);
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
@@ -546,6 +551,8 @@ void* movimenta_policiais_9_10(void* arg) {
                     sentido_policial_10 = SENTIDO_PARA_ESQUERDA;
                 }
             }
+
+                    pthread_mutex_unlock(&lock);
         
         //atualizando posições
 
@@ -554,7 +561,7 @@ void* movimenta_policiais_9_10(void* arg) {
         //POLICIA 10
         set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
 
-        pthread_mutex_unlock(&lock);
+        //pthread_mutex_unlock(&lock);
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
@@ -599,12 +606,13 @@ void* movimenta_policiais_1(void* arg) {
                 }
             }
         
+                pthread_mutex_unlock(&lock);
         //atualizando posições
 
         //POLICIA 1
         set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
 
-        pthread_mutex_unlock(&lock);
+        //pthread_mutex_unlock(&lock);
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
@@ -837,8 +845,6 @@ int main() {
 
         pthread_mutex_unlock(&lock);
     }
-
-    pthread_mutex_unlock(&lock);
 
     if(pthread_cancel(thread_id) != 0){
         perror("falhou cancel\n");
