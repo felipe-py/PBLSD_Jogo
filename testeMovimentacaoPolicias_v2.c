@@ -433,7 +433,7 @@ void* movimenta_policiais_4_5_7(void* arg) {
         //POLICIA 7
             if(sentido_policial_7 == SENTIDO_PARA_CIMA){
                 policia_7_y -= 1;       
-                if(policia_7_y == FIM_POLICIAL_1_Y){
+                if(policia_7_y == FIM_POLICIAL_7_Y){
                     sentido_policial_7 = SENTIDO_PARA_ESQUERDA;
                 }
             }
@@ -624,8 +624,32 @@ int main() {
         return -1;
     }
 
+    set_cor_background_wbr(7,7,7);
     tela_padrao();
-    posicao_inicial_ladrao_policia();
+
+    //LADRAO
+    set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
+
+    //POLICIA 1
+    set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
+    //POLICIA 2
+    set_sprite_wbr(1, policia_2_x, policia_2_y, 30, 6);
+    //POLICIA 3
+    set_sprite_wbr(1, policia_3_x, policia_3_y, 30, 7);
+    //POLICIA 4
+    set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
+    //POLICIA 5
+    set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
+    //POLICIA 6
+    set_sprite_wbr(1, policia_6_x, policia_6_y, 30, 10);
+    //POLICIA 7
+    set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
+    //POLICIA 8
+    set_sprite_wbr(1, policia_8_x, policia_8_y, 30, 12);
+    //POLICIA 9
+    set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
+    //POLICIA 10
+    set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
 
     // Abrir o dispositivo do mouse
     fd_mouse = open(MOUSE_DEVICE, O_RDONLY);
@@ -813,6 +837,8 @@ int main() {
 
         pthread_mutex_unlock(&lock);
     }
+
+    pthread_mutex_unlock(&lock);
 
     if(pthread_cancel(thread_id) != 0){
         perror("falhou cancel\n");
