@@ -17,44 +17,44 @@
 #define VELOCIDADE_POLICIAIS_9_10 7000
 #define VELOCIDADE_POLICIAIS_1 5000
 
-int fd_mouse;
-struct input_event ev;
+extern int fd_mouse;
+extern struct input_event ev;
 
-pthread_mutex_t lock;
+extern pthread_mutex_t lock;
 
-pthread_t thread_mouse, thread_policais_1, thread_policiais_2_3_6_8, thread_policiais_4_5_7, thread_policias_9_10;
+extern pthread_t thread_mouse, thread_policais_1, thread_policiais_2_3_6_8, thread_policiais_4_5_7, thread_policias_9_10;
 
-volatile int x_ladrao;
-volatile int y_ladrao;
+extern volatile int x_ladrao;
+extern volatile int y_ladrao;
 
-volatile int policia_1_x;
-volatile int policia_2_x;
-volatile int policia_3_x;
-volatile int policia_4_x;
-volatile int policia_5_x;
-volatile int policia_6_x;
-volatile int policia_7_x;
-volatile int policia_8_x;
-volatile int policia_9_x;
-volatile int policia_10_x;
+extern volatile int policia_1_x;
+extern volatile int policia_2_x;
+extern volatile int policia_3_x;
+extern volatile int policia_4_x;
+extern volatile int policia_5_x;
+extern volatile int policia_6_x;
+extern volatile int policia_7_x;
+extern volatile int policia_8_x;
+extern volatile int policia_9_x;
+extern volatile int policia_10_x;
 
-volatile int policia_1_y;
-volatile int policia_2_y;
-volatile int policia_3_y;
-volatile int policia_4_y;
-volatile int policia_5_y;
-volatile int policia_6_y;
-volatile int policia_7_y;
-volatile int policia_8_y;
-volatile int policia_9_y;
-volatile int policia_10_y;
+extern volatile int policia_1_y;
+extern volatile int policia_2_y;
+extern volatile int policia_3_y;
+extern volatile int policia_4_y;
+extern volatile int policia_5_y;
+extern volatile int policia_6_y;
+extern volatile int policia_7_y;
+extern volatile int policia_8_y;
+extern volatile int policia_9_y;
+extern volatile int policia_10_y;
 
-volatile int pause = 0;
-volatile int start = 0;
-volatile int sair = 0;
-volatile int furtivo = 0;
+extern volatile int pausar;
+extern volatile int start;
+extern volatile int sair;
+extern volatile int furtivo;
 
-volatile int habilidades = 0;
+extern volatile int habilidades;
 
 int cria_threads_jogo();
 
