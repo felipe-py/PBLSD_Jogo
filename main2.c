@@ -304,14 +304,11 @@ int main() {
 
         } //LOOP JOGAR NOVAMENTE
     }
+
+    cancela = 1;
     pthread_mutex_unlock(&lock);
 
-        //Cancela thread do botão
-    if(pthread_cancel(thread_botao) != 0){
-        perror("falhou cancel\n");
-        return 1;
-    }
-        //Aguarda cancelamento da thread do botão
+ //Aguarda cancelamento da thread do botão
     if (pthread_join(thread_botao, NULL) != 0) {
         perror("pthread_join");
         return 1;
