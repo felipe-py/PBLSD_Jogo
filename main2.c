@@ -41,18 +41,11 @@ int main() {
 
     //Espera escolha do jogador entre jogar ou sair
     while (1) {
-        pthread_mutex_lock(&lock);
-        
         if(start || sair){
-            pthread_mutex_unlock(&lock);
-            
             break;
         }
-
-        pthread_mutex_unlock(&lock);
     }
 
-    pthread_mutex_lock(&lock);
     //Se pressionou jogar
     if (start) {
         start = 0;
@@ -60,7 +53,6 @@ int main() {
         limpar_tela(0);
 
         tela_padrao();
-        pthread_mutex_unlock(&lock);
 
         //JOGAR NOVAMENTE
         while (1) {
@@ -81,34 +73,24 @@ int main() {
             win = 0, lost = 0,
             colidiu = 0;
 
-            pthread_mutex_lock(&lock);
             habilidades = 3;
             att_display(vidas, habilidades);
-            pthread_mutex_unlock(&lock);
 
             //LOOP DO JOGO
             while (1) {
-
                 pthread_mutex_lock(&lock);
                 //SE JOGO NÃO ESTÁ PAUSADO
-                if (pause == 0) {
-                    
+                if (pausar == 0) {
                     //Sprite Pause
                     set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
-                    pthread_mutex_unlock(&lock);
-
-                    pthread_mutex_lock(&lock);
                     //SE NÃO ESTIVER NO MODO FURTIVO, VERIFICA COLISÕES
                     if(furtivo == 0) {
-                        pthread_mutex_unlock(&lock);
-
-                        pthread_mutex_lock(&lock);
                         //VERIFICA SE LADRAO TEM 2 TROFEUS E SAIU PELA PORTA
                         if ((trofeu_dir == 1 && trofeu_esq == 1) && x_ladrao == PORTA_X && y_ladrao == PORTA_Y) {
-                                pthread_mutex_unlock(&lock);
 
                                 //GANHOU
                                 win = 1;
+                                thread_mutex_unlock(&lock);
                                 break;
                         }
 
@@ -119,7 +101,6 @@ int main() {
 
                                 //DESABILITA TROFÉU ESQUERDO
                                 set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
-                                pthread_mutex_unlock(&lock);
 
                                 trofeu_esq = 1;
                             }
@@ -132,7 +113,6 @@ int main() {
 
                                 //DESABILITA TROFÉU DIREITO
                                 set_sprite_wbr(0, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
-                                pthread_mutex_unlock(&lock);
 
                                 trofeu_dir = 1;
                             }
@@ -141,7 +121,6 @@ int main() {
                         //VERIFICA COLISAO COM POLICIAL 1
                         else if ((x_ladrao >= 96 && x_ladrao < 440) && y_ladrao < 144) {
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_1_x, policia_1_y)) {
-                                pthread_mutex_unlock(&lock);
                                 colidiu = 1;
                             }
                         }
@@ -149,7 +128,6 @@ int main() {
                         //VERIFICA COLISAO COM POLICIAL 2
                         else if (x_ladrao > 440 && y_ladrao < 120) {
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_2_x, policia_2_y)) {
-                                pthread_mutex_unlock(&lock);
                                 colidiu = 1;
                             }
                         }
@@ -160,7 +138,6 @@ int main() {
                                 verifica_colisao_policia(x_ladrao, y_ladrao, policia_3_x, policia_3_y) || 
                                 verifica_colisao_policia(x_ladrao, y_ladrao, policia_6_x, policia_6_y)
                                 ) {
-                                pthread_mutex_unlock(&lock);
                                 colidiu = 1;
                             }
                         }
@@ -171,7 +148,6 @@ int main() {
                                 verifica_colisao_policia(x_ladrao, y_ladrao, policia_4_x, policia_4_y) || 
                                 verifica_colisao_policia(x_ladrao, y_ladrao, policia_5_x, policia_5_y)
                                 ) {
-                                pthread_mutex_unlock(&lock);
                                 colidiu = 1;
                             }
                         }
@@ -182,7 +158,6 @@ int main() {
                                 verifica_colisao_policia(x_ladrao, y_ladrao, policia_7_x, policia_7_y) || 
                                 verifica_colisao_policia(x_ladrao, y_ladrao, policia_8_x, policia_8_y)
                                 ) {
-                                pthread_mutex_unlock(&lock);
                                 colidiu = 1;
                             }
                         }
@@ -190,7 +165,6 @@ int main() {
                         //VERIFICA COLISAO COM POLICIAL 9
                         else if (x_ladrao >= 344 && y_ladrao > 32) {
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_9_x, policia_9_y)) {
-                                pthread_mutex_unlock(&lock);
                                 colidiu = 1;
                             }
                         }
@@ -198,13 +172,9 @@ int main() {
                         //VERIFICA COLISAO COM POLICIAL 10
                         else if (x_ladrao < 288 && y_ladrao > 128) {
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_10_x, policia_10_y)) {
-                                pthread_mutex_unlock(&lock);
                                 colidiu = 1;
                             }
                         }
-
-                        else 
-                            pthread_mutex_unlock(&lock);
 
                         //SE BATEU EM ALGUM POLICIAL
                         if (colidiu) {
@@ -213,6 +183,7 @@ int main() {
                             //GAME OVER
                             if (vidas == 0) {
                                 lost = 1;
+                                thread_mutex_unlock(&lock);
 
                                 break;
                             }
@@ -220,40 +191,28 @@ int main() {
                             colidiu = 0;
 
                             //SE AINDA TIVER VIDAS, VOLTA PARA O INÍCIO
-                            pthread_mutex_lock(&lock);
                             x_ladrao = INICIO_LADRAO_X;
                             y_ladrao = INICIO_LADRAO_Y;
-                            pthread_mutex_unlock(&lock);
                         }
 
-                        pthread_mutex_lock(&lock);
                         //Atualiza display a cada iteração
                         att_display(vidas, habilidades);
-                        pthread_mutex_unlock(&lock);
                     }
-
-                    pthread_mutex_unlock(&lock);
                 }
-                pthread_mutex_unlock(&lock);
 
                 //SE JOGO ESTÁ PAUSADO
-                else{
-                    pthread_mutex_lock(&lock);
+                else
                     //Sprite Pause
                     set_sprite_wbr(1, PAUSE_X, PAUSE_Y, 27, 4);
-                    pthread_mutex_unlock(&lock);
-                }
-
-                pthread_mutex_lock(&lock);     
+    
                 //VERIFICA SE JOGADOR QUER REINICIAR OU SAIR DO JOGO (SEMPRE)
                 if (start || sair){
-                    pthread_mutex_unlock(&lock);
+                    thread_mutex_unlock(&lock);
 
                     break;
                 }
 
                 pthread_mutex_unlock(&lock);
-
             } //LOOP DO JOGO
 
             if(cancela_threads_jogo()){
@@ -280,40 +239,26 @@ int main() {
 
                 //ESPERA JOGADOR ESCOLHER ENTRE JOGAR DE NOVO OU SAIR
                 while (1) {
-                    pthread_mutex_lock(&lock);
-                    
                     if(start || sair){
-                        pthread_mutex_unlock(&lock);
                         
                         break;
                     }
-
-                    pthread_mutex_unlock(&lock);
                 }
 
-                pthread_mutex_lock(&lock);
                 if(start) {
-                    pthread_mutex_unlock(&lock);
 
                     limpar_tela(0);
                     tela_padrao();
                 }
-                pthread_mutex_unlock(&lock);
             }
 
             //CLICOU EM SAIR
-            pthread_mutex_lock(&lock);
             if (sair) break;
-            pthread_mutex_unlock(&lock);
 
-            pthread_mutex_lock(&lock);
             start = 0;
-            pthread_mutex_unlock(&lock);
 
         } //LOOP JOGAR NOVAMENTE
     }
-
-    pthread_mutex_unlock(&lock);
 
     //Cancela thread do botão
     if(pthread_cancel(thread_botao) != 0){
