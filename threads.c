@@ -626,54 +626,63 @@ void* botao(void* arg) {
 
         //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 1
         if(clicou_start == 1 && botao_clicou != 13){
-            clicou_start == 0;
+            clicou_start = 0;
         }
 
         //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 3
         if(clicou_pause == 1 && botao_clicou != 7){
-            clicou_pause == 0;
+            clicou_pause = 0;
         }
 
         //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 2
         if(clicou_despause == 1 && botao_clicou != 11){
-            clicou_despause == 0;
+            clicou_despause = 0;
         }
 
-        pthread_mutex_lock(&lock);
         //BOTAO 3 - PAUSE
         if(botao_clicou == 7){
-            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 0 (JOGO NÃO ESTÁ PAUSADO
-            if(clicou_pause == 0 && pause == 0){
-                clicou_pause == 1;
-
+            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 0 (JOGO NÃO ESTÁ PAUSADO)
+            if(clicou_pause == 0){
+                clicou_pause = 1;
+                
+                pthread_mutex_lock(&lock);
                 pausar = 1;
+                pthread_mutex_unlock(&lock);
             }
         }
 
         //BOTAO 2 - DESPAUSE
         else if(botao_clicou == 11){
-            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 1 (JOGO ESTÁ PAUSADO)
-            if(clicou_despause == 0 && pause == 1){
-                clicou_despause == 1;
 
+            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 1 (JOGO ESTÁ PAUSADO)
+            if(clicou_despause == 0){
+                clicou_despause = 1;
+
+                pthread_mutex_lock(&lock);
                 pausar = 0;
+                pthread_mutex_unlock(&lock);
             }
         }
 
         //BOTAO 1 - INICIAR JOGO OU JOGAR NOVAMENTE
         else if(botao_clicou == 13){
+
             //SO ALTERA VARIÁVEL START UMA VEZ
             if(clicou_start == 0){
-                clicou_start == 1;
+                clicou_start = 1;
+
+                pthread_mutex_lock(&lock);
                 start = 1;
+                pthread_mutex_unlock(&lock);
             }
         }
 
         //BOTAO 0 - SAIR
         else if(botao_clicou == 14){
+            pthread_mutex_lock(&lock);
             sair = 1;
-        }
-        pthread_mutex_unlock(&lock); 
+            pthread_mutex_unlock(&lock);
+        } 
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
