@@ -8,6 +8,45 @@
 #include <pthread.h>
 #include <linux/input.h>
 
+int fd_mouse;
+struct input_event ev;
+
+pthread_mutex_t lock;
+
+pthread_t thread_mouse, thread_policais_1, thread_policiais_2_3_6_8, thread_policiais_4_5_7, thread_policias_9_10;
+
+volatile int x_ladrao;
+volatile int y_ladrao;
+
+volatile int policia_1_x;
+volatile int policia_2_x;
+volatile int policia_3_x;
+volatile int policia_4_x;
+volatile int policia_5_x;
+volatile int policia_6_x;
+volatile int policia_7_x;
+volatile int policia_8_x;
+volatile int policia_9_x;
+volatile int policia_10_x;
+
+volatile int policia_1_y;
+volatile int policia_2_y;
+volatile int policia_3_y;
+volatile int policia_4_y;
+volatile int policia_5_y;
+volatile int policia_6_y;
+volatile int policia_7_y;
+volatile int policia_8_y;
+volatile int policia_9_y;
+volatile int policia_10_y;
+
+volatile int pausar = 0;
+volatile int start = 0;
+volatile int sair = 0;
+volatile int furtivo = 0;
+
+volatile int habilidades = 0;
+
 int cria_threads_jogo(){
     //CRIA AS THREADS DO JOGO
 
@@ -100,8 +139,7 @@ void* movimenta_mouse(void* arg) {
 
     while(1){
         pthread_mutex_lock(&lock);
-        if (pause == 0){
-            pthread_mutex_unlock(&lock);
+        if (pausar == 0){
         
             n = read(fd_mouse, &ev, sizeof(ev));
                 
@@ -115,13 +153,10 @@ void* movimenta_mouse(void* arg) {
                 break;
             }
 
-            pthread_mutex_lock(&lock);
             //SE ESTIVER NO MODO FURTIVO, NÃO PRECISA LER MOVIMENTOS
             if(furtivo == 0) {
-                pthread_mutex_unlock(&lock);
                 
                 if (ev.type == EV_REL) {
-                    pthread_mutex_lock(&lock);
                     if (ev.code == REL_X) {
                         verificar = x_ladrao + ev.value;
                             
@@ -151,43 +186,31 @@ void* movimenta_mouse(void* arg) {
             
             //LADRAO
             set_sprite_wbr(1, x_ladrao, y_ladrao, offset_ladrao, 15);
-            pthread_mutex_unlock(&lock);
 
             //SE NÃO TIVER MAIS HABILIDADES, NÃO PRECISA VERIFICAR AÇÃO DE FURTIVIDADE
-            pthread_mutex_lock(&lock);
             if (habilidades > 0) {
-                pthread_mutex_unlock(&lock);
                 
                 if (ev.type == EV_KEY && ev.code == BTN_LEFT) {
                     //SE BOTÃO ESQUERDO TA SENDO PRESSIONADO, MODO FURTIVO ON
                     if(ev.value == 1) {
-                        pthread_mutex_lock(&lock);
                         furtivo = 1;
-                        pthread_mutex_unlock(&lock);
 
                         offset_ladrao = 29;
                     }
 
                     //SE BOTÃO ESQUERDO TA SOLTO, PORÉM ESTAVA MODO FURTIVO ON, HABILIDADE É CONTADA E FURTIVIDADE DESATIVADA
                     else if (ev.value == 0) {
-                        pthread_mutex_lock(&lock);
                         if (furtivo) {
                             habilidades -= 1;
 
                             furtivo = 0;
-                            pthread_mutex_unlock(&lock);
 
                             offset_ladrao = 25;
                         }
-
-                        else
-                            pthread_mutex_unlock(&lock);
                     }
                 }
             }
-            pthread_mutex_unlock(&lock);
         }
-
         pthread_mutex_unlock(&lock);
     }
     
@@ -224,13 +247,9 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
 
     while(1){
         pthread_mutex_lock(&lock);
-        if (pause == 0){
-            pthread_mutex_unlock(&lock);
-
+        if (pausar == 0){
             //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
             usleep(VELOCIDADE_POLICIAIS_2_3_6_8);
-
-            pthread_mutex_lock(&lock);
             
             //POLICIA 2
                 if(sentido_policial_2 == SENTIDO_PARA_ESQUERDA){
@@ -316,8 +335,6 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
             set_sprite_wbr(1, policia_6_x, policia_6_y, 30, 10);
             //POLICIA 8
             set_sprite_wbr(1, policia_8_x, policia_8_y, 30, 12);
-
-            pthread_mutex_unlock(&lock);
         }
 
         pthread_mutex_unlock(&lock);
@@ -351,13 +368,9 @@ void* movimenta_policiais_4_5_7(void* arg) {
     
     while(1){
         pthread_mutex_lock(&lock);
-        if (pause == 0) {
-            pthread_mutex_unlock(&lock);
-
+        if (pausar == 0) {
             //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
             usleep(VELOCIDADE_POLICIAIS_4_5_7);
-
-            pthread_mutex_lock(&lock);
 
             //POLICIA 4
                 if(sentido_policial_4 == SENTIDO_PARA_ESQUERDA){
@@ -427,7 +440,6 @@ void* movimenta_policiais_4_5_7(void* arg) {
             //POLICIA 7
             set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
 
-            pthread_mutex_unlock(&lock);
         }
 
         pthread_mutex_unlock(&lock);
@@ -456,13 +468,9 @@ void* movimenta_policiais_9_10(void* arg) {
 
     while(1){
         pthread_mutex_lock(&lock);
-        if (pause == 0){
-            pthread_mutex_unlock(&lock);
-
+        if (pausar == 0){
             //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
             usleep(VELOCIDADE_POLICIAIS_9_10);
-
-            pthread_mutex_lock(&lock);
 
             //POLICIA 9
                 if(sentido_policial_9 == SENTIDO_PARA_DIREITA){
@@ -532,8 +540,6 @@ void* movimenta_policiais_9_10(void* arg) {
             set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
             //POLICIA 10
             set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
-
-            pthread_mutex_unlock(&lock);
         }
 
         pthread_mutex_unlock(&lock);
@@ -556,13 +562,10 @@ void* movimenta_policiais_1(void* arg) {
 
     while(1){
         pthread_mutex_lock(&lock);
-        if (pause == 0){
-            pthread_mutex_unlock(&lock);
-
-            //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
+        if (pausar == 0){
+           //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
             usleep(VELOCIDADE_POLICIAIS_1);
 
-            pthread_mutex_lock(&lock);
             
             //POLICIA 1
                 if(sentido_policial_1 == SENTIDO_PARA_DIREITA){
@@ -597,8 +600,6 @@ void* movimenta_policiais_1(void* arg) {
 
             //POLICIA 1
             set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
-
-            pthread_mutex_unlock(&lock);
         }
 
         pthread_mutex_unlock(&lock);
@@ -638,55 +639,41 @@ void* botao(void* arg) {
             clicou_despause == 0;
         }
 
+        pthread_mutex_lock(&lock);
         //BOTAO 3 - PAUSE
         if(botao_clicou == 7){
-            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 0 (JOGO NÃO ESTÁ PAUSADO)
-            pthread_mutex_lock(&lock);
+            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 0 (JOGO NÃO ESTÁ PAUSADO
             if(clicou_pause == 0 && pause == 0){
                 clicou_pause == 1;
 
-                pause = 1;
-                pthread_mutex_unlock(&lock);
+                pausar = 1;
             }
-
-            else
-                pthread_mutex_unlock(&lock);
         }
 
         //BOTAO 2 - DESPAUSE
         else if(botao_clicou == 11){
             //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 1 (JOGO ESTÁ PAUSADO)
-            pthread_mutex_lock(&lock);
             if(clicou_despause == 0 && pause == 1){
                 clicou_despause == 1;
 
-                pause = 0;
-                pthread_mutex_unlock(&lock);
+                pausar = 0;
             }
-
-            else
-                pthread_mutex_unlock(&lock);
         }
 
         //BOTAO 1 - INICIAR JOGO OU JOGAR NOVAMENTE
         else if(botao_clicou == 13){
-
             //SO ALTERA VARIÁVEL START UMA VEZ
             if(clicou_start == 0){
                 clicou_start == 1;
-
-                pthread_mutex_lock(&lock);
                 start = 1;
-                pthread_mutex_unlock(&lock);
             }
         }
 
         //BOTAO 0 - SAIR
         else if(botao_clicou == 14){
-            pthread_mutex_lock(&lock);
             sair = 1;
-            pthread_mutex_unlock(&lock);
-        } 
+        }
+        pthread_mutex_unlock(&lock); 
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
