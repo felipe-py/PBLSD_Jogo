@@ -1,26 +1,34 @@
 #include "mapeamento.h"
 #include <pthread.h>
 
-volatile int botao_clicou = 0;
+volatile int start = 0;
 
 pthread_mutex_t lock; 
 
 void* botao(void* arg) {
+    int botao_clicou;
+    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE INICAR PARTIDA/REINICIAR JOGO
+    int clicou_start = 0;
+    
     while(1){
-        pthread_mutex_lock(&lock);
-
         botao_clicou = verifica_botao();
-        
-        if(botao_clicou == 7){
-            pthread_mutex_unlock(&lock);
-            break;
+
+        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 1
+        if(clicou_start == 1 && botao_clicou != 7){
+            clicou_start = 0;
         }
 
-        pthread_mutex_unlock(&lock);
+        //BOTAO 3 - PAUSE
+        if(botao_clicou == 7){
+            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 0 (JOGO NÃO ESTÁ PAUSADO
+            if(clicou_start == 0){
+                clicou_start = 1;
+                pthread_mutex_lock(&lock);
+                start = 1;
+                pthread_mutex_unlock(&lock); 
+            }
+        }
     }
-    
-    //FINALIZA A EXECUÇÃO DA THREAD
-    pthread_exit(NULL); // Finaliza a thread
 }
 
 int main() {
@@ -39,14 +47,14 @@ int main() {
     }
 
     while(1){
-        pthread_mutex_lock(&lock);
         
-        if(botao_clicou == 7){
-            pthread_mutex_unlock(&lock);
-            break;
+        pthread_mutex_lock(&lock); 
+        if(start){
+            start = 0;
+            printf("uma vez\n");
         }
+        pthread_mutex_unlock(&lock); 
 
-        pthread_mutex_unlock(&lock);
     }
 
     printf("Botão 3 clicado, gg\n");
