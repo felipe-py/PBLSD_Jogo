@@ -25,7 +25,7 @@ clean:
 
 # Regra para compilar e executar programa de usuário
 run:
-	gcc testeMovimentacaoPolicias_v2.c biblioteca_gpu.c utils.c carrega_telas_sprites.c -std=c99 -o programa -pthread
+	gcc main2.c biblioteca_gpu.c utils.c carrega_telas_sprites.c threads.c mapeamento.c -std=c99 -o programa -pthread
 
 	./programa
 
