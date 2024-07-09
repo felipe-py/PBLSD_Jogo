@@ -336,7 +336,6 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
             //POLICIA 8
             set_sprite_wbr(1, policia_8_x, policia_8_y, 30, 12);
         }
-
         pthread_mutex_unlock(&lock);
     }
     
@@ -566,7 +565,6 @@ void* movimenta_policiais_1(void* arg) {
            //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
             usleep(VELOCIDADE_POLICIAIS_1);
 
-            
             //POLICIA 1
                 if(sentido_policial_1 == SENTIDO_PARA_DIREITA){
                     policia_1_x += 1;     
@@ -620,13 +618,16 @@ void* botao(void* arg) {
 
     //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE DESPAUSAR JOGO
     int clicou_despause = 0;
+
+    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE DESPAUSAR JOGO
+    int clicou_sair = 0;
     
     while(1){
         botao_clicou = verifica_botao();
 
         //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 1
-        if(clicou_start == 1 && botao_clicou != 13){
-            clicou_start = 0;
+        if(clicou_sair == 1 && botao_clicou != 14){
+            clicou_sair = 0;
         }
 
         //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 3
@@ -637,6 +638,11 @@ void* botao(void* arg) {
         //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 2
         if(clicou_despause == 1 && botao_clicou != 11){
             clicou_despause = 0;
+        }
+
+        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 2
+        if(clicou_start == 1 && botao_clicou != 13){
+            clicou_start = 0;
         }
 
         //BOTAO 3 - PAUSE
@@ -679,9 +685,17 @@ void* botao(void* arg) {
 
         //BOTAO 0 - SAIR
         else if(botao_clicou == 14){
-            pthread_mutex_lock(&lock);
-            sair = 1;
-            pthread_mutex_unlock(&lock);
+                        //SO ALTERA VARIÁVEL START UMA VEZ
+            if(clicou_sair == 0){
+                clicou_sair = 1;
+
+                printf("%d antes do lock\n", sair);
+                pthread_mutex_lock(&lock);
+                sair = 1;
+                printf("%d depois de alterar sentro do lock\n", sair);
+                pthread_mutex_unlock(&lock);
+                printf("%d depois do lock\n", sair);
+            }
         } 
     }
     
