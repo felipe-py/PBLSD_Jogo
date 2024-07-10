@@ -49,6 +49,9 @@ extern volatile int policia_8_y;
 extern volatile int policia_9_y;
 extern volatile int policia_10_y;
 
+extern volatile int cancela_threads_policiais;
+extern volatile int cancela_thread_botoes;
+
 extern volatile int pausar;
 extern volatile int start;
 extern volatile int sair;
@@ -58,9 +61,9 @@ extern volatile int habilidades;
 
 int cria_threads_jogo();
 
-int cancela_threads_jogo();
+int espera_cancelamento_threads_policias();
 
-int espera_cancelamento_threads_jogo();
+int cancela_thread_mouse();
 
 void* movimenta_mouse(void* arg);
 

@@ -40,14 +40,15 @@ volatile int policia_8_y;
 volatile int policia_9_y;   
 volatile int policia_10_y;
 
+volatile int cancela_threads_policiais = 0;
+volatile int cancela_thread_botoes = 0;
+
 volatile int pausar = 0;
 volatile int start = 0;
 volatile int sair = 0;
 volatile int furtivo = 0;
 
 volatile int habilidades = 0;
-
-volatile int cancela = 0;
 
 int cria_threads_jogo(){
     //CRIA AS THREADS DO JOGO
@@ -75,38 +76,16 @@ int cria_threads_jogo(){
     return 0;
 }
 
-int cancela_threads_jogo(){
-    //CANCELA AS THREADS DO JOGO
-
+int cancela_thread_mouse(){
     if(pthread_cancel(thread_mouse) != 0){
-        return 1;
-    }
-
-    if(pthread_cancel(thread_policais_1) != 0){
-        return 1;
-    }
-
-    if(pthread_cancel(thread_policiais_2_3_6_8) != 0){
-        return 1;
-    }
-
-    if(pthread_cancel(thread_policiais_4_5_7) != 0){
-        return 1;
-    }
-
-    if(pthread_cancel(thread_policias_9_10) != 0){
         return 1;
     }
 
     return 0;
 }
 
-int espera_cancelamento_threads_jogo(){
+int espera_cancelamento_threads_policias(){
     //AGUARDA A FINALIZAÇÃO DAS THREADS DO JOGO
-
-    if (pthread_join(thread_mouse, NULL) != 0) {
-        return 1;
-    }
 
     if (pthread_join(thread_policais_1, NULL) != 0) {
         return 1;
@@ -157,7 +136,6 @@ void* movimenta_mouse(void* arg) {
 
             //SE ESTIVER NO MODO FURTIVO, NÃO PRECISA LER MOVIMENTOS
             if(furtivo == 0) {
-                
                 if (ev.type == EV_REL) {
                     if (ev.code == REL_X) {
                         verificar = x_ladrao + ev.value;
@@ -191,7 +169,6 @@ void* movimenta_mouse(void* arg) {
 
             //SE NÃO TIVER MAIS HABILIDADES, NÃO PRECISA VERIFICAR AÇÃO DE FURTIVIDADE
             if (habilidades > 0) {
-                
                 if (ev.type == EV_KEY && ev.code == BTN_LEFT) {
                     //SE BOTÃO ESQUERDO TA SENDO PRESSIONADO, MODO FURTIVO ON
                     if(ev.value == 1) {
@@ -247,7 +224,7 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
     int sentido_policial_6 = SENTIDO_PARA_ESQUERDA;
     int sentido_policial_8 = SENTIDO_PARA_DIREITA;
 
-    while(1){
+    while(cancela_threads_policiais){
         pthread_mutex_lock(&lock);
         if (pausar == 0){
             //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
@@ -367,7 +344,7 @@ void* movimenta_policiais_4_5_7(void* arg) {
     int sentido_policial_5 = SENTIDO_PARA_DIREITA;
     int sentido_policial_7 = SENTIDO_PARA_CIMA;
     
-    while(1){
+    while(cancela_threads_policiais){
         pthread_mutex_lock(&lock);
         if (pausar == 0) {
             //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
@@ -406,7 +383,7 @@ void* movimenta_policiais_4_5_7(void* arg) {
             //POLICIA 7
                 if(sentido_policial_7 == SENTIDO_PARA_CIMA){
                     policia_7_y -= 1;       
-                    if(policia_7_y == FIM_POLICIAL_1_Y){
+                    if(policia_7_y == FIM_POLICIAL_7_Y){
                         sentido_policial_7 = SENTIDO_PARA_ESQUERDA;
                     }
                 }
@@ -440,9 +417,7 @@ void* movimenta_policiais_4_5_7(void* arg) {
             set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
             //POLICIA 7
             set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
-
         }
-
         pthread_mutex_unlock(&lock);
     }
     
@@ -467,7 +442,7 @@ void* movimenta_policiais_9_10(void* arg) {
     int sentido_policial_9 = SENTIDO_PARA_DIREITA;
     int sentido_policial_10 = SENTIDO_PARA_ESQUERDA;
 
-    while(1){
+    while(cancela_threads_policiais){
         pthread_mutex_lock(&lock);
         if (pausar == 0){
             //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
@@ -542,7 +517,6 @@ void* movimenta_policiais_9_10(void* arg) {
             //POLICIA 10
             set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
         }
-
         pthread_mutex_unlock(&lock);
     }
     
@@ -561,7 +535,7 @@ void* movimenta_policiais_1(void* arg) {
     
     int sentido_policial_1 = SENTIDO_PARA_DIREITA;
 
-    while(1){
+    while(cancela_threads_policiais){
         pthread_mutex_lock(&lock);
         if (pausar == 0){
            //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
@@ -601,7 +575,6 @@ void* movimenta_policiais_1(void* arg) {
             //POLICIA 1
             set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
         }
-
         pthread_mutex_unlock(&lock);
     }
     
@@ -612,44 +585,36 @@ void* movimenta_policiais_1(void* arg) {
 void* botao(void* arg) {
     int botao_clicou;
 
-    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE INICAR PARTIDA/REINICIAR JOGO
     int clicou_start = 0;
-
-    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE PAUSAR JOGO
     int clicou_pause = 0;
-
-    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE DESPAUSAR JOGO
     int clicou_despause = 0;
-
-    //VARIÁVEL PARA PEGAR SOMENTE A PRIMEIRA OCORRENCIA DO CLICK DE DESPAUSAR JOGO
     int clicou_sair = 0;
     
-    while(cancela == 0){
+    while(1){
         botao_clicou = verifica_botao();
 
-        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 1
-        if(clicou_sair == 1 && botao_clicou != 14){
-            clicou_sair = 0;
-        }
-
-        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 3
+        //botão 3 - pause
         if(clicou_pause == 1 && botao_clicou != 7){
             clicou_pause = 0;
         }
 
-        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 2
+        //botão 2 - despause
         if(clicou_despause == 1 && botao_clicou != 11){
             clicou_despause = 0;
         }
 
-        //SO CONSIDERA A SOLTURA DO BOTÃO SE JÁ TIVER SIDO CLICADO E RECEBER UM VALOR DIFERENTE DO REFERENTE AO CLICK DO BOTAO 2
+        //botão 1 - jogar
         if(clicou_start == 1 && botao_clicou != 13){
             clicou_start = 0;
         }
 
+        //botão 0 - sair
+        if(clicou_sair == 1 && botao_clicou != 14){
+            clicou_sair = 0;
+        }
+
         //BOTAO 3 - PAUSE
         if(botao_clicou == 7){
-            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 0 (JOGO NÃO ESTÁ PAUSADO)
             if(clicou_pause == 0){
                 clicou_pause = 1;
                 
@@ -661,8 +626,6 @@ void* botao(void* arg) {
 
         //BOTAO 2 - DESPAUSE
         else if(botao_clicou == 11){
-
-            //SO ALTERA VARIÁVEL PAUSE NO PRIMEIRO CLICK E SE ELA FOR 1 (JOGO ESTÁ PAUSADO)
             if(clicou_despause == 0){
                 clicou_despause = 1;
 
@@ -674,8 +637,6 @@ void* botao(void* arg) {
 
         //BOTAO 1 - INICIAR JOGO OU JOGAR NOVAMENTE
         else if(botao_clicou == 13){
-
-            //SO ALTERA VARIÁVEL START UMA VEZ
             if(clicou_start == 0){
                 clicou_start = 1;
 
@@ -687,18 +648,21 @@ void* botao(void* arg) {
 
         //BOTAO 0 - SAIR
         else if(botao_clicou == 14){
-                        //SO ALTERA VARIÁVEL START UMA VEZ
             if(clicou_sair == 0){
                 clicou_sair = 1;
 
-                printf("%d antes do lock\n", sair);
                 pthread_mutex_lock(&lock);
                 sair = 1;
-                printf("%d depois de alterar sentro do lock\n", sair);
                 pthread_mutex_unlock(&lock);
-                printf("%d depois do lock\n", sair);
             }
-        } 
+        }
+
+        pthread_mutex_lock(&lock);
+        if(cancela_thread_botoes){
+            pthread_mutex_unlock(&lock);
+            break;
+        }
+        pthread_mutex_unlock(&lock);
     }
     
     //FINALIZA A EXECUÇÃO DA THREAD
