@@ -19,6 +19,8 @@ int encerra_map();
 
 void inicia_display();
 
+void encerra_display();
+
 void att_display(int vidas, int habilidades);
 
 int verifica_botao();
