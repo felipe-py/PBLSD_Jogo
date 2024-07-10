@@ -84,7 +84,7 @@ int carrega_sprites() {
 
     //SAIR
     for (x = 0; x < 20; ++x) {
-        for (y = 0; y < 20; ++y) {
+        for (y = 0; y < 21; ++y) {
             endereco = 10400 + y * 20 + x;
 
             //Cor padrão (transparente)
