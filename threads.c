@@ -163,9 +163,6 @@ void* movimenta_mouse(void* arg) {
                 if (y_ladrao < 0) y_ladrao = 0;
                 if (y_ladrao > 459) y_ladrao = 459;
             }
-            
-            //LADRAO
-            set_sprite_wbr(1, x_ladrao, y_ladrao, offset_ladrao, 15);
 
             //SE NÃO TIVER MAIS HABILIDADES, NÃO PRECISA VERIFICAR AÇÃO DE FURTIVIDADE
             if (habilidades > 0) {
@@ -189,6 +186,9 @@ void* movimenta_mouse(void* arg) {
                     }
                 }
             }
+
+            //LADRAO
+            set_sprite_wbr(1, x_ladrao, y_ladrao, offset_ladrao, 15);
         }
         pthread_mutex_unlock(&lock);
     }
