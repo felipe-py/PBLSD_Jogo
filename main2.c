@@ -48,7 +48,8 @@ int main() {
         perror("pthread_create");
         return 1;
     }
-        encerra_display();
+        
+    encerra_display();
 
     //Espera escolha do jogador entre jogar ou sair
     while (1) {        
@@ -67,64 +68,14 @@ int main() {
         limpar_tela(0);
 
         tela_padrao();
-        
+
+        int vidas;
+        int trofeu_dir, trofeu_esq;
+        int win, lost;
+        int colidiu;
 
         //JOGAR NOVAMENTE
         while (1) {
-            x_ladrao = INICIO_LADRAO_X;
-            y_ladrao = INICIO_LADRAO_Y;
-            set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
-
-            policia_2_x = INICIO_POLICIAL_2_X;
-            policia_3_x = INICIO_POLICIAL_3_X;
-            policia_6_x = INICIO_POLICIAL_6_X;
-            policia_8_x = INICIO_POLICIAL_8_X;
-
-            policia_2_y = INICIO_FIM_POLICIAL_2_Y;
-            policia_3_y = INICIO_POLICIAL_3_Y;
-            policia_6_y = INICIO_FIM_POLICIAL_6_Y;
-            policia_8_y = INICIO_FIM_POLICIAL_8_Y;
-            //POLICIA 2
-            set_sprite_wbr(1, policia_2_x, policia_2_y, 30, 6);
-            //POLICIA 3
-            set_sprite_wbr(1, policia_3_x, policia_3_y, 30, 7);
-            //POLICIA 6
-            set_sprite_wbr(1, policia_6_x, policia_6_y, 30, 10);
-            //POLICIA 8
-            set_sprite_wbr(1, policia_8_x, policia_8_y, 30, 12);
-
-            policia_4_x = INICIO_POLICIAL_4_X;
-            policia_5_x = INICIO_POLICIAL_5_X;
-            policia_7_x = INICIO_POLICIAL_7_X;
-
-            policia_4_y = INICIO_FIM_POLICIAL_4_Y;
-            policia_5_y = INICIO_FIM_POLICIAL_5_Y;
-            policia_7_y = INICIO_POLICIAL_7_Y;
-            
-            //POLICIA 4
-            set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
-            //POLICIA 5
-            set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
-            //POLICIA 7
-            set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
-
-            policia_9_x = INICIO_POLICIAL_9_X;
-            policia_10_x = INICIO_POLICIAL_10_X;
-
-            policia_9_y = INICIO_POLICIAL_9_Y;
-            policia_10_y = INICIO_POLICIAL_10_Y;
-
-            //POLICIA 9
-            set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
-            //POLICIA 10
-            set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
-
-            policia_1_x = INICIO_POLICIAL_1_X;
-            policia_1_y = INICIO_POLICIAL_1_Y;
-
-            //POLICIA 1
-            set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
-
             if(cria_threads_jogo()) {
                 perror("pthread_create");
                 return 1;
@@ -132,26 +83,24 @@ int main() {
 
             printf("Criei threads jogo na main\n");
 
-            int vidas = 3,
-            trofeu_dir = 0, trofeu_esq = 0, 
-            win = 0, lost = 0,
+            trofeu_dir = 0, trofeu_esq = 0;
+            win = 0, lost = 0;
             colidiu = 0;
 
-
             pthread_mutex_lock(&lock);
+            vidas = 3;
             habilidades = 3;
             pausar = 0;
-            pthread_mutex_unlock(&lock);
-            
+            jogando = 1;
             inicia_display();
+            pthread_mutex_unlock(&lock);
+
+            printf("%d no inicio\n",vidas);  
 
             //LOOP DO JOGO
             while (1) {
                 //SE JOGO NÃO ESTÁ PAUSADO
                 if (pausar == 0) {
-                    //Sprite Pause
-                    set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
-
                     //SE NÃO ESTIVER NO MODO FURTIVO, VERIFICA COLISÕES
                     if(furtivo == 0) {
                         
@@ -182,7 +131,6 @@ int main() {
                                 //DESABILITA TROFÉU DIREITO
                                 set_sprite_wbr(0, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
                                 
-
                                 trofeu_dir = 1;
                             }
                         }
@@ -253,20 +201,27 @@ int main() {
                         }
 
                         pthread_mutex_unlock(&lock);
-                            
-
+                        
                         //SE BATEU EM ALGUM POLICIAL
                         if (colidiu) {
                             vidas -= 1;
-
                             //GAME OVER
                             if (vidas == 0) {
                                 lost = 1;
-
+                                vidas = 3;
                                 break;
                             }
 
                             colidiu = 0;
+
+                            pthread_mutex_lock(&lock);
+                            //SE AINDA TIVER VIDAS, VOLTA PARA O INÍCIO
+                            x_ladrao = INICIO_LADRAO_X;
+                            y_ladrao = INICIO_LADRAO_Y;
+                            set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
+                            //LADRAO
+                            //set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);    
+                            pthread_mutex_unlock(&lock);
 
                             if(trofeu_dir || trofeu_esq){
                                 trofeu_dir = 0;
@@ -275,14 +230,6 @@ int main() {
                                 set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
                                 set_sprite_wbr(1, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
                             }
-
-                            pthread_mutex_lock(&lock);
-                            //SE AINDA TIVER VIDAS, VOLTA PARA O INÍCIO
-                            x_ladrao = INICIO_LADRAO_X;
-                            y_ladrao = INICIO_LADRAO_Y;
-                                        //LADRAO
-                            set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);    
-                            pthread_mutex_unlock(&lock);
                         }
 
                         //Atualiza display a cada iteração
@@ -290,19 +237,17 @@ int main() {
                     }
                 }
 
-                //SE JOGO ESTÁ PAUSADO
-                else
-                    //Sprite Pause
-                    set_sprite_wbr(1, PAUSE_X, PAUSE_Y, 27, 4);
-
                 //VERIFICA SE JOGADOR QUER REINICIAR OU SAIR DO JOGO (SEMPRE)
                 if (start || sair){
                     break;
                 }
+
             } //LOOP DO JOGO
 
             pthread_mutex_lock(&lock);
+            att_display(vidas, habilidades);
             cancela_threads_policiais = 0;
+            jogando = 0;
             pthread_mutex_unlock(&lock);
 
             if(espera_cancelamento_threads_policias()){
@@ -344,7 +289,9 @@ int main() {
             pthread_mutex_lock(&lock);
             start = 0;
             cancela_threads_policiais = 1;
-            pthread_mutex_unlock(&lock);     
+            vidas = 3;
+            pthread_mutex_unlock(&lock);  
+
         } //LOOP JOGAR NOVAMENTE
 
         //fecha comunicação com o mouse
@@ -383,7 +330,3 @@ int main() {
 
     return 0;
 }
-
-
-
-
