@@ -84,6 +84,14 @@ void att_display(int vidas, int habilidades){
     *HEX5_ptr = numeros[habilidades / 10];
 }
 
+void encerra_display(){
+    *HEX0_ptr = numeros[4];
+    *HEX1_ptr = numeros[4];
+
+    *HEX4_ptr = numeros[4];
+    *HEX5_ptr = numeros[4];
+}
+
 int verifica_botao(){
     //Ordem botões: 3, 2, 1, 0
 
