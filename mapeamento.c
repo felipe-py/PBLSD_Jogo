@@ -64,27 +64,6 @@ int encerra_map() {
 }
 
 void inicia_display(){
-    *HEX0_ptr = numeros[3];
-    *HEX1_ptr = numeros[0];
-
-    *HEX2_ptr = numeros[4];
-    *HEX3_ptr = numeros[4];
-
-    *HEX4_ptr = numeros[3];
-    *HEX5_ptr = numeros[0];
-}
-
-void att_display(int vidas, int habilidades){
-    *HEX0_ptr = numeros[vidas % 10];
-
-    *HEX1_ptr = numeros[vidas / 10];
-
-    *HEX4_ptr = numeros[habilidades % 10];
-
-    *HEX5_ptr = numeros[habilidades / 10];
-}
-
-void encerra_display(){
     *HEX0_ptr = numeros[4];
     *HEX1_ptr = numeros[4];
 
@@ -93,6 +72,16 @@ void encerra_display(){
 
     *HEX4_ptr = numeros[4];
     *HEX5_ptr = numeros[4];
+}
+
+void att_display(int vidas, int habilidades){
+    *HEX0_ptr = numeros[habilidades % 10];
+
+    *HEX1_ptr = numeros[habilidades / 10];
+
+    *HEX4_ptr = numeros[vidas % 10];
+
+    *HEX5_ptr = numeros[vidas / 10];
 }
 
 int verifica_botao(){
