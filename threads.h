@@ -3,7 +3,6 @@
 
 #include "utils.h"
 #include <pthread.h>
-#include <linux/input.h>
 
 #define MOUSE_DEVICE "/dev/input/event0"
 
@@ -12,13 +11,12 @@
 #define SENTIDO_PARA_CIMA 3
 #define SENTIDO_PARA_BAIXO 4
 
-#define VELOCIDADE_POLICIAIS_2_3_6_8 10000
-#define VELOCIDADE_POLICIAIS_4_5_7 8000
-#define VELOCIDADE_POLICIAIS_9_10 7000
-#define VELOCIDADE_POLICIAIS_1 5000
+#define VELOCIDADE_POLICIAIS_2_3_6_8 8000
+#define VELOCIDADE_POLICIAIS_4_5_7 6000
+#define VELOCIDADE_POLICIAIS_9_10 5000
+#define VELOCIDADE_POLICIAIS_1 3000
 
 extern int fd_mouse;
-extern struct input_event ev;
 
 extern pthread_mutex_t lock;
 
