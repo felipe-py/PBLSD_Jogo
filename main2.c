@@ -51,34 +51,33 @@ int main() {
 
     //Espera escolha do jogador entre jogar ou sair
     while (1) {
-        printf("%d valor na main\n", sair);
-        if(sair == 1 || start == 1){
-        printf("%d peguei na main\n", sair);
+        pthread_mutex_lock(&lock);    
+        if(sair || start ){
+            pthread_mutex_unlock(&lock);
             break;
         }
+        pthread_mutex_unlock(&lock);
     }
-
-    printf("%d sai do while na main\n", sair);
 
     pthread_mutex_lock(&lock);
     //Se pressionou jogar
     if (start) {
         start = 0;
-        pthread_mutex_unlock(&lock);
 
         limpar_tela(0);
 
         tela_padrao();
+        pthread_mutex_unlock(&lock);
+
+        //Abrir o dispositivo do mouse
+        fd_mouse = open(MOUSE_DEVICE, O_RDONLY);
+        if (fd_mouse == -1) {
+            fprintf(stderr, "Erro ao abrir o mouse\n");
+            return 1;
+        }
 
         //JOGAR NOVAMENTE
         while (1) {
-            //Abrir o dispositivo do mouse
-            fd_mouse = open(MOUSE_DEVICE, O_RDONLY);
-            if (fd_mouse == -1) {
-                fprintf(stderr, "Erro ao abrir o mouse\n");
-                return 1;
-            }
-
             if(cria_threads_jogo()) {
                 perror("pthread_create");
                 return 1;
@@ -89,21 +88,21 @@ int main() {
             win = 0, lost = 0,
             colidiu = 0;
 
-        
             pthread_mutex_lock(&lock);
             habilidades = 3;
-            att_display(vidas, habilidades);
+            pausar = 0;
             pthread_mutex_unlock(&lock);
+
+            inicia_display();
 
             //LOOP DO JOGO
             while (1) {
                 pthread_mutex_lock(&lock);
                 //SE JOGO NÃO ESTÁ PAUSADO
                 if (pausar == 0) {
-                    pthread_mutex_unlock(&lock);
-
                     //Sprite Pause
                     set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
+                    pthread_mutex_unlock(&lock);
 
                     pthread_mutex_lock(&lock);
                     //SE NÃO ESTIVER NO MODO FURTIVO, VERIFICA COLISÕES
@@ -121,9 +120,9 @@ int main() {
                         if (trofeu_esq == 0 && x_ladrao < 72 && y_ladrao < 64) {
                             //Colisão com troféu esquerdo
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, TROFEU_ESQ_X, TROFEU_ESQ_Y)) {
-                                pthread_mutex_unlock(&lock);
                                 //DESABILITA TROFÉU ESQUERDO
-                                set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
+                                set_sprite_wbr(0, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
+                                pthread_mutex_unlock(&lock);
 
                                 trofeu_esq = 1;
                             }
@@ -133,9 +132,9 @@ int main() {
                         else if (trofeu_dir == 0 && (x_ladrao > 72 && x_ladrao < 160) && y_ladrao < 152) {
                             //Colisão com troféu direito
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, TROFEU_DIR_X, TROFEU_DIR_Y)) {
-                                pthread_mutex_unlock(&lock);
                                 //DESABILITA TROFÉU DIREITO
                                 set_sprite_wbr(0, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
+                                pthread_mutex_unlock(&lock);
 
                                 trofeu_dir = 1;
                             }
@@ -206,7 +205,9 @@ int main() {
                             }
                         }
 
-                        else pthread_mutex_unlock(&lock);
+                        //se não colidiu com nada, libera
+                        else 
+                            pthread_mutex_unlock(&lock);
 
                         //SE BATEU EM ALGUM POLICIAL
                         if (colidiu) {
@@ -233,82 +234,100 @@ int main() {
                         att_display(vidas, habilidades);
                         pthread_mutex_unlock(&lock);
                     }
-                    else pthread_mutex_unlock(&lock);
+                    
+                    //ELSE DO NÃO ESTAR NO MODO FURTIVO
+                    else 
+                        pthread_mutex_unlock(&lock);
                 }
 
                 //SE JOGO ESTÁ PAUSADO
                 else{
-                    pthread_mutex_unlock(&lock);
                     //Sprite Pause
                     set_sprite_wbr(1, PAUSE_X, PAUSE_Y, 27, 4);
+                    pthread_mutex_unlock(&lock);
                 }
 
                 pthread_mutex_lock(&lock);
                 //VERIFICA SE JOGADOR QUER REINICIAR OU SAIR DO JOGO (SEMPRE)
                 if (start || sair){
-                    pthread_mutex_lock(&lock);
-
+                    pthread_mutex_unlock(&lock);
                     break;
                 }
-
                 pthread_mutex_unlock(&lock);
+
             } //LOOP DO JOGO
 
-            if(cancela_threads_jogo()){
-                perror("falhou cancel\n");
-                return 1;
-            }
+            pthread_mutex_lock(&lock);
+            cancela_threads_policiais = 1;
+            pthread_mutex_unlock(&lock);
 
-            if(espera_cancelamento_threads_jogo()){
+            if(espera_cancelamento_threads_policias()){
                 perror("pthread_join");
                 return 1;
             }
 
-            //fecha comunicação com o mouse
-            close(fd_mouse);
-
-            att_display(vidas, habilidades);
+            if(cancela_thread_mouse()){
+                perror("pthread_cancel");
+                return 1;
+            }
 
             if (win || lost) {
+                att_display(vidas, habilidades);
                 limpar_tela(0);
 
                 if (win) tela_win();
 
                 else if (lost) tela_lose();
 
-                pthread_mutex_lock(&lock);
                 //ESPERA JOGADOR ESCOLHER ENTRE JOGAR DE NOVO OU SAIR
                 while (1) {
+                    pthread_mutex_lock(&lock);
                     if(start || sair){
                         pthread_mutex_unlock(&lock);
                         break;
                     }
+                    pthread_mutex_unlock(&lock);
                 }
 
                 pthread_mutex_lock(&lock);
                 if(start) {
-                    pthread_mutex_unlock(&lock);
                     limpar_tela(0);
                     tela_padrao();
+                    pthread_mutex_unlock(&lock);
                 }
 
-                else pthread_mutex_unlock(&lock);
+                else
+                    pthread_mutex_unlock(&lock);
             }
 
             pthread_mutex_lock(&lock);
             //CLICOU EM SAIR
-            if (sair) break;
+            if (sair){ 
+                pthread_mutex_unlock(&lock);
+                break;
+            }
 
+            else
+                pthread_mutex_unlock(&lock);
+
+            pthread_mutex_lock(&lock);
             start = 0;
             pthread_mutex_unlock(&lock);
 
         } //LOOP JOGAR NOVAMENTE
+
+        //fecha comunicação com o mouse
+        close(fd_mouse);
     }
 
-    cancela = 1;
+    else
+        pthread_mutex_unlock(&lock);
+
+    pthread_mutex_lock(&lock);
+    cancela_thread_botoes = 1;
     pthread_mutex_unlock(&lock);
 
- //Aguarda cancelamento da thread do botão
+    //Aguarda cancelamento da thread do botão
     if (pthread_join(thread_botao, NULL) != 0) {
         perror("pthread_join");
         return 1;
