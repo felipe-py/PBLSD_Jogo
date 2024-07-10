@@ -13,7 +13,7 @@ all:
 
 	insmod driver_tp01_g02.ko
 
-	mknod /dev/driver_tp01_g02 c 247 0
+	mknod /dev/driver_tp01_g02 c 248 0
 
 # Regra para limpar os arquivos gerados de compilação do módulo, remover módulo do kernel e seu nó de dispositivo de caractere (arquivo especial)
 clean:
@@ -25,7 +25,7 @@ clean:
 
 # Regra para compilar e executar programa de usuário
 run:
-	gcc main2.c biblioteca_gpu.c utils.c carrega_telas_sprites.c mapeamento.c threads.c -std=c99 -o programa -pthread
+	gcc main.c biblioteca_gpu.c utils.c carrega_telas_sprites.c mapeamento.c threads.c -std=c99 -o programa -pthread
 
 	./programa
 
