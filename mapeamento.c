@@ -88,6 +88,9 @@ void encerra_display(){
     *HEX0_ptr = numeros[4];
     *HEX1_ptr = numeros[4];
 
+    *HEX2_ptr = numeros[4];
+    *HEX3_ptr = numeros[4];
+
     *HEX4_ptr = numeros[4];
     *HEX5_ptr = numeros[4];
 }
