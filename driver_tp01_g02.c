@@ -45,7 +45,7 @@ static char buffer_nucleo[21];              /* Buffer do driver para enviar ao U
  *                  filep: ponteiro para informações específicas sobre o arquivo que está sendo manipulado durante a abertura
  */
 static int dev_open(struct inode* inodep, struct file* filep) {
-    pr_info("%s: abriu!\n", DEVICE_NAME);
+    //pr_info("%s: abriu!\n", DEVICE_NAME);
 
     return 0;
 }
@@ -55,7 +55,7 @@ static int dev_open(struct inode* inodep, struct file* filep) {
  *                  filep: ponteiro para informações específicas sobre o arquivo que está sendo manipulado durante o fechamento
  */
 static int dev_close(struct inode* inodep, struct file* filep) {
-    pr_info("%s: fechou!\n", DEVICE_NAME);
+    //pr_info("%s: fechou!\n", DEVICE_NAME);
 
     return 0;
 }
@@ -68,7 +68,7 @@ static int dev_close(struct inode* inodep, struct file* filep) {
  * retorno ->       0 caso seja bem sucedido ou n bytes caso ocorra algum erro 
  */
 static ssize_t dev_read(struct file* file, char* buffer_user, size_t buffer_bytes, loff_t* curs) {
-    pr_info("%s: lendo!\n", DEVICE_NAME);
+    //pr_info("%s: lendo!\n", DEVICE_NAME);
     
     ret = copy_to_user(buffer_user, buffer_nucleo, buffer_bytes);       /* Do Kernel para usuário */
 
@@ -79,7 +79,7 @@ static ssize_t dev_read(struct file* file, char* buffer_user, size_t buffer_byte
         return ret;
     }
 
-    pr_info("%s: leitura feita com sucesso!\n", DEVICE_NAME);
+    //pr_info("%s: leitura feita com sucesso!\n", DEVICE_NAME);
 
     return 0;
 }
@@ -94,7 +94,7 @@ static ssize_t dev_read(struct file* file, char* buffer_user, size_t buffer_byte
  * retorno ->       0 caso seja bem sucedido ou n bytes caso ocorra algum erro 
  */
 static ssize_t dev_write(struct file* file, const char* buffer_user, size_t buffer_bytes, loff_t* curs) {
-    pr_info("%s: escrevendo!\n", DEVICE_NAME);
+    //pr_info("%s: escrevendo!\n", DEVICE_NAME);
 
     /* Enquanto FIFO's estiverem cheias, espera */
     while (*wrfull_ptr) {}
@@ -130,7 +130,7 @@ static ssize_t dev_write(struct file* file, const char* buffer_user, size_t buff
     *wrreg_ptr = 1;
     *wrreg_ptr = 0;
 
-    pr_info("%s: escrita feita com sucesso!\n", DEVICE_NAME);
+    //pr_info("%s: escrita feita com sucesso!\n", DEVICE_NAME);
 
     return 0;
 }
