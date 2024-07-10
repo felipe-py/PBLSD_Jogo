@@ -57,6 +57,8 @@ extern volatile int start;
 extern volatile int sair;
 extern volatile int furtivo;
 
+extern volatile int jogando;
+
 extern volatile int habilidades;
 
 int cria_threads_jogo();
