@@ -51,23 +51,18 @@ int main() {
         encerra_display();
 
     //Espera escolha do jogador entre jogar ou sair
-    while (1) {
-            
-        if(sair || start ){
-            
+    while (1) {        
+        if(sair || start ){  
             break;
-        }
-        
+        } 
     }
 
-    
-    int start2 = start;
-    
-
     //Se pressionou jogar
-    if (start2) {
+    if (start) {
         
+        pthread_mutex_lock(&lock);
         start = 0;
+        pthread_mutex_unlock(&lock);
 
         limpar_tela(0);
 
@@ -76,8 +71,6 @@ int main() {
 
         //JOGAR NOVAMENTE
         while (1) {
-            
-
             x_ladrao = INICIO_LADRAO_X;
             y_ladrao = INICIO_LADRAO_Y;
             set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
@@ -132,8 +125,6 @@ int main() {
             //POLICIA 1
             set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
 
-            
-
             if(cria_threads_jogo()) {
                 perror("pthread_create");
                 return 1;
@@ -146,11 +137,12 @@ int main() {
             win = 0, lost = 0,
             colidiu = 0;
 
-            
+
+            pthread_mutex_lock(&lock);
             habilidades = 3;
             pausar = 0;
+            pthread_mutex_unlock(&lock);
             
-
             inicia_display();
 
             //LOOP DO JOGO
@@ -162,12 +154,11 @@ int main() {
 
                     //SE NÃO ESTIVER NO MODO FURTIVO, VERIFICA COLISÕES
                     if(furtivo == 0) {
-
                         
+                        pthread_mutex_lock(&lock);
                         //VERIFICA SE LADRAO TEM 2 TROFEUS E SAIU PELA PORTA
-                        if ((trofeu_dir == 1 && trofeu_esq == 1) && x_ladrao == PORTA_X && y_ladrao == PORTA_Y) {
-                                
-
+                        if ((trofeu_dir == 1 && trofeu_esq == 1) && x_ladrao == PORTA_X && y_ladrao == PORTA_Y) {              
+                                pthread_mutex_unlock(&lock);
                                 //GANHOU
                                 win = 1;
                                 break;
@@ -199,8 +190,7 @@ int main() {
                         //VERIFICA COLISAO COM POLICIAL 1
                         else if ((x_ladrao >= 96 && x_ladrao < 440) && y_ladrao < 144) {
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_1_x, policia_1_y)) {
-                                trofeu_dir = 0;
-                                trofeu_esq = 0;
+
                                 colidiu = 1;
                             }
                         }
@@ -261,6 +251,8 @@ int main() {
                                 colidiu = 1;
                             }
                         }
+
+                        pthread_mutex_unlock(&lock);
                             
 
                         //SE BATEU EM ALGUM POLICIAL
@@ -284,40 +276,34 @@ int main() {
                                 set_sprite_wbr(1, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
                             }
 
-                            
+                            pthread_mutex_lock(&lock);
                             //SE AINDA TIVER VIDAS, VOLTA PARA O INÍCIO
                             x_ladrao = INICIO_LADRAO_X;
                             y_ladrao = INICIO_LADRAO_Y;
-                            
+                                        //LADRAO
+                            set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);    
+                            pthread_mutex_unlock(&lock);
                         }
 
-                        
                         //Atualiza display a cada iteração
                         att_display(vidas, habilidades);
-                        
                     }
                 }
 
                 //SE JOGO ESTÁ PAUSADO
-                else{
+                else
                     //Sprite Pause
                     set_sprite_wbr(1, PAUSE_X, PAUSE_Y, 27, 4);
-                }
-
-                
-                int sair2 = sair;
-                int start2 = start;
-                
 
                 //VERIFICA SE JOGADOR QUER REINICIAR OU SAIR DO JOGO (SEMPRE)
-                if (start2 || sair2){
+                if (start || sair){
                     break;
                 }
             } //LOOP DO JOGO
 
-            
+            pthread_mutex_lock(&lock);
             cancela_threads_policiais = 0;
-            
+            pthread_mutex_unlock(&lock);
 
             if(espera_cancelamento_threads_policias()){
                 perror("pthread_join");
@@ -338,41 +324,27 @@ int main() {
                 else if (lost) tela_lose();
 
                 //ESPERA JOGADOR ESCOLHER ENTRE JOGAR DE NOVO OU SAIR
-                while (1) {
-                    
-                    if(start || sair){
-                        
+                while (1) { 
+                    if(start || sair){  
                         break;
                     }
-                    
                 }
 
-                
-                int start2 = start;
-                
-
-                if(start2) {
-                     
+                if(start) { 
                     limpar_tela(0);
                     tela_padrao();
-                    
                 }
             }
             
-            
-            int sair2 = sair;
-            
-
             //CLICOU EM SAIR
-            if (sair2){ 
+            if (sair){ 
                 break;
             }
 
-            
+            pthread_mutex_lock(&lock);
             start = 0;
             cancela_threads_policiais = 1;
-            
-
+            pthread_mutex_unlock(&lock);     
         } //LOOP JOGAR NOVAMENTE
 
         //fecha comunicação com o mouse
@@ -380,9 +352,11 @@ int main() {
     }
 
     encerra_display();
-    cancela_thread_botoes = 1;
-    
 
+    pthread_mutex_lock(&lock);
+    cancela_thread_botoes = 1;
+    pthread_mutex_unlock(&lock);
+    
     //Aguarda cancelamento da thread do botão
     if (pthread_join(thread_botao, NULL) != 0) {
         perror("pthread_join");
@@ -409,3 +383,7 @@ int main() {
 
     return 0;
 }
+
+
+
+
