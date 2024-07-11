@@ -109,12 +109,6 @@ int espera_cancelamento_threads_policias(){
 }
 
 void* movimenta_mouse(void* arg) {
-    /*pthread_mutex_lock(&lock);
-    x_ladrao = INICIO_LADRAO_X;
-    y_ladrao = INICIO_LADRAO_Y;
-    set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
-    pthread_mutex_unlock(&lock);*/
-    
     ssize_t n;
 
     int verificar, offset_ladrao = 25;
@@ -256,6 +250,9 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
                     }
                 }
 
+            //POLICIA 2
+                set_sprite_wbr(1, policia_2_x, policia_2_y, 30, 6);
+
             //POLICIA 3
                 if(sentido_policial_3 == SENTIDO_PARA_DIREITA){
                     policia_3_x += 1;     
@@ -285,6 +282,9 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
                     }
                 }
 
+            //POLICIA 3
+                set_sprite_wbr(1, policia_3_x, policia_3_y, 30, 7);
+
             //POLICIA 6
                 if(sentido_policial_6 == SENTIDO_PARA_ESQUERDA){
                     policia_6_x -= 1;     
@@ -299,6 +299,9 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
                         sentido_policial_6 = SENTIDO_PARA_ESQUERDA;
                     }
                 }
+
+            //POLICIA 6
+                set_sprite_wbr(1, policia_6_x, policia_6_y, 30, 10);
 
             //POLICIA 8
                 if(sentido_policial_8 == SENTIDO_PARA_DIREITA){
@@ -315,15 +318,9 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
                     }
                 }
 
-
-            //POLICIA 2
-            set_sprite_wbr(1, policia_2_x, policia_2_y, 30, 6);
-            //POLICIA 3
-            set_sprite_wbr(1, policia_3_x, policia_3_y, 30, 7);
-            //POLICIA 6
-            set_sprite_wbr(1, policia_6_x, policia_6_y, 30, 10);
             //POLICIA 8
-            set_sprite_wbr(1, policia_8_x, policia_8_y, 30, 12);
+                set_sprite_wbr(1, policia_8_x, policia_8_y, 30, 12);
+            
             pthread_mutex_unlock(&lock);
         }
     }
@@ -377,6 +374,9 @@ void* movimenta_policiais_4_5_7(void* arg) {
                     }
                 }
 
+            //POLICIA 4
+                set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
+
             //POLICIA 5
                 if(sentido_policial_5 == SENTIDO_PARA_DIREITA){
                     policia_5_x += 1;     
@@ -391,6 +391,9 @@ void* movimenta_policiais_4_5_7(void* arg) {
                         sentido_policial_5 = SENTIDO_PARA_DIREITA;
                     }
                 }
+
+            //POLICIA 5
+                set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
 
             //POLICIA 7
                 if(sentido_policial_7 == SENTIDO_PARA_CIMA){
@@ -421,12 +424,8 @@ void* movimenta_policiais_4_5_7(void* arg) {
                     }
                 }
             
-            //POLICIA 4
-            set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
-            //POLICIA 5
-            set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
             //POLICIA 7
-            set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
+                set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
 
             pthread_mutex_unlock(&lock);
         }
@@ -493,6 +492,9 @@ void* movimenta_policiais_9_10(void* arg) {
                     }
                 }
 
+            //POLICIA 9
+                set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
+
             //POLICIA 10
                 if(sentido_policial_10 == SENTIDO_PARA_ESQUERDA){
                     policia_10_x -= 1;       
@@ -522,10 +524,9 @@ void* movimenta_policiais_9_10(void* arg) {
                     }
                 }
             
-            //POLICIA 9
-            set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
             //POLICIA 10
-            set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
+                set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
+
             pthread_mutex_unlock(&lock);
         }
     }
@@ -582,7 +583,8 @@ void* movimenta_policiais_1(void* arg) {
                 }
             
             //POLICIA 1
-            set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
+                set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
+
             pthread_mutex_unlock(&lock);
         }
     }
