@@ -46,8 +46,10 @@ int main() {
         return 1;
     }
 
+    pthread_mutex_lock(&lock);
     //Exibe tela inicial
     tela_inicial();
+    pthread_mutex_unlock(&lock);
         
     inicia_display();
 
@@ -62,11 +64,11 @@ int main() {
     if (start) {
         pthread_mutex_lock(&lock);
         start = 0;
-        pthread_mutex_unlock(&lock);
-
+        
         limpar_tela(0);
 
         tela_padrao();
+        pthread_mutex_unlock(&lock);
 
         int vidas;
         int trofeu_dir, trofeu_esq;
@@ -208,7 +210,10 @@ int main() {
 
                             //GAME OVER
                             if (vidas == 0) {
+                                pthread_mutex_lock(&lock);
                                 set_sprite_wbr(0, 0, 0, 25, 15);
+                                pthread_mutex_unlock(&lock);
+                                
                                 lost = 1;
 
                                 break;
@@ -226,8 +231,10 @@ int main() {
                                 trofeu_dir = 0;
                                 trofeu_esq = 0;
 
+                                pthread_mutex_lock(&lock);
                                 set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
                                 set_sprite_wbr(1, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
+                                pthread_mutex_unlock(&lock);
                             }
                         }
 
@@ -260,11 +267,13 @@ int main() {
             }
 
             if (win || lost) {
+                pthread_mutex_lock(&lock);
                 limpar_tela(0);
 
                 if (win) tela_win();
 
                 else if (lost) tela_lose();
+                pthread_mutex_unlock(&lock);
 
                 //ESPERA JOGADOR ESCOLHER ENTRE JOGAR DE NOVO OU SAIR
                 while (1) { 
@@ -273,9 +282,11 @@ int main() {
                     }
                 }
 
-                if(start) { 
+                if(start) {
+                    pthread_mutex_lock(&lock);
                     limpar_tela(0);
                     tela_padrao();
+                    pthread_mutex_unlock(&lock);
                 }
             }
             
