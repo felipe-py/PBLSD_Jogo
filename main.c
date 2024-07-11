@@ -5,7 +5,6 @@
 #include "carrega_telas_sprites.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <pthread.h>
@@ -24,16 +23,6 @@ int main() {
     //Carrega sprites do jogo na GPU
     if (carrega_sprites() == -1){
         return -1;
-    }
-
-    for(int i=0; i<=79; i++){
-        for(int j=0; j<=59; j++){
-            desabilita_bloco_background_wbm(i,j);
-        }
-    }
-
-    for(int j=1; j<=31; j++){
-        set_sprite_wbr(0,0,0,0,j);
     }
 
     //Inicializa o mutex padrão
@@ -88,8 +77,6 @@ int main() {
                 return 1;
             }
 
-            printf("Criei threads jogo na main\n");
-
             trofeu_dir = 0, trofeu_esq = 0;
             win = 0, lost = 0;
             colidiu = 0;
@@ -119,7 +106,7 @@ int main() {
                         }
 
                         //VERIFICA SE LADRAO PEGOU TROFÉU ESQUERDA
-                        else if (trofeu_esq == 0 && x_ladrao < 72 && y_ladrao < 64) {
+                        if (trofeu_esq == 0 && x_ladrao < 72 && y_ladrao < 64) {
                             //Colisão com troféu esquerdo
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, TROFEU_ESQ_X, TROFEU_ESQ_Y)) {
                                 //DESABILITA TROFÉU ESQUERDO
@@ -141,32 +128,39 @@ int main() {
                         }
 
                         //VERIFICA COLISAO COM POLICIAL 1
-                        else if ((x_ladrao >= 96 && x_ladrao < 440) && y_ladrao < 144) {
+                        else if ((x_ladrao >= 136 && x_ladrao < 440) && y_ladrao < 128) {
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_1_x, policia_1_y)) {
+
                                 colidiu = 1;
                             }
                         }
 
                         //VERIFICA COLISAO COM POLICIAL 2
-                        else if (x_ladrao > 440 && y_ladrao < 120) {
+                        else if (x_ladrao > 440 && (y_ladrao > 40 && y_ladrao < 104)) {
                             if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_2_x, policia_2_y)) {
+
                                 colidiu = 1;
                             }
                         }
 
-                        //VERIFICA COLISAO COM POLICIAL 3 E 6
-                        else if (x_ladrao > 440 && (y_ladrao > 96 && y_ladrao < 336)) {
-                            if (
-                                verifica_colisao_policia(x_ladrao, y_ladrao, policia_3_x, policia_3_y) || 
-                                verifica_colisao_policia(x_ladrao, y_ladrao, policia_6_x, policia_6_y)
-                                ) {
+                        //VERIFICA COLISAO COM POLICIAL 3
+                        else if (x_ladrao > 440 && (y_ladrao > 104 && y_ladrao < 192)) {
+                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_3_x, policia_3_y)) {
+                                    
+                                colidiu = 1;
+                            }
+                        }
+
+                        //VERIFICA COLISAO COM POLICIAL 6
+                        else if (x_ladrao > 440 && (y_ladrao > 264 && y_ladrao < 328)) {
+                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_6_x, policia_6_y)) {
                                     
                                 colidiu = 1;
                             }
                         }
 
                         //VERIFICA COLISAO COM POLICIAL 4 E 5
-                        else if ((x_ladrao >= 80 && x_ladrao < 440) && (y_ladrao > 120 && y_ladrao < 256)) {
+                        else if ((x_ladrao >= 80 && x_ladrao < 440) && (y_ladrao > 128 && y_ladrao < 248)) {
                             if (
                                 verifica_colisao_policia(x_ladrao, y_ladrao, policia_4_x, policia_4_y) || 
                                 verifica_colisao_policia(x_ladrao, y_ladrao, policia_5_x, policia_5_y)
@@ -176,27 +170,34 @@ int main() {
                             }
                         }
 
-                        //VERIFICA COLISAO COM POLICIAL 7 E 8
-                        else if ((x_ladrao >= 80 && x_ladrao < 440) && (y_ladrao > 248 && y_ladrao < 424)) {
-                            if (
-                                verifica_colisao_policia(x_ladrao, y_ladrao, policia_7_x, policia_7_y) || 
-                                verifica_colisao_policia(x_ladrao, y_ladrao, policia_8_x, policia_8_y)
-                                ) {
+                        //VERIFICA COLISAO COM POLICIAL 7
+                        else if ((x_ladrao >= 80 && x_ladrao < 440) && (y_ladrao > 256 && y_ladrao < 368)) {
+                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_7_x, policia_7_y)) {
+                                    
+                                colidiu = 1;
+                            }
+                        }
+
+                        //VERIFICA COLISAO COM POLICIAL 8
+                        else if ((x_ladrao >= 80 && x_ladrao < 248) && (y_ladrao > 352 && y_ladrao < 416)) {
+                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_8_x, policia_8_y)) {
                                     
                                 colidiu = 1;
                             }
                         }
 
                         //VERIFICA COLISAO COM POLICIAL 9
-                        else if (x_ladrao >= 344 && y_ladrao > 32) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_9_x, policia_9_y)) {               
+                        else if (x_ladrao >= 368 && y_ladrao > 336) {
+                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_9_x, policia_9_y)) {  
+
                                 colidiu = 1;
                             }
                         }
 
                         //VERIFICA COLISAO COM POLICIAL 10
-                        else if (x_ladrao < 288 && y_ladrao > 128) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_10_x, policia_10_y)) {           
+                        else if (x_ladrao < 248 && y_ladrao > 168) {
+                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_10_x, policia_10_y)) {  
+
                                 colidiu = 1;
                             }
                         }
