@@ -4,11 +4,6 @@
 #include "threads.h"
 #include "carrega_telas_sprites.h"
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <pthread.h>
-
 int main() {
     //Abre arquivo de comunicação com o driver
     if (open_driver() == -1){
@@ -24,6 +19,17 @@ int main() {
     if (carrega_sprites() == -1){
         return -1;
     }
+
+        for(int i=0; i<=79; i++){
+        for(int j=0; j<=59; j++){
+            desabilita_bloco_background_wbm(i,j);
+        }
+    }
+
+        for(int j=1; j<=31; j++){
+            set_sprite_wbr(0,0,0,0,j);
+        }
+
 
     //Inicializa o mutex padrão
     pthread_mutex_init(&lock, NULL);
@@ -82,8 +88,9 @@ int main() {
 
             pthread_mutex_lock(&lock);
             habilidades = 3;
-            pausar = 0;
             jogando = 1;
+            pausar = 0;
+            set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
             att_display(vidas, habilidades);
             pthread_mutex_unlock(&lock);
 
@@ -249,7 +256,6 @@ int main() {
             cancela_threads_policiais = 1;
             jogando = 0;
             att_display(vidas, habilidades);
-            set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
             pthread_mutex_unlock(&lock);
 
             if(espera_cancelamento_threads_policias()){
