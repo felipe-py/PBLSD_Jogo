@@ -5,7 +5,7 @@ obj-m += driver_tp01_g02.o
 KDIR := /lib/modules/$(shell uname -r)/build
 
 # Diretório atual do projeto
-PWD := /home/aluno/TEC499/G02
+PWD := /home/aluno/TEC499/TP01/G02
 
 # Regra padrão para compilar módulo kernel, inserí-lo no kernel dinamicamente e criar um nó de dispositivo de caractere (arquivo especial)
 all:
