@@ -67,9 +67,7 @@ int main() {
         //JOGAR NOVAMENTE
         while (1) {
             pthread_mutex_lock(&lock);
-            x_ladrao = INICIO_LADRAO_X;
-            y_ladrao = INICIO_LADRAO_Y;
-            set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
+            inicia_ladrao();
             pthread_mutex_unlock(&lock);
             
             if(cria_threads_jogo()) {
@@ -221,11 +219,7 @@ int main() {
                             }
 
                             pthread_mutex_lock(&lock);
-                            //SE AINDA TIVER VIDAS, VOLTA PARA O INÍCIO
-                            x_ladrao = INICIO_LADRAO_X;
-                            y_ladrao = INICIO_LADRAO_Y;
-                            //LADRAO
-                            set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);    
+                            inicia_ladrao();
                             pthread_mutex_unlock(&lock);
 
                             if(trofeu_dir || trofeu_esq){
