@@ -1,5 +1,4 @@
 #include "utils.h"
-#include <stdio.h>
 
 verifica_colisao_parede(int x_ladrao, int y_ladrao, int verificar, char x_y){
     if(x_y == 'x'){
