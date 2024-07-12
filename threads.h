@@ -11,15 +11,13 @@
 #define SENTIDO_PARA_CIMA 3
 #define SENTIDO_PARA_BAIXO 4
 
-#define VELOCIDADE_POLICIAIS_2_3_6_8 4500
-#define VELOCIDADE_POLICIAIS_4_5_7_9_10 4500
-#define VELOCIDADE_POLICIAIS_1 4500
+#define VELOCIDADE_POLICIAIS 4250
 
 extern int fd_mouse;
 
 extern pthread_mutex_t lock;
 
-extern pthread_t thread_mouse, thread_policais_1, thread_policiais_2_3_6_8, thread_policiais_4_5_7_9_10;
+extern pthread_t thread_mouse, thread_policais_1_2_3, thread_policiais_4_5_6, thread_policiais_7_8_9_10;
 
 extern volatile int x_ladrao;
 extern volatile int y_ladrao;
@@ -68,11 +66,11 @@ int cancela_thread_mouse();
 
 void* movimenta_mouse(void* arg);
 
-void* movimenta_policiais_2_3_6_8(void* arg);
+void* movimenta_policiais_1_2_3(void* arg);
 
-void* movimenta_policiais_4_5_7_9_10(void* arg);
+void* movimenta_policiais_4_5_6(void* arg);
 
-void* movimenta_policiais_1(void* arg);
+void* movimenta_policiais_7_8_9_10(void* arg);
 
 void* botao(void* arg);
 
