@@ -13,7 +13,7 @@ struct input_event ev;
 
 pthread_mutex_t lock;
 
-pthread_t thread_mouse, thread_policais_1, thread_policiais_2_3_6_8, thread_policiais_4_5_7, thread_policias_9_10;
+pthread_t thread_mouse, thread_policais_1, thread_policiais_2_3_6_8, thread_policiais_4_5_7_9_10;
 
 volatile int x_ladrao;
 volatile int y_ladrao;
@@ -46,11 +46,17 @@ volatile int cancela_thread_botoes = 0;
 volatile int pausar = 0;
 volatile int start = 0;
 volatile int sair = 0;
-volatile int furtivo = 0;
 
 volatile int jogando = 0;
 
 volatile int habilidades = 0;
+volatile int furtivo = 0;
+
+void inicia_ladrao(){
+    x_ladrao = INICIO_LADRAO_X;
+    y_ladrao = INICIO_LADRAO_Y;
+    set_sprite_wbr(1, x_ladrao, y_ladrao, 25, 15);
+}
 
 int cria_threads_jogo(){
     //CRIA AS THREADS DO JOGO
@@ -67,11 +73,7 @@ int cria_threads_jogo(){
         return 1;
     }
 
-    if (pthread_create(&thread_policiais_4_5_7, NULL, movimenta_policiais_4_5_7, NULL) != 0) {
-        return 1;
-    }
-
-    if (pthread_create(&thread_policias_9_10, NULL, movimenta_policiais_9_10, NULL) != 0) {
+    if (pthread_create(&thread_policiais_4_5_7_9_10, NULL, movimenta_policiais_4_5_7_9_10, NULL) != 0) {
         return 1;
     }
 
@@ -97,11 +99,7 @@ int espera_cancelamento_threads_policias(){
         return 1;
     }
 
-    if (pthread_join(thread_policiais_4_5_7, NULL) != 0) {
-        return 1;
-    }
-
-    if (pthread_join(thread_policias_9_10, NULL) != 0) {
+    if (pthread_join(thread_policiais_4_5_7_9_10, NULL) != 0) {
         return 1;
     }
 
@@ -134,38 +132,31 @@ void* movimenta_mouse(void* arg) {
                 break;
             }
             
-            //pthread_mutex_lock(&lock);
             //SE ESTIVER NO MODO FURTIVO, NÃO PRECISA LER MOVIMENTOS
             if(furtivo == 0) {
                 if (ev.type == EV_REL) {
-         
                     if (ev.code == REL_X) {
                         verificar = x_ladrao + ev.value;
                             
                         if (verifica_colisao_parede(x_ladrao, y_ladrao, verificar, 'x')){}
 
-                        else
-                            x_ladrao += ev.value;
+                        else x_ladrao += ev.value;
                     } 
                     
                     else if (ev.code == REL_Y) {
-
                         verificar = y_ladrao + ev.value;
 
                         if (verifica_colisao_parede(x_ladrao, y_ladrao, verificar, 'y')){}
 
-                        else
-                            y_ladrao += ev.value;
+                        else y_ladrao += ev.value;
                     }
-                    
                 }
      
                 //Limitar as coordenadas acumuladas
                 if (x_ladrao < 0) x_ladrao = 0;
                 if (x_ladrao > 619) x_ladrao = 619;
                 if (y_ladrao < 0) y_ladrao = 0;
-                if (y_ladrao > 459) y_ladrao = 459;
-                
+                if (y_ladrao > 459) y_ladrao = 459;  
             }
 
             //SE NÃO TIVER MAIS HABILIDADES, NÃO PRECISA VERIFICAR AÇÃO DE FURTIVIDADE
@@ -181,7 +172,7 @@ void* movimenta_mouse(void* arg) {
                     //SE BOTÃO ESQUERDO TA SOLTO, PORÉM ESTAVA MODO FURTIVO ON, HABILIDADE É CONTADA E FURTIVIDADE DESATIVADA
                     else if (ev.value == 0) {
                         if (furtivo) {
-                            habilidades -= 1;
+                            --habilidades;
 
                             furtivo = 0;
 
@@ -197,6 +188,66 @@ void* movimenta_mouse(void* arg) {
             set_sprite_wbr(1, x_ladrao, y_ladrao, offset_ladrao, 15);    
 
             pthread_mutex_unlock(&lock); 
+        }
+    }
+    
+    //FINALIZA A EXECUÇÃO DA THREAD
+    pthread_exit(NULL); // Finaliza a thread
+}
+
+void* movimenta_policiais_1(void* arg) {
+    pthread_mutex_lock(&lock);
+    policia_1_x = INICIO_POLICIAL_1_X;
+    policia_1_y = INICIO_POLICIAL_1_Y;
+
+    //POLICIA 1
+    set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
+    pthread_mutex_unlock(&lock);
+
+    int sentido_policial_1 = SENTIDO_PARA_DIREITA;
+
+    while(cancela_threads_policiais == 0){
+        if (pausar == 0){
+           //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
+            usleep(VELOCIDADE_POLICIAIS_1);
+            
+            //atualizando posições
+
+            //POLICIA 1
+                if(sentido_policial_1 == SENTIDO_PARA_DIREITA){
+                    policia_1_x += 1;     
+                    if(policia_1_x == FIM_POLICIAL_1_X){
+                        sentido_policial_1 = SENTIDO_PARA_BAIXO;
+                    }
+                }
+
+                else if(sentido_policial_1 == SENTIDO_PARA_BAIXO){
+                    policia_1_y += 1;       
+                    if(policia_1_y == FIM_POLICIAL_1_Y){
+                        sentido_policial_1 = SENTIDO_PARA_ESQUERDA;
+                    }
+                }
+
+                else if(sentido_policial_1 == SENTIDO_PARA_ESQUERDA){
+                    policia_1_x -= 1;       
+                    if(policia_1_x == INICIO_POLICIAL_1_X){
+                        sentido_policial_1 = SENTIDO_PARA_CIMA;
+                    }
+                }
+
+                else if(sentido_policial_1 == SENTIDO_PARA_CIMA){
+                    policia_1_y -= 1;       
+                    if(policia_1_y == INICIO_POLICIAL_1_Y){
+                        sentido_policial_1 = SENTIDO_PARA_DIREITA;
+                    }
+                }
+            
+            pthread_mutex_lock(&lock);
+
+            //POLICIA 1
+            set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
+
+            pthread_mutex_unlock(&lock);
         }
     }
     
@@ -252,7 +303,6 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
                     }
                 }
 
-
             //POLICIA 3
                 if(sentido_policial_3 == SENTIDO_PARA_DIREITA){
                     policia_3_x += 1;     
@@ -297,7 +347,6 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
                     }
                 }
 
-
             //POLICIA 8
                 if(sentido_policial_8 == SENTIDO_PARA_DIREITA){
                     policia_8_x += 1;     
@@ -335,15 +384,19 @@ void* movimenta_policiais_2_3_6_8(void* arg) {
     pthread_exit(NULL); // Finaliza a thread
 }
 
-void* movimenta_policiais_4_5_7(void* arg) {
+void* movimenta_policiais_4_5_7_9_10(void* arg) {
     pthread_mutex_lock(&lock);
     policia_4_x = INICIO_POLICIAL_4_X;
     policia_5_x = INICIO_POLICIAL_5_X;
     policia_7_x = INICIO_POLICIAL_7_X;
+    policia_9_x = INICIO_POLICIAL_9_X;
+    policia_10_x = INICIO_POLICIAL_10_X;
 
     policia_4_y = INICIO_FIM_POLICIAL_4_Y;
     policia_5_y = INICIO_FIM_POLICIAL_5_Y;
     policia_7_y = INICIO_POLICIAL_7_Y;
+    policia_9_y = INICIO_POLICIAL_9_Y;
+    policia_10_y = INICIO_POLICIAL_10_Y;
     
     //POLICIA 4
     set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
@@ -351,16 +404,22 @@ void* movimenta_policiais_4_5_7(void* arg) {
     set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
     //POLICIA 7
     set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
+    //POLICIA 9
+    set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
+    //POLICIA 10
+    set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
     pthread_mutex_unlock(&lock);
 
     int sentido_policial_4 = SENTIDO_PARA_ESQUERDA;
     int sentido_policial_5 = SENTIDO_PARA_DIREITA;
     int sentido_policial_7 = SENTIDO_PARA_CIMA;
+    int sentido_policial_9 = SENTIDO_PARA_DIREITA;
+    int sentido_policial_10 = SENTIDO_PARA_ESQUERDA;
 
     while(cancela_threads_policiais == 0){
         if (pausar == 0) {
             //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
-            usleep(VELOCIDADE_POLICIAIS_4_5_7);
+            usleep(VELOCIDADE_POLICIAIS_4_5_7_9_10);
 
             //atualizando posições
 
@@ -424,50 +483,7 @@ void* movimenta_policiais_4_5_7(void* arg) {
                     }
                 }
             
-            pthread_mutex_lock(&lock);
-
-            //POLICIA 4
-            set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
-
-            //POLICIA 5
-            set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
-
-            //POLICIA 7
-            set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
-
-            pthread_mutex_unlock(&lock);
-        }
-    }
-    
-    //FINALIZA A EXECUÇÃO DA THREAD
-    pthread_exit(NULL); // Finaliza a thread
-}
-
-void* movimenta_policiais_9_10(void* arg) {
-    pthread_mutex_lock(&lock);
-    policia_9_x = INICIO_POLICIAL_9_X;
-    policia_10_x = INICIO_POLICIAL_10_X;
-
-    policia_9_y = INICIO_POLICIAL_9_Y;
-    policia_10_y = INICIO_POLICIAL_10_Y;
-
-    //POLICIA 9
-    set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
-    //POLICIA 10
-    set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
-    pthread_mutex_unlock(&lock);
-
-    int sentido_policial_9 = SENTIDO_PARA_DIREITA;
-    int sentido_policial_10 = SENTIDO_PARA_ESQUERDA;
-
-    while(cancela_threads_policiais == 0){
-        if (pausar == 0){
-            //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
-            usleep(VELOCIDADE_POLICIAIS_9_10);
-
-            //atualizando posições
-
-            //POLICIA 9
+             //POLICIA 9
                 if(sentido_policial_9 == SENTIDO_PARA_DIREITA){
                     policia_9_x += 1;     
                     if(policia_9_x == FIM_POLICIAL_9_X && policia_9_y == INICIO_POLICIAL_9_Y){
@@ -488,7 +504,10 @@ void* movimenta_policiais_9_10(void* arg) {
 
                 else if(sentido_policial_9 == SENTIDO_PARA_ESQUERDA){
                     policia_9_x -= 1;       
-                    if((policia_9_x == FIM_2_POLICIAL_9_X && policia_9_y == FIM_POLICIAL_9_Y) || policia_9_x == INICIO_POLICIAL_9_X && policia_9_y == INICIO_POLICIAL_9_Y){
+                    if(
+                        (policia_9_x == FIM_2_POLICIAL_9_X && policia_9_y == FIM_POLICIAL_9_Y) || 
+                        (policia_9_x == INICIO_POLICIAL_9_X && policia_9_y == INICIO_POLICIAL_9_Y)
+                    ) {
                         sentido_policial_9 = SENTIDO_PARA_DIREITA;
                     }
                 }
@@ -529,74 +548,23 @@ void* movimenta_policiais_9_10(void* arg) {
                         sentido_policial_10 = SENTIDO_PARA_ESQUERDA;
                     }
                 }
-
+            
             pthread_mutex_lock(&lock);
+
+            //POLICIA 4
+            set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
+
+            //POLICIA 5
+            set_sprite_wbr(1, policia_5_x, policia_5_y, 30, 9);
+
+            //POLICIA 7
+            set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
 
             //POLICIA 9
             set_sprite_wbr(1, policia_9_x, policia_9_y, 30, 13);
 
             //POLICIA 10
             set_sprite_wbr(1, policia_10_x, policia_10_y, 30, 14);
-
-            pthread_mutex_unlock(&lock);
-        }
-    }
-    
-    //FINALIZA A EXECUÇÃO DA THREAD
-    pthread_exit(NULL); // Finaliza a thread
-}
-
-void* movimenta_policiais_1(void* arg) {
-    pthread_mutex_lock(&lock);
-    policia_1_x = INICIO_POLICIAL_1_X;
-    policia_1_y = INICIO_POLICIAL_1_Y;
-
-    //POLICIA 1
-    set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
-    pthread_mutex_unlock(&lock);
-
-    int sentido_policial_1 = SENTIDO_PARA_DIREITA;
-
-    while(cancela_threads_policiais == 0){
-        if (pausar == 0){
-           //7 segundos / 619 (7 000 000 dividido pelo total de pixels) -> Tempo para um pixel ir de 0 a 619
-            usleep(VELOCIDADE_POLICIAIS_1);
-            
-            //atualizando posições
-
-            //POLICIA 1
-                if(sentido_policial_1 == SENTIDO_PARA_DIREITA){
-                    policia_1_x += 1;     
-                    if(policia_1_x == FIM_POLICIAL_1_X){
-                        sentido_policial_1 = SENTIDO_PARA_BAIXO;
-                    }
-                }
-
-                else if(sentido_policial_1 == SENTIDO_PARA_BAIXO){
-                    policia_1_y += 1;       
-                    if(policia_1_y == FIM_POLICIAL_1_Y){
-                        sentido_policial_1 = SENTIDO_PARA_ESQUERDA;
-                    }
-                }
-
-                else if(sentido_policial_1 == SENTIDO_PARA_ESQUERDA){
-                    policia_1_x -= 1;       
-                    if(policia_1_x == INICIO_POLICIAL_1_X){
-                        sentido_policial_1 = SENTIDO_PARA_CIMA;
-                    }
-                }
-
-                else if(sentido_policial_1 == SENTIDO_PARA_CIMA){
-                    policia_1_y -= 1;       
-                    if(policia_1_y == INICIO_POLICIAL_1_Y){
-                        sentido_policial_1 = SENTIDO_PARA_DIREITA;
-                    }
-                }
-            
-            pthread_mutex_lock(&lock);
-
-            //POLICIA 1
-            set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
 
             pthread_mutex_unlock(&lock);
         }
