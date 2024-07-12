@@ -60,7 +60,6 @@ void inicia_ladrao(){
 
 int cria_threads_jogo(){
     //CRIA AS THREADS DO JOGO
-
     if (pthread_create(&thread_mouse, NULL, movimenta_mouse, NULL) != 0) {
         return 1;
     }
