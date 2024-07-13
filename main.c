@@ -20,16 +20,15 @@ int main() {
         return -1;
     }
 
-        for(int i=0; i<=79; i++){
+    for(int i=0; i<=79; i++){
         for(int j=0; j<=59; j++){
             desabilita_bloco_background_wbm(i,j);
         }
     }
 
-        for(int j=1; j<=31; j++){
-            set_sprite_wbr(0,0,0,0,j);
-        }
-
+    for(int j=1; j<=31; j++){
+        set_sprite_wbr(0,0,0,0,j);
+    }
 
     //Inicializa o mutex padrão
     pthread_mutex_init(&lock, NULL);
@@ -303,6 +302,7 @@ int main() {
             set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
             set_sprite_wbr(1, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
             pthread_mutex_unlock(&lock);  
+            
         } //LOOP JOGAR NOVAMENTE
 
         //fecha comunicação com o mouse
