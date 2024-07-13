@@ -88,8 +88,6 @@ int main() {
             pthread_mutex_lock(&lock);
             habilidades = 3;
             jogando = 1;
-            pausar = 0;
-            set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
             att_display(vidas, habilidades);
             pthread_mutex_unlock(&lock);
 
@@ -254,6 +252,10 @@ int main() {
             pthread_mutex_lock(&lock);
             cancela_threads_policiais = 1;
             jogando = 0;
+
+            pausar = 0;
+            set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
+
             att_display(vidas, habilidades);
             pthread_mutex_unlock(&lock);
 
@@ -297,10 +299,13 @@ int main() {
             }
 
             pthread_mutex_lock(&lock);
+
             start = 0;
             cancela_threads_policiais = 0;
+
             set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
             set_sprite_wbr(1, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
+
             pthread_mutex_unlock(&lock);  
             
         } //LOOP JOGAR NOVAMENTE

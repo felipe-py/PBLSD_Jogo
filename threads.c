@@ -666,9 +666,10 @@ void* botao(void* arg) {
                 clicou_pause = 1;
                 
                 pthread_mutex_lock(&lock);
-                pausar = 1;
-                if(jogando)
+                if(jogando){
+                    pausar = 1;
                     set_sprite_wbr(1, PAUSE_X, PAUSE_Y, 27, 4);
+                }
                 pthread_mutex_unlock(&lock);
             }
         }
@@ -679,9 +680,10 @@ void* botao(void* arg) {
                 clicou_despause = 1;
 
                 pthread_mutex_lock(&lock);
-                pausar = 0;
-                if(jogando)
+                if(jogando){
+                    pausar = 0;
                     set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
+                }
                 pthread_mutex_unlock(&lock);
             }
         }
