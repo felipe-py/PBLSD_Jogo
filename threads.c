@@ -131,6 +131,7 @@ void* movimenta_mouse(void* arg) {
                 return -1;
             }
             
+            //pthread_mutex_lock(&lock);
             //SE ESTIVER NO MODO FURTIVO, NÃO PRECISA LER MOVIMENTOS
             if(furtivo == 0) {
                 if (ev.type == EV_REL) {
@@ -163,9 +164,7 @@ void* movimenta_mouse(void* arg) {
                 if (ev.type == EV_KEY && ev.code == BTN_LEFT) {
                     //SE BOTÃO ESQUERDO TA SENDO PRESSIONADO, MODO FURTIVO ON
                     if(ev.value == 1) {
-                        pthread_mutex_lock(&lock);
                         furtivo = 1;
-                        pthread_mutex_unlock(&lock);
                     
                         offset_ladrao = 29;
                     }
@@ -173,11 +172,9 @@ void* movimenta_mouse(void* arg) {
                     //SE BOTÃO ESQUERDO TA SOLTO, PORÉM ESTAVA MODO FURTIVO ON, HABILIDADE É CONTADA E FURTIVIDADE DESATIVADA
                     else if (ev.value == 0) {
                         if (furtivo) {
-                            pthread_mutex_lock(&lock);
                             --habilidades;
 
                             furtivo = 0;
-                            pthread_mutex_unlock(&lock);
 
                             offset_ladrao = 25;
                         }
@@ -227,6 +224,7 @@ void* movimenta_policiais_1_2_3(void* arg) {
             
             //atualizando posições
 
+            //pthread_mutex_lock(&lock);
             //POLICIA 1
                 if(sentido_policial_1 == SENTIDO_PARA_DIREITA){
                     policia_1_x += DESLOCAMENTO_POLICIAL_1;
@@ -362,7 +360,7 @@ void* movimenta_policiais_4_5_6(void* arg) {
             usleep(VELOCIDADE_POLICIAIS);
             
             //atualizando posições
-
+            //pthread_mutex_lock(&lock);
             //POLICIA 4
                 if(sentido_policial_4 == SENTIDO_PARA_ESQUERDA){
                     policia_4_x -= DESLOCAMENTO_POLICIAL_4;  
@@ -470,7 +468,7 @@ void* movimenta_policiais_7_8_9_10(void* arg) {
             usleep(VELOCIDADE_POLICIAIS);
 
             //atualizando posições
-
+            //pthread_mutex_lock(&lock);
             //POLICIA 7
                 if(sentido_policial_7 == SENTIDO_PARA_CIMA){
                     policia_7_y -= DESLOCAMENTO_POLICIAL_7; 
