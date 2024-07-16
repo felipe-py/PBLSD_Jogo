@@ -131,7 +131,8 @@ void* movimenta_mouse(void* arg) {
                 return -1;
             }
             
-            //pthread_mutex_lock(&lock);
+            pthread_mutex_lock(&lock);
+
             //SE ESTIVER NO MODO FURTIVO, NÃO PRECISA LER MOVIMENTOS
             if(furtivo == 0) {
                 if (ev.type == EV_REL) {
@@ -182,8 +183,6 @@ void* movimenta_mouse(void* arg) {
                 }
             }
 
-            pthread_mutex_lock(&lock);
-
             //LADRAO
             set_sprite_wbr(1, x_ladrao, y_ladrao, offset_ladrao, 15);    
 
@@ -223,8 +222,8 @@ void* movimenta_policiais_1_2_3(void* arg) {
             usleep(VELOCIDADE_POLICIAIS);
             
             //atualizando posições
+            pthread_mutex_lock(&lock);
 
-            //pthread_mutex_lock(&lock);
             //POLICIA 1
                 if(sentido_policial_1 == SENTIDO_PARA_DIREITA){
                     policia_1_x += DESLOCAMENTO_POLICIAL_1;
@@ -312,8 +311,6 @@ void* movimenta_policiais_1_2_3(void* arg) {
                         sentido_policial_3 = SENTIDO_PARA_DIREITA;
                     }
                 }
-            
-            pthread_mutex_lock(&lock);
 
             //POLICIA 1
             set_sprite_wbr(1, policia_1_x, policia_1_y, 30, 5);
@@ -360,7 +357,8 @@ void* movimenta_policiais_4_5_6(void* arg) {
             usleep(VELOCIDADE_POLICIAIS);
             
             //atualizando posições
-            //pthread_mutex_lock(&lock);
+            pthread_mutex_lock(&lock);
+
             //POLICIA 4
                 if(sentido_policial_4 == SENTIDO_PARA_ESQUERDA){
                     policia_4_x -= DESLOCAMENTO_POLICIAL_4;  
@@ -416,8 +414,6 @@ void* movimenta_policiais_4_5_6(void* arg) {
                     }
                 }
 
-            pthread_mutex_lock(&lock);
-
             //POLICIA 4
             set_sprite_wbr(1, policia_4_x, policia_4_y, 30, 8);
 
@@ -468,7 +464,8 @@ void* movimenta_policiais_7_8_9_10(void* arg) {
             usleep(VELOCIDADE_POLICIAIS);
 
             //atualizando posições
-            //pthread_mutex_lock(&lock);
+            pthread_mutex_lock(&lock);
+
             //POLICIA 7
                 if(sentido_policial_7 == SENTIDO_PARA_CIMA){
                     policia_7_y -= DESLOCAMENTO_POLICIAL_7; 
@@ -604,8 +601,6 @@ void* movimenta_policiais_7_8_9_10(void* arg) {
                         sentido_policial_10 = SENTIDO_PARA_ESQUERDA;
                     }
                 }
-            
-            pthread_mutex_lock(&lock);
 
             //POLICIA 7
             set_sprite_wbr(1, policia_7_x, policia_7_y, 30, 11);
