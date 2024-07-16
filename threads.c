@@ -263,51 +263,57 @@ void* movimenta_policiais_1_2_3(void* arg) {
             
             //POLICIA 2
                 if(sentido_policial_2 == SENTIDO_PARA_ESQUERDA){
-                    policia_2_x -= 1;   
+                    policia_2_x -= DESLOCAMENTO_POLICIAL_2;   
 
-                    if(policia_2_x == FIM_POLICIAL_2_X){
+                    if(policia_2_x <= FIM_POLICIAL_2_X){
+                        policia_2_x = FIM_POLICIAL_2_X;
                         sentido_policial_2 = SENTIDO_PARA_DIREITA;
                     }
 
                 }
 
                 else if(sentido_policial_2 == SENTIDO_PARA_DIREITA){
-                    policia_2_x += 1;    
+                    policia_2_x += DESLOCAMENTO_POLICIAL_2;    
 
-                    if(policia_2_x == INICIO_POLICIAL_2_X){
+                    if(policia_2_x >= INICIO_POLICIAL_2_X){
+                        policia_2_x = INICIO_POLICIAL_2_X;
                         sentido_policial_2 = SENTIDO_PARA_ESQUERDA;
                     }
                 }
 
             //POLICIA 3
                 if(sentido_policial_3 == SENTIDO_PARA_DIREITA){
-                    policia_3_x += 1;   
+                    policia_3_x += DESLOCAMENTO_POLICIAL_3;   
 
-                    if(policia_3_x == FIM_POLICIAL_3_X){
+                    if(policia_3_x >= FIM_POLICIAL_3_X){
+                        policia_3_x = FIM_POLICIAL_3_X;
                         sentido_policial_3 = SENTIDO_PARA_BAIXO;
                     }
                 }
 
                 else if(sentido_policial_3 == SENTIDO_PARA_BAIXO){
-                    policia_3_y += 1;   
+                    policia_3_y += DESLOCAMENTO_POLICIAL_3;   
 
-                    if(policia_3_y == FIM_POLICIAL_3_Y){
+                    if(policia_3_y >= FIM_POLICIAL_3_Y){
+                        policia_3_y = FIM_POLICIAL_3_Y;
                         sentido_policial_3 = SENTIDO_PARA_CIMA;
                     }
                 }
 
                 else if(sentido_policial_3 == SENTIDO_PARA_CIMA){
-                    policia_3_y -= 1;      
+                    policia_3_y -= DESLOCAMENTO_POLICIAL_3;      
 
-                    if(policia_3_y == INICIO_POLICIAL_3_Y){
+                    if(policia_3_y <= INICIO_POLICIAL_3_Y){
+                        policia_3_y = INICIO_POLICIAL_3_Y;
                         sentido_policial_3 = SENTIDO_PARA_ESQUERDA;
                     }
                 }
 
                 else if(sentido_policial_3 == SENTIDO_PARA_ESQUERDA){
-                    policia_3_x -= 1;       
+                    policia_3_x -= DESLOCAMENTO_POLICIAL_3;       
 
-                    if(policia_3_x == INICIO_POLICIAL_3_X){
+                    if(policia_3_x <= INICIO_POLICIAL_3_X){
+                        policia_3_x = INICIO_POLICIAL_3_X;
                         sentido_policial_3 = SENTIDO_PARA_DIREITA;
                     }
                 }
@@ -399,17 +405,19 @@ void* movimenta_policiais_4_5_6(void* arg) {
         
             //POLICIA 6
                 if(sentido_policial_6 == SENTIDO_PARA_ESQUERDA){
-                    policia_6_x -= 1;    
+                    policia_6_x -= DESLOCAMENTO_POLICIAL_6;    
 
-                    if(policia_6_x == FIM_POLICIAL_6_X){
+                    if(policia_6_x <= FIM_POLICIAL_6_X){
+                        policia_6_x = FIM_POLICIAL_6_X;
                         sentido_policial_6 = SENTIDO_PARA_DIREITA;
                     }
                 }
 
                 else if(sentido_policial_6 == SENTIDO_PARA_DIREITA){
-                    policia_6_x += 1;     
+                    policia_6_x += DESLOCAMENTO_POLICIAL_6;     
 
-                    if(policia_6_x == INICIO_POLICIAL_6_X){
+                    if(policia_6_x >= INICIO_POLICIAL_6_X){
+                        policia_6_x = INICIO_POLICIAL_6_X;
                         sentido_policial_6 = SENTIDO_PARA_ESQUERDA;
                     }
                 }
@@ -505,15 +513,19 @@ void* movimenta_policiais_7_8_9_10(void* arg) {
 
             //POLICIA 8
                 if(sentido_policial_8 == SENTIDO_PARA_DIREITA){
-                    policia_8_x += 1;     
-                    if(policia_8_x == FIM_POLICIAL_8_X){
+                    policia_8_x += DESLOCAMENTO_POLICIAL_8;     
+
+                    if(policia_8_x >= FIM_POLICIAL_8_X){
+                        policia_8_x = FIM_POLICIAL_8_X;
                         sentido_policial_8 = SENTIDO_PARA_ESQUERDA;
                     }
                 }
 
                 else if(sentido_policial_8 == SENTIDO_PARA_ESQUERDA){
-                    policia_8_x -= 1;       
-                    if(policia_8_x == INICIO_POLICIAL_8_X){
+                    policia_8_x -= DESLOCAMENTO_POLICIAL_8;      
+
+                    if(policia_8_x <= INICIO_POLICIAL_8_X){
+                        policia_8_x = INICIO_POLICIAL_8_X;
                         sentido_policial_8 = SENTIDO_PARA_DIREITA;
                     }
                 }
