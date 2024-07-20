@@ -1,11 +1,20 @@
 #include "utils.h"
 
-verifica_colisao_parede(int x_ladrao, int y_ladrao, int verificar, char x_y){
-    if(x_y == 'x'){
-        if(
+/**Função para verificar colisão do sprite ladrão com estruturas do mapa do jogo e evitar atravessá-las 
+ * parâmetros ->    x_ladrao: coordenada X do sprite ladrão
+ *                  y_ladrao: coordenada Y do sprite ladrão
+ *                  verificar: soma do coordenada X ou Y + o deslocamento relativo X ou Y do mouse
+ *                  x_y: flag para determinar verificação de colisão para coordenada X ou Y
+ * retorno ->       0 caso não ocorra colisão ou ultrapassagem de estruturas ou 1 caso ocorra
+ */
+int
+verifica_colisao_parede(int x_ladrao, int y_ladrao, int verificar, char x_y) {
+    if (x_y == 'x') {
+        if (
             //AREA 1, 2, 3, 4 - COLUNA ESQUERDA
             (x_ladrao >= 448 - ESQ_SPRITE_LADRAO && (y_ladrao >= 0 && y_ladrao < 432) && verificar < 448 - ESQ_SPRITE_LADRAO) ||
             
+
             //PASSAGEM 1
             ((x_ladrao >= 568 - ESQ_SPRITE_LADRAO && x_ladrao < 608) && (y_ladrao > 35 && y_ladrao < 64) && (verificar < 568 - ESQ_SPRITE_LADRAO || verificar > 587 + DIR_SPRITE_LADRAO)) ||
 
@@ -16,10 +25,8 @@ verifica_colisao_parede(int x_ladrao, int y_ladrao, int verificar, char x_y){
             //AREA 3 MEIO DIREITA (LADO DIREITO DO QUADRADO SUPERIOR)
             (x_ladrao >= 592 - ESQ_SPRITE_LADRAO && (y_ladrao >= 163 && y_ladrao < 196) && verificar < 592 - ESQ_SPRITE_LADRAO) ||
 
-            
             //AREA 3 MEIO DIREITA (LADO ESQUERDO DO QUADRADO)
             ((x_ladrao >= 448 - ESQ_SPRITE_LADRAO && x_ladrao < 512) && (y_ladrao > 163 && y_ladrao < 264) && verificar > 491 + DIR_SPRITE_LADRAO) ||
-
             
             //AREA 3 MEIO DIREITA (LADO DIREITO DO QUADRADO INFERIOR)
             (x_ladrao >= 592 - ESQ_SPRITE_LADRAO && (y_ladrao >= 224 && y_ladrao < 264) && verificar < 592 - ESQ_SPRITE_LADRAO) ||
@@ -63,8 +70,8 @@ verifica_colisao_parede(int x_ladrao, int y_ladrao, int verificar, char x_y){
         }
     }
 
-    else if(x_y == 'y'){
-        if(
+    else if (x_y == 'y') {
+        if (
             //AREA 1 CIMA DIREITA  - VERIFICA BAIXO
             (y_ladrao <= 35 && ((x_ladrao >= 448 - ESQ_SPRITE_LADRAO && x_ladrao < 568 - ESQ_SPRITE_LADRAO) || (x_ladrao > 587 + DIR_SPRITE_LADRAO)) && verificar > 35) ||
 
@@ -138,8 +145,16 @@ verifica_colisao_parede(int x_ladrao, int y_ladrao, int verificar, char x_y){
     return 0;
 }
 
-verifica_colisao_policia(int x_ladrao, int y_ladrao, int policia_x, int policia_y){
-    //COLISÃO COM POLICIA ou TROFÉU
+/**Função para verificar colisão do sprite ladrão com sprites policiais e sprites troféus
+ * parâmetros ->    x_ladrao: coordenada X do sprite ladrão
+ *                  y_ladrao: coordenada Y do sprite ladrão
+ *                  policia_x: coordenada X do sprite policial (ou troféu)
+ *                  policia_y: coordenada Y do sprite policial (ou troféu)
+ * retorno ->       0 caso não ocorra colisão ou 1 caso ocorra
+ */
+int 
+verifica_colisao_policia(int x_ladrao, int y_ladrao, int policia_x, int policia_y) {
+    
     if (x_ladrao <= policia_x + 15 &&        //esquerda
         x_ladrao + 15 >= policia_x &&        //direita
         y_ladrao <= policia_y + 19 &&        //baixo

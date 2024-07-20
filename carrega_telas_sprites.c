@@ -2,9 +2,19 @@
 #include "biblioteca_gpu.h"
 #include "utils.h"
 
+/* Variáveis usadas para coordenadas X e Y dos blocos do background, e para iterações dos loops */
 int x, y;
 
-int carrega_sprites() {
+/**Função para modificar a memória de sprites da GPU e inserir sprites criados para o jogo
+ * LADRÃO PADRÃO, SAIR, PAUSE, PLAY, LADRÃO FURTIVO, POLICIAL, PORTA - Respectivamente na ordem
+ *                  endereco: variável usada para editar pixel a pixel de um sprite
+ *                  azul: tom de azul (0 ao 7)
+ *                  verde: tom de verde (0 ao 7)
+ *                  vermelho: tom de vermelho (0 ao 7)
+ * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
+ */
+int 
+carrega_sprites() {
     int endereco, azul, verde, vermelho;
 
     //LADRÃO PADRÃO
@@ -426,7 +436,12 @@ int carrega_sprites() {
     return 0;
 }
 
-int tela_inicial() {
+/**Função para exibir tela inicial do jogo
+ * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
+ */
+int 
+tela_inicial() {
+
     //Muda fundo para branco
     set_cor_background_wbr(7, 7, 7);
 
@@ -579,7 +594,12 @@ int tela_inicial() {
     return 0;
 }
 
-int tela_win() {
+/**Função para exibir tela de vitória do jogo
+ * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
+ */
+int 
+tela_win() {
+
 //ENVOLTO TITULO
     //superior e inferior esquerdo
     for (x = 15; x <= 18; ++x) {
@@ -688,7 +708,12 @@ int tela_win() {
     return 0;
 }
 
-int tela_lose() {
+/**Função para exibir tela de derrota do jogo
+ * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
+ */
+int 
+tela_lose() {
+
 //ENVOLTO BOTOES
     //Botao esquerdo
     for (y = 49; y <= 57; ++y){
@@ -803,8 +828,13 @@ int tela_lose() {
     return 0;
 }
 
-int tela_bye() {
-    //ENVOLTO TITULO 
+/**Função para exibir tela de saída do jogo
+ * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
+ */
+int 
+tela_bye() {
+
+//ENVOLTO TITULO 
     for (x = 4; x <= 6; ++x) {
         edit_bloco_background_wbm(x, 14, 0, 0, 0);
         edit_bloco_background_wbm(x, 16, 0, 0, 0);
@@ -877,7 +907,12 @@ int tela_bye() {
     return 0;
 }
 
-int tela_padrao() {
+/**Função para exibir tela padrão do jogo
+ * retorno ->       0 caso seja bem sucedido ou -1 caso ocorra algum erro
+ */
+int 
+tela_padrao() {
+
 //ESTRUTURAS
     //Estrutura quadrado da esquerda
     for (x = 31; x <= 45; ++x) {
