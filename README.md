@@ -323,27 +323,6 @@ Assim que o jogo entra em pausa um sprite é exibido no canto superior direito d
 </p>
 <p align="center"><strong> Sprite de pause do jogo </strong></p>
 
-Estando na tela de pause o jogador pode sair do pause e continuar o jogo, reiniciar o jogo ou encerra-lo.
-
-Nos gifs a seguir, podemos visualizar cada uma destas transições.
-
-<p align="center">
-  <img src="Gifs/PauseDespause.gif" width = "500" />
-</p>
-<p align="center"><strong> Transição do pause para continuação da partida </strong></p>
-
-<p align="center">
-  <img src="Gifs/PauseReinicio.gif" width = "500" />
-</p>
-<p align="center"><strong> Transição do pause para reinicialização da partida </strong></p>
-
-É possível observar que assim que a partida é reiniciada após o pause, o ladrão retorna ao local de origem de sua origem no jogo.
-
-<p align="center">
-  <img src="Gifs/PauseSaida.gif" width = "500" />
-</p>
-<p align="center"><strong> Transição do pause para encerramento da partida </strong></p>
-
 Em caso de derrota, o jogador é direcionado para a tela de "Game Over". Nela são apresentados os mesmos sprites da tela inicial, eles representam a opção de jogar novamente (play) ou sair do jogo.
 
 <p align="center">
