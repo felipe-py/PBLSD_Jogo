@@ -366,7 +366,7 @@ O objetivo principal do jogo Shadow Collision é fazer com que o ladrão roube a
 
 Nesta seção, serão apresentadas todas as dinâmicas e regras presentes ao longo de todo o jogo.
 
-<h2>Jogabilidade: Controle do ladrão</h2>
+<h3>Jogabilidade: Controle do ladrão</h3>
 
 
 
