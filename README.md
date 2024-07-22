@@ -271,12 +271,17 @@ O primeiro elemento que pode ser visualizado com a inicializaçao do jogo é a t
 </p>
 <p align="center"><strong> Tela Inicial do jogo </strong></p>
 
-Dois sprites foram desenvolvidos para a tela inicial, um que representa um "play" para iniciar o jogo e outro que representa a opção de saída. Eles podem ser visualiados na imagem abaixo.
+Dois sprites foram desenvolvidos para a tela inicial, um que representa um "play" para iniciar o jogo e outro que representa a opção de saída. Eles podem ser visualiados a seguir.
 
 <p align="center">
-  <img src="Imagens/SpritesTelaInicial.png" width = "500" />
+  <img src="Imagens/SpritePlay.png" width = "500" />
 </p>
-<p align="center"><strong> Sprites de play e saída do jogo, respectivamente </strong></p>
+<p align="center"><strong> Sprite criado para representar a opção de iniciar o jogo </strong></p>
+
+<p align="center">
+  <img src="Imagens/SpriteSair.png" width = "500" />
+</p>
+<p align="center"><strong> Sprite criado para representar a opção de iniciar o jogo </strong></p>
 
 Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transição para uma nova tela onde uma mensagem de despedida é exibida. Após a mensagem a tela é apagada automaticamente e o jogo é encerrado, o gif abaixo demonstra o processo descrito anteriomente.
 
@@ -311,7 +316,7 @@ Durante a partida o jogador tem a opção de pausa-la ao clicar no botão 02 da 
 Assim que o jogo entra em pausa um sprite é exibido no canto superior direito da tela, ele basicamente indica com a utilização de duas barras paralelas verticalmente posicionadas, se o jogo se encontra pausado ou não. Na imagem abaixo podemos visualiza-lo com mais clareza.
 
 <p align="center">
-  <img src="Imagens/SpritePause.jpg" width = "500" />
+  <img src="Imagens/SpritePause.png" width = "500" />
 </p>
 <p align="center"><strong> Sprite de pause do jogo </strong></p>
 
@@ -368,24 +373,12 @@ Em uma situação em que a partida esta ocorrendo, o display exibe o número de 
 
 À esquerda do display é representada a habilidade furtiva e à direita o número de vidas.
 
-Três botões dos quatro disponíveios na placa são utilizados no jogo, eles podem ser visualizados na figura abaixo.
-
-<p align="center">
-  <img src="Imagens/Botoes.png" width = "500" />
-</p>
-<p align="center"><strong> Botões utilizados em destaque </strong></p>
-
-O primeiro botão é utilizado para iniciar o jogo em qualquer umas das telas em que esta ação é permitida, para pausar e tirar o pause o segundo botão é utilizado, por fim, a função para encerramento do jogo em quaisquer uma das telas em que esta opção se apresente é responsabilidade do botão 3.
-
-Por fim, o mouse é utilizado pelo usuário para a movimentação do ladrão pelo mapa, além disso seu botão esquerdo é usado para ativar a habilidade furtiva disponível ao jogador.
-
 </div>
 </div>
 
 <div id="Dinamica do jogo"> 
 <h2> Dinâmica do jogo </h2>
 <div align="justify">
-
 
 </div>
 </div>
