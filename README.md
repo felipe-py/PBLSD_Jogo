@@ -377,69 +377,105 @@ Nesta seção, serão apresentadas todas as dinâmicas e regras presentes ao lon
 <h2> Testes </h2>
 <div align="justify">
 
-A seguir, a descrição dos testes realizados para garantir o adequado funcionamento do driver e biblioteca.
+A seguir, a descrição dos testes realizados para garantir o adequado funcionamento de todo o jogo.
 
-<h3>Driver</h3>
+<h3>Transições de tela</h3>
 
-Afim de garantir o correto carregamento e descarregamento no kernel do Linux do driver desenvolvido, além de algumas outras operações, foram realizados alguns testes descritos a seguir.
+Afim de verificar o correto funcionamento entre as transições de tela do jogo, teste foram realizados em todas as situações em que existem uma troca de tela durante a execução do projeto.
 
-* Inicializando o módulo kernel através do comando "make" do arquivo Makefile. O módulo é compilado, inserido no kernel do Linux em tempo de execução e um nó para o dispositivo de caractere é criado. Mensagem de sucesso da inclusão do módulo é exibida. 
+Durante todos os testes deste tipo, buscamos bugs ou inconsistências no momento em que esta troca ocorre. Nenhum tipo de problema foi encontrado em quaisquer transição de tela
 
-<p align="center">
-  <img src="Gifs/CarregaDriver.gif" width = "400" />
-</p>
-<p align="center"><strong>Carregando o módulo kernel no Linux</strong></p>
-
-* Removendo o módulo kernel através do comando "make clean" do arquivo Makefile. Os arquivos gerados na compilação do módulo kernel são excluídos, o módulo é removido do kernel do Linux e o nó para o dispositivo de caractere é excluído. Mensagem de sucesso da exclusão do módulo é exibida.
+* Na tela inicial o jogador tem a opção de sair do jogo, para fazer esta ação o usuário deve clicar no botão 02. No gif abaixo podemos analisar este cenário.
 
 <p align="center">
-  <img src="Gifs/DescarregaDriver.gif" width = "400" />
+  <img src="Gifs/TelaInicialSair.gif" width = "400" />
 </p>
-<p align="center"><strong>Descarregando o módulo kernel do Linux</strong></p>
+<p align="center"><strong>Transição da tela inicial para a saída do jogo</strong></p>
 
-* Abrindo e fechando comunicação com o dispositivo de caractere. Abre e fecha biblioteca utilizando os comandos *open_driver()* e *close_driver()*. Mensagem de sucesso da operação é exibida.
+* Novamente na tela inicial, o usuário pode iniciar a partida. Este é um teste crucial pois todos os elementos passivos e ativos do jogo devem se fazer presentes de forma correta.
 
 <p align="center">
-  <img src="Gifs/AbrindoFechando.gif" width = "400" />
+  <img src="Gifs/TelaInicialJogo.gif" width = "400" />
 </p>
-<p align="center"><strong>Abre e fecha o arquivo especial</strong></p>
+<p align="center"><strong>Transição tela inicial para a partida</strong></p>
 
-<h3>Biblioteca + Driver</h3>
+* Durante a partida, é permitido ao usuário o comando de pause ativado pelo botão 03. Ao realizar esta ação todos os elementos ativos do jogo devem permanecer onde estão, e um novo sprite de aviso deve ser exibido no canto superior direito.
 
-Para teste das funções da biblioteca projetada em C, além de verificar sua correta comunicação com o módulo kernel carregado, foi desenvolvimento um código para gerar uma imagem utilizando os elementos fornecidos pela GPU de Gabriel Sá Barreto Alves. Os elementos utilizados e as funções necessárias para conclusão da imagem final serão descritos a seguir.
+* Ao desfazer a ação de pause, devemos observar todos os elementos ativos continuando seu fluxo normal do mesmo local onde estavam antes da ação.
 
 <p align="center">
-  <img src="Imagens/ImagemFinal.jpeg" width = "600" />
+  <img src="Gifs/PartidaPause.gif" width = "400" />
 </p>
-<p align="center"><strong>Imagem Final</strong></p>
+<p align="center"><strong>Pausando a partida</strong></p>
 
-* Céu (azul claro) -> <i>set_cor_background_wbr (azul = 6, verde = 4, vermelho = 3)</i>. Utilizado 1x.
+* Em uma situação de pause, o jogador poderá reiniciar a partida ou sair do jogo. Ao reiniciar a partida, é esperado que o ladrão retorne ao local de origem e ao encerrar o jogo é feita a transição para a tela de saída.
 
-* Sol (amarelo) -> <i>set_quadrado_dp (azul = 0, verde = 6, vermelho = 6, tamanho = 6, ref_x = 511, ref_y = 60, ordem_impressao = 0)</i> e <i>set_triangulo_dp (azul = 0, verde = 6, vermelho = 6, tamanho = 7, ref_x = 511, ref_y = 53, ordem_impressao = 1)</i>. Utilizados 1x cada.
+<p align="center">
+  <img src="Gifs/PauseReinicio.gif" width = "400" />
+</p>
+<p align="center"><strong>Reiniciando o jogo em pause</strong></p>
 
-* Nuvens (branco) -> <i>edit_bloco_background_wbm (bloco_x, bloco_y, azul = 7, verde = 7, vermelho = 7)</i>. Utilizado 31x.
+<p align="center">
+  <img src="Gifs/PauseSair.gif" width = "400" />
+</p>
+<p align="center"><strong>Encerrando o jogo em pause</strong></p>
 
-* Gramas (verde) -> <i>edit_bloco_background_wbm (bloco_x, bloco_y, azul = 0, verde = 7, vermelho = 0)</i>. Utilizado 16x.
+Seguindo o fluxo normal da partida, o jogador pode sair vitorioso ou derrotado. Nos gifs a seguir podemos observar estas situações, nas duas transições é esperado que as opções do menu em ambas as telas apareçam sem interferências.
 
-* Troncos 1 e 2 (azulado) -> <i>set_sprite_wbr (ativa_sprite = 1, cord_x = 140/471, cord_y = 463, offset = 16, registrador = 7/6)</i>. Utilizado 2x.
+<p align="center">
+  <img src="Gifs/Vitoria.gif" width = "400" />
+</p>
+<p align="center"><strong>Transição partida para a tela de vitória</strong></p>
 
-* Árvores 1 e 2 (vermelha) -> <i>set_sprite_wbr (ativa_sprite = 1, cord_x = 100/511, cord_y = 461, offset = 4, registrador = 4/5)</i>. Utilizado 2x.
+<p align="center">
+  <img src="Gifs/GameOver.gif" width = "400" />
+</p>
+<p align="center"><strong>Transição partida para a tela de derrota</strong></p>
 
-* Aliens 1 e 2 (branco e vermelho) -> <i>set_sprite_wbr (ativa_sprite = 1, cord_x = 352/272, cord_y = 355, offset = 22, registrador = 2/3)</i>. Utilizado 2x.
+<h3>Dinâmicas do jogo</h3>
 
-* Maçaneta (barra azul) -> <i>set_sprite_wbr (ativa_sprite = 1, cord_x = 320, cord_y = 445, offset = 11, registrador = 1)</i>. Utilizado 1x.
+Teste foram realizados para a verificação do correto funcionamento das dinâmicas do jogo, foram verificados os tópicos que envolvem colisão, condição de vitória, habilidades do ladrão, entre outros.
 
-* Teto da casa (marrom) -> <i>set_triangulo_dp (azul = 1, verde = 2, vermelho = 4, tamanho = 3, ref_x = 245/275/305/335/365/395, ref_y = 299, ordem_impressao = 6/7/8/9/10/11)</i>. Utilizado 6x.
+* A colisão do ladrão com as paredes do mapa é essencial para manter a lógica e correto funcionamento do jogo, abaixo é possível obsevar estas situação nas mais diversas condições de movimento.
 
-* Porta da casa (marrom) -> <i>set_quadrado_dp (azul = 1, verde = 2, vermelho = 4, tamanho = 2, ref_x = 320, ref_y = 465/435, ordem_impressao = 4/5)</i>. Utilizado 2x.
+* Para criar um cenário ideal de teste, a colisão entre ladrão e policial foi desativada.
 
-* Janelas da casa (marrom) -> <i>set_quadrado_dp (azul = 1, verde = 2, vermelho = 4, tamanho = 2, ref_x = 360/280, ref_y = 365, ordem_impressao = 2/3)</i>. Utilizado 2x.
+<p align="center">
+  <img src="Gifs/TesteColisoes.gif" width = "400" />
+</p>
+<p align="center"><strong>Teste de colisão entre jogador e paredes do mapa</strong></p>
 
-* Estrutura da casa (branco) -> <i>set_quadrado_dp (azul = 7, verde = 7, vermelho = 7, tamanho = 15, ref_x = 320, ref_y = 400, ordem_impressao = 12)</i>. Utilizado 1x.
+* As relíquias, representadas por troféis no mapa do jogo, devem ser capturadas pelo ladrão. Quando isso ocorrer o troféu deve sumir do mapa para manter a coerência da situação.
 
-Com o resultado da imagem final, foi possível comprovar a integridade dos dados recebidos e processados pelas funções da biblioteca, além da correta comunicação biblioteca + driver.
+* Os gifs a seguir demonstram a captura das duas relíquias presentes no mapa.
 
-<h3>Outros testes</h3>
+<p align="center">
+  <img src="Gifs/CapturaTrofeu1.gif" width = "400" />
+</p>
+<p align="center"><strong>Ladrão capturando troféu 01</strong></p>
+
+<p align="center">
+  <img src="Gifs/CapturaTrofeu2.gif" width = "400" />
+</p>
+<p align="center"><strong>Ladrão capturando troféu 02</strong></p>
+
+Não é possível que o jogador saia vitorioso pela porta de saída do mapa sem que todas as relíquias tenham sido capturadas, o seguinte teste tem como objetivo demosntrar esta situação.
+
+<p align="center">
+  <img src="Gifs/SairSemTrofeu.gif" width = "400" />
+</p>
+<p align="center"><strong>Ladrão tenta sair do mapa sem capturar relíquias</strong></p>
+
+O jogador tem a sua disposição a habilidade furtiva de se tornar invisível perante os policiais, basicamnete existe uma mudança de cor no sprite do ladrão e a desativação da colisão com os policiais. Após usar toda a habilidade ele retorna ao ponto de origem por ter sido capturado, a seguir podemos visualizar este teste.
+
+<p align="center">
+  <img src="Gifs/UsandoHabilidade.gif" width = "400" />
+</p>
+<p align="center"><strong>Uso da habilidade do ladrão</strong></p>
+
+<h3>Periféricos da placa</h3>
+
+
 
 Também foram realizados testes para verificar a função *limpar_tela()*,que remove da tela todos elementos utilizados, e as verificações de erros de dados recebidos por parâmetro nas funções. Para os erros, foram testadas as funções <i>set_cor_background_wbr</i>, <i>set_sprite_wbr</i> e <i>set_quadrado_dp</i>.
 
