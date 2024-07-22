@@ -475,41 +475,40 @@ O jogador tem a sua disposição a habilidade furtiva de se tornar invisível pe
 
 <h3>Periféricos da placa</h3>
 
+O display de sete segmentos é alterado constantemente durante toda a execução do jogo, os próximos testes foram feitos para verificar a correta exibição e atualização das informações a serem exibidas.
 
-
-Também foram realizados testes para verificar a função *limpar_tela()*,que remove da tela todos elementos utilizados, e as verificações de erros de dados recebidos por parâmetro nas funções. Para os erros, foram testadas as funções <i>set_cor_background_wbr</i>, <i>set_sprite_wbr</i> e <i>set_quadrado_dp</i>.
-
-* Limpando a tela. Função *limpar_tela()* é executada removendo todos os elementos utilizados.
+* O primeiro teste é realizado em uma situação em que o jogo se encontra na tela inicial com o display exibindo informações nulas, é feita a transição para a partida e o display muda para as informações do ladrão.
 
 <p align="center">
-  <img src="Gifs/limpar_tela.gif" width = "400" />
+  <img src="Gifs/AtDisplayInicioJogo.gif" width = "400" />
 </p>
-<p align="center"><strong>Remove da tela elementos utilizados</strong></p>
+<p align="center"><strong>Atualização do display de 7 segmentos com o início do jogo</strong></p>
 
-* Passando *vermelho* maior que o permitido para <i>set_cor_background_wbr</i>. set_cor_background_wbr (azul = 0, verde = 0, <b>vermelho = 9</b>);
+* O cenário seguinte é a situação contrária, mostrando o display em transição das informações sobre o jogador para os dados nulos, quando encerramos a partida.
 
 <p align="center">
-  <img src="Gifs/ErroCorBackground.gif" width = "400" />
+  <img src="Gifs/AtDisplayEncerraJogo.gif" width = "400" />
 </p>
-<p align="center"><strong>Função retorna mensagem indicativa ao erro capturado</strong></p>
+<p align="center"><strong>Atualização do display de 7 segmentos com o encerramento do jogo</strong></p>
 
-* Passando <i>offset</i> menor que o permitido para <i>set_sprite_wbr</i>. set_sprite_wbr (ativa_sprite = 1, cord_x = 320, cord_y = 445, <b>offset = -3</b>, registrador = 1)
+* O display atualiza sempre que necessário o número de vidas restantes e quantas vezes ainda poderá ser usada a habilidade do ladrão, os dois cenários de testes a seguir demonstram esta situação.
 
 <p align="center">
-  <img src="Gifs/ErroSprite.gif" width = "400" />
+  <img src="Gifs/AtDisplayVidas.gif" width = "400" />
 </p>
-<p align="center"><strong>Função retorna mensagem indicativa ao erro capturado</strong></p>
-
-* Passando <i>ref_x</i> e <i>ref_y</i> menor que o permitido de <i>tamanho</i> 1 para <i>set_quadrado_dp</i>. set_quadrado_dp (azul = 1, verde = 2, vermelho = 4, <b>tamanho = 1</b>, <b>ref_x = 3</b>, <b>ref_y = 2</b>, ordem_impressao = 0)
+<p align="center"><strong>Atualização do número de vidas </strong></p>
 
 <p align="center">
-  <img src="Gifs/ErrroQuadrado.gif" width = "400" />
+  <img src="Gifs/AtDisplayHabilidades.gif" width = "400" />
 </p>
-<p align="center"><strong>Função retorna mensagem indicativa ao erro capturado</strong></p>
+<p align="center"><strong>Atualização do número do número de habilidades restantes</strong></p>
 
-A integração entre um driver que recebe informações do espaço de usuário e de uma biblioteca, que facilite o trabalho do programador no desenvolvimento de projetos que necessitem dos recursos desponibilizados pela GPU se mostrou eficaz. Nenhuma incoerência ou problema de desempenho foi encontrado neste quesito.
+Por fim, em uma situação em que ocorra alguma modificação nas informações exibidas no display e o jogo seja reiniciado, os segmentos devem exibir as informações inicias. Isso comprova que todo o sistema foi reiniciado, o gif abaixo exibe o processo.
 
-O desenvolvimento de uma imagem que utilize todos os elementos desenvolvidos, além de todas as funcionalidades disponíveis na GPU, comprova toda a integridade do sistema e sua completa funcionalidade.
+<p align="center">
+  <img src="Gifs/AtDisplayReinicio.gif" width = "400" />
+</p>
+<p align="center"><strong>Atualização do display ao reiniciar o jogo</strong></p>
 
 </div>
 </div>
