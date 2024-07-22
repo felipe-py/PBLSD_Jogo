@@ -175,7 +175,7 @@ na memória estão disponíveis para leitura e escrita pelo HPS na posição de 
 O sistema DE1-SoC é formado pelo Hard Processor System (HPS) e FPGA dentro do chip Cyclone V. O HPS inclui um processador dual-core ARM Cortex-A9, uma porta de memória DDR3 e dispositivos periféricos. O FPGA implementa dois processadores Intel Nios II e diversas portas periféricas.
 
 <p align="center">
-  <img src="Imagens/Diagrama-em-blocos.png" width = "600" />
+  <img src="Imagens/Diagrame-em-blocos.png" width = "600" />
 </p>
 <p align="center"><strong>Diagrama da arquitetura da placa DE1-SoC</strong></p>
 
@@ -274,14 +274,15 @@ O primeiro elemento que pode ser visualizado com a inicializaçao do jogo é a t
 Dois sprites foram desenvolvidos para a tela inicial, um que representa um "play" para iniciar o jogo e outro que representa a opção de saída. Eles podem ser visualiados a seguir.
 
 <p align="center">
-  <img src="Imagens/SpritePlay.png" width = "500" />
+  <img src="Imagens/SpritePlay.png" width="400" height="300" />
 </p>
-<p align="center"><strong> Sprite criado para representar a opção de iniciar o jogo </strong></p>
+<p align="center"><strong>Sprite criado para representar a opção de iniciar o jogo</strong></p>
 
 <p align="center">
-  <img src="Imagens/SpriteSair.png" width = "500" />
+  <img src="Imagens/SpriteSair.png" width="400" height="300" />
 </p>
-<p align="center"><strong> Sprite criado para representar a opção de iniciar o jogo </strong></p>
+<p align="center"><strong>Sprite criado para representar a opção de sair do jogo</strong></p>
+
 
 Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transição para uma nova tela onde uma mensagem de despedida é exibida. Após a mensagem a tela é apagada automaticamente e o jogo é encerrado, o gif abaixo demonstra o processo descrito anteriomente.
 
@@ -316,7 +317,7 @@ Durante a partida o jogador tem a opção de pausa-la ao clicar no botão 02 da 
 Assim que o jogo entra em pausa um sprite é exibido no canto superior direito da tela, ele basicamente indica com a utilização de duas barras paralelas verticalmente posicionadas, se o jogo se encontra pausado ou não. Na imagem abaixo podemos visualiza-lo com mais clareza.
 
 <p align="center">
-  <img src="Imagens/SpritePause.png" width = "500" />
+  <img src="Imagens/SpritePause.png" width="300" height="300" />
 </p>
 <p align="center"><strong> Sprite de pause do jogo </strong></p>
 
