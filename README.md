@@ -289,9 +289,9 @@ Dois sprites foram desenvolvidos para a tela inicial, um que representa um "play
 Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transição para uma nova tela onde uma mensagem de despedida é exibida. Após a mensagem a tela é apagada automaticamente e o jogo é encerrado, o gif abaixo demonstra o processo descrito anteriomente.
 
 <p align="center">
-  <img src="Gifs/TelaInicialSair.gif" width = "500" />
+  <img src="Gifs/TelaSair.gif" width = "500" />
 </p>
-<p align="center"><strong> Transição da tela inicial para a saída do jogo </strong></p>
+<p align="center"><strong> Tela de saída do jogo </strong></p>
 
 Escolhendo a opção para início da partida, o usuário é automaticamente direcionado para a partida, a transição pode ser vista no gif abaixo.
 
@@ -326,16 +326,16 @@ Assim que o jogo entra em pausa um sprite é exibido no canto superior direito d
 Em caso de derrota, o jogador é direcionado para a tela de "Game Over". Nela são apresentados os mesmos sprites da tela inicial, eles representam a opção de jogar novamente (play) ou sair do jogo.
 
 <p align="center">
-  <img src="Gifs/GameOver.gif" width = "500" />
+  <img src="Imagens/TelaGameOver.png" width = "500" />
 </p>
-<p align="center"><strong> Transição do jogo para a tela de derrota </strong></p>
+<p align="center"><strong> Tela de derrota do jogo </strong></p>
 
 Ao vencer o jogo, o usuário é direcionado para uma nova tela com uma mensagem de vitória. São apresentadas as mesmas opções com os sprites já vistos anteriormente, em ambos os casos as funções se repetem.
 
 <p align="center">
-  <img src="Gifs/Vitoria.gif" width = "500" />
+  <img src="Imagens/TelaVitoria.png" width = "500" />
 </p>
-<p align="center"><strong> Transição do jogo para a tela de vitória </strong></p>
+<p align="center"><strong> Tela de vitória do jogo </strong></p>
 
 O número de vidas e poder especial disponíveis ao ladrão são apresentadas no display de 7 segmentos. Enquanto a partida não esta ocorrendo, o display não exibe nenhum tipo de informação válida para o jogo. Durante a partida as informações exibidas pelo display são atualizadas automaticamente.
 
