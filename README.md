@@ -227,6 +227,8 @@ Existem outros dois registradores, o "interruptmask" e o "edgecapture". Esses re
 
 <h3>Display de 7 segmentos</h3>
 
+A placa é equipada com seis displays de sete segmentos dispostos em três pares, os segmentos são do tipo anodo comum, ou seja, são ativados com nível lógico baixo e desativados com nível lógico alto. Os segmentos estão pinados a Cyclone V SoC FPGA.
+
 </div>
 </div>
 
