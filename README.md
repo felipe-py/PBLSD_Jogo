@@ -266,7 +266,7 @@ Aqui discutiremos todas as interfaces desenvolvidas para o jogo, além de todas 
 
 Demonstraremos também a integração com os botões e display de sete segmentos, assim como a utilização do mouse para a jogabilidade do usuário.
 
-O primeiro elemento que pode ser visualizado com a inicializaçao do jogo é a tela inicial abaixo, nela é aparesentado o nome do jogo e duas opções que podem ser seguidas pelo usuário. O jogo pode ser iniciado, ao clicar no botão 01 da placa, assim como é permitida a saída do jogo com o clique no botão 03.
+O primeiro elemento que pode ser visualizado com a inicializaçao do jogo é a tela inicial abaixo, nela é aparesentado o nome do jogo e duas opções que podem ser seguidas pelo usuário. O jogo pode ser iniciado, ao clicar no botão 01 da placa, assim como é permitida a saída do jogo com o clique no botão 02.
 
 <p align="center">
   <img src="Imagens/TelaInicial.png" width = "500" />
@@ -309,7 +309,7 @@ Três sprites foram criados de forma exclusiva para a partida, o ladrao de relí
 </p>
 <p align="center"><strong> Sprites criados (Porta, ladrão e policial) respectivamente </strong></p>
 
-Durante a partida o jogador tem a opção de pausa-la ao clicar no botão 02 da placa, a transição para o pause pode ser vista abaixo.
+Durante a partida o jogador tem a opção de pausa-la ao clicar no botão 03 da placa, a transição para o pause pode ser vista abaixo.
 
 <p align="center">
   <img src="Gifs/PartidaPause.gif" width = "500" />
@@ -353,7 +353,7 @@ Em uma situação em que a partida esta ocorrendo, o display exibe o número de 
 </p>
 <p align="center"><strong> Display de sete segmentos exibindo dados do ladrão </strong></p>
 
-À esquerda do display é representada a habilidade furtiva e à direita o número de vidas.
+À direita do display é representada a habilidade furtiva e à esquerda o número de vidas.
 
 </div>
 </div>
