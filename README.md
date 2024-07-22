@@ -362,6 +362,14 @@ Em uma situação em que a partida esta ocorrendo, o display exibe o número de 
 <h2> Dinâmica do jogo </h2>
 <div align="justify">
 
+O objetivo principal do jogo Shadow Collision é fazer com que o ladrão roube as relíquias presentes no mapa sem que seja captura por nenhum policial, após os roubos ele deve retornar para o ponto de partida e sair de forma vitoriosa.
+
+Nesta seção, serão apresentadas todas as dinâmicas e regras presentes ao longo de todo o jogo.
+
+<h2>Jogabilidade: Controle do ladrão</h2>
+
+
+
 </div>
 </div>
 
