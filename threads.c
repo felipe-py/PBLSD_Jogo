@@ -153,20 +153,20 @@ movimenta_mouse(void* arg) {
     }
 
     while (1) {
+        n = read(fd_mouse, &ev, sizeof(ev));
+            
+        if (n == (ssize_t)-1) {
+            fprintf(stderr, "Erro de leitura\n");
+            return -1;
+        } 
+        
+        if (n != sizeof(ev)) {
+            fprintf(stderr, "Erro ao ler %ld bytes, o esperado era %ld\n", n, sizeof(ev));
+            return -1;
+        }
+
         /* Se o jogo não estiver pausado, thread funciona */
         if (pausar == 0) {
-            n = read(fd_mouse, &ev, sizeof(ev));
-                
-            if (n == (ssize_t)-1) {
-                fprintf(stderr, "Erro de leitura\n");
-                return -1;
-            } 
-            
-            if (n != sizeof(ev)) {
-                fprintf(stderr, "Erro ao ler %ld bytes, o esperado era %ld\n", n, sizeof(ev));
-                return -1;
-            }
-            
             pthread_mutex_lock(&lock);
 
             /* SE ESTIVER NO MODO FURTIVO, NÃO PRECISA LER MOVIMENTOS */
