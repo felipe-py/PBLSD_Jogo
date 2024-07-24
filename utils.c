@@ -157,8 +157,8 @@ verifica_colisao_policia(int x_ladrao, int y_ladrao, int policia_x, int policia_
     
     if (x_ladrao <= policia_x + 15 &&        //esquerda
         x_ladrao + 15 >= policia_x &&        //direita
-        y_ladrao <= policia_y + 19 &&        //baixo
-        y_ladrao + 18 >= policia_y) {        //cima
+        y_ladrao <= policia_y + 19 &&        //cima
+        y_ladrao + 18 >= policia_y) {        //baixo
 
         return 1;
     }
