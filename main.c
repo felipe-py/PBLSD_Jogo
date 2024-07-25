@@ -5,6 +5,7 @@
 #include "carrega_telas_sprites.h"
 
 int main() {
+    /* Para teste do jogo, evita colisões com policiais */
     int teste = 0;
 
     /* Abre arquivo de comunicação com o driver */
@@ -103,7 +104,7 @@ int main() {
                 if (pausar == 0) {
                     
                     /* SE NÃO ESTIVER NO MODO FURTIVO, COLISÕES SÃO VERIFICADAS */
-                    if (furtivo == 0 && teste == 0) {
+                    if (furtivo == 0) {
                         pthread_mutex_lock(&lock);
                         /* VERIFICA SE LADRAO TEM 2 TROFÉUS E SAIU PELA PORTA - Condição de vitória */
                         if ((trofeu_dir == 1 && trofeu_esq == 1) && x_ladrao == PORTA_X && y_ladrao == PORTA_Y) {              
@@ -136,78 +137,81 @@ int main() {
                             }
                         }
 
-                        /* VERIFICA COLISAO COM POLICIAL 1 */
-                        else if ((x_ladrao >= 136 && x_ladrao < 440) && y_ladrao < 128) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_1_x, policia_1_y)) {
+                        /* PARA TESTE DO JOGO, DESATIVA COLISÕES COM POLICIAIS */
+                        if(teste == 0){
+                            /* VERIFICA COLISAO COM POLICIAL 1 */
+                            if ((x_ladrao >= 136 && x_ladrao < 440) && y_ladrao < 128) {
+                                if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_1_x, policia_1_y)) {
 
-                                colidiu = 1;
+                                    colidiu = 1;
+                                }
                             }
-                        }
 
-                        /* VERIFICA COLISAO COM POLICIAL 2 */
-                        else if (x_ladrao > 440 && (y_ladrao > 40 && y_ladrao < 104)) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_2_x, policia_2_y)) {
+                            /* VERIFICA COLISAO COM POLICIAL 2 */
+                            else if (x_ladrao > 440 && (y_ladrao > 40 && y_ladrao < 104)) {
+                                if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_2_x, policia_2_y)) {
 
-                                colidiu = 1;
+                                    colidiu = 1;
+                                }
                             }
-                        }
 
-                        /* VERIFICA COLISAO COM POLICIAL 3 */
-                        else if (x_ladrao > 440 && (y_ladrao > 104 && y_ladrao < 192)) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_3_x, policia_3_y)) {
+                            /* VERIFICA COLISAO COM POLICIAL 3 */
+                            else if (x_ladrao > 440 && (y_ladrao > 104 && y_ladrao < 192)) {
+                                if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_3_x, policia_3_y)) {
+                                        
+                                    colidiu = 1;
+                                }
+                            }
+
+                            /* VERIFICA COLISAO COM POLICIAL 6 */
+                            else if (x_ladrao > 440 && (y_ladrao > 264 && y_ladrao < 328)) {
+                                if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_6_x, policia_6_y)) {
+                                        
+                                    colidiu = 1;
+                                }
+                            }
+
+                            /* VERIFICA COLISAO COM POLICIAL 4 E 5 */
+                            else if ((x_ladrao >= 80 && x_ladrao < 440) && (y_ladrao > 128 && y_ladrao < 248)) {
+                                if (
+                                    verifica_colisao_policia(x_ladrao, y_ladrao, policia_4_x, policia_4_y) || 
+                                    verifica_colisao_policia(x_ladrao, y_ladrao, policia_5_x, policia_5_y)
+                                    ) {
                                     
-                                colidiu = 1;
+                                    colidiu = 1;
+                                }
                             }
-                        }
 
-                        /* VERIFICA COLISAO COM POLICIAL 6 */
-                        else if (x_ladrao > 440 && (y_ladrao > 264 && y_ladrao < 328)) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_6_x, policia_6_y)) {
-                                    
-                                colidiu = 1;
+                            /* VERIFICA COLISAO COM POLICIAL 7 */
+                            else if ((x_ladrao >= 80 && x_ladrao < 440) && (y_ladrao > 256 && y_ladrao < 368)) {
+                                if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_7_x, policia_7_y)) {
+                                        
+                                    colidiu = 1;
+                                }
                             }
-                        }
 
-                        /* VERIFICA COLISAO COM POLICIAL 4 E 5 */
-                        else if ((x_ladrao >= 80 && x_ladrao < 440) && (y_ladrao > 128 && y_ladrao < 248)) {
-                            if (
-                                verifica_colisao_policia(x_ladrao, y_ladrao, policia_4_x, policia_4_y) || 
-                                verifica_colisao_policia(x_ladrao, y_ladrao, policia_5_x, policia_5_y)
-                                ) {
-                                
-                                colidiu = 1;
+                            /* VERIFICA COLISAO COM POLICIAL 8 */
+                            else if ((x_ladrao >= 80 && x_ladrao < 248) && (y_ladrao > 352 && y_ladrao < 416)) {
+                                if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_8_x, policia_8_y)) {
+                                        
+                                    colidiu = 1;
+                                }
                             }
-                        }
 
-                        /* VERIFICA COLISAO COM POLICIAL 7 */
-                        else if ((x_ladrao >= 80 && x_ladrao < 440) && (y_ladrao > 256 && y_ladrao < 368)) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_7_x, policia_7_y)) {
-                                    
-                                colidiu = 1;
+                            /* VERIFICA COLISAO COM POLICIAL 9 */
+                            else if (x_ladrao >= 368 && y_ladrao > 336) {
+                                if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_9_x, policia_9_y)) {  
+
+                                    colidiu = 1;
+                                }
                             }
-                        }
 
-                        /* VERIFICA COLISAO COM POLICIAL 8 */
-                        else if ((x_ladrao >= 80 && x_ladrao < 248) && (y_ladrao > 352 && y_ladrao < 416)) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_8_x, policia_8_y)) {
-                                    
-                                colidiu = 1;
-                            }
-                        }
+                            /* VERIFICA COLISAO COM POLICIAL 10 */
+                            else if (x_ladrao < 248 && y_ladrao > 168) {
+                                if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_10_x, policia_10_y)) {  
 
-                        /* VERIFICA COLISAO COM POLICIAL 9 */
-                        else if (x_ladrao >= 368 && y_ladrao > 336) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_9_x, policia_9_y)) {  
-
-                                colidiu = 1;
-                            }
-                        }
-
-                        /* VERIFICA COLISAO COM POLICIAL 10 */
-                        else if (x_ladrao < 248 && y_ladrao > 168) {
-                            if (verifica_colisao_policia(x_ladrao, y_ladrao, policia_10_x, policia_10_y)) {  
-
-                                colidiu = 1;
+                                    colidiu = 1;
+                                }
                             }
                         }
 
