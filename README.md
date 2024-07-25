@@ -301,7 +301,7 @@ Escolhendo a opção para início da partida, o usuário é automaticamente dire
 
 A tela de partida exibe de forma geral o mapa do jogo, todos os elementos ativos e passivos são exibidos automaticamente assim que a partida se inicia, as relíquias que devem ser roubadas pelo ladrão (representadas por troféus), os políciais, a porta de saída e o ladrão são os elementos principais desta tela. 
 
-Quatro sprites foram criados de forma exclusiva para a partida, a porta que representa a saída do jogador para a vitória, o ladrão em seu modo normal, o ladrão quando esta utilizando sua habilidade furtiva e o policial. Elas podem ser visualizadas de forma respectiva na imagem abaixo
+Quatro sprites foram criados de forma exclusiva para a partida, a porta que representa a saída do jogador para a vitória, o ladrão em seu modo normal, o ladrão quando esta utilizando sua habilidade furtiva e o policial.
 
 <p align="center">
   <img src="Imagens/SpritesPartida.png" width = "500" />
