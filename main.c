@@ -4,6 +4,9 @@
 #include "threads.h"
 #include "carrega_telas_sprites.h"
 
+#include <fcntl.h>
+#include <unistd.h>
+
 int main() {
     /* Para teste do jogo, evita colisões com policiais */
     int teste = 0;
@@ -73,7 +76,7 @@ int main() {
             /* Abrir o dispositivo do mouse */
             fd_mouse = open(MOUSE_DEVICE, O_RDONLY);
             if (fd_mouse == -1) {
-                fprintf(stderr, "Erro ao abrir o mouse\n");
+                printf("Erro ao abrir o mouse\n");
                 return -1;
             }
             
