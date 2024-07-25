@@ -254,7 +254,7 @@ A solução abrangente deste projeto reflete sua total capacidade de atender a t
 Para melhor compreensão do processo, fornecemos o seguinte diagrama de fluxo detalhando os passos descritos na solução geral.
 
 <p align="center">
-  <img src="Imagens/Fluxograma2.png" width = "500" />
+  <img src="Imagens/FluxogramaGeral.png" width = "500" />
 </p>
 <p align="center"><strong> Fluxograma da solução geral do problema</strong></p>
 
@@ -292,12 +292,12 @@ Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transi�
 </p>
 <p align="center"><strong> Tela de saída do jogo </strong></p>
 
-Escolhendo a opção para início da partida, o usuário é automaticamente direcionado para a partida, a transição pode ser vista no gif abaixo.
+Escolhendo a opção para início da partida, o usuário é automaticamente direcionado a tela padrão contendo todos os elementos do jogo.
 
 <p align="center">
-  <img src="Gifs/TelaInicialJogo.gif" width = "500" />
+  <img src="Imagens/TelaPartida.png" width = "500" />
 </p>
-<p align="center"><strong> Transição da tela inicial para a partida </strong></p>
+<p align="center"><strong> Tela padrão do jogo </strong></p>
 
 A tela de partida exibe de forma geral o mapa do jogo, todos os elementos ativos e passivos são exibidos automaticamente assim que a partida se inicia, as relíquias que devem ser roubadas pelo ladrão (representadas por troféus), os políciais, a porta de saída e o ladrão são os elementos principais desta tela. 
 
