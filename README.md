@@ -254,7 +254,7 @@ A solução abrangente deste projeto reflete sua total capacidade de atender a t
 Para melhor compreensão do processo, fornecemos o seguinte diagrama de fluxo detalhando os passos descritos na solução geral.
 
 <p align="center">
-  <img src="Imagens/Fluxograma2.png" width = "500" />
+  <img src="Imagens/FluxogramaGeral.png" width = "500" />
 </p>
 <p align="center"><strong> Fluxograma da solução geral do problema</strong></p>
 
@@ -266,7 +266,7 @@ Aqui discutiremos todas as interfaces desenvolvidas para o jogo, além de todas 
 
 Demonstraremos também a integração com os botões e display de sete segmentos, assim como a utilização do mouse para a jogabilidade do usuário.
 
-O primeiro elemento que pode ser visualizado com a inicializaçao do jogo é a tela inicial abaixo, nela é aparesentado o nome do jogo e duas opções que podem ser seguidas pelo usuário. O jogo pode ser iniciado, ao clicar no botão 01 da placa, assim como é permitida a saída do jogo com o clique no botão 02.
+O primeiro elemento que pode ser visualizado com a inicializaçao do jogo é a tela inicial abaixo, nela é aparesentado o nome do jogo e duas opções que podem ser seguidas pelo usuário, o início de uma partida ou o encerramento do jogo.
 
 <p align="center">
   <img src="Imagens/TelaInicial.png" width = "500" />
@@ -276,15 +276,14 @@ O primeiro elemento que pode ser visualizado com a inicializaçao do jogo é a t
 Dois sprites foram desenvolvidos para a tela inicial, um que representa um "play" para iniciar o jogo e outro que representa a opção de saída. Eles podem ser visualiados a seguir.
 
 <p align="center">
-  <img src="Imagens/SpritePlay.png" width="400" height="300" />
+  <img src="Imagens/SpritePlay.jpg" width="300" height="200" />
 </p>
 <p align="center"><strong>Sprite criado para representar a opção de iniciar o jogo</strong></p>
 
 <p align="center">
-  <img src="Imagens/SpriteSair.png" width="400" height="300" />
+  <img src="Imagens/SpriteSair.jpg" width="300" height="200" />
 </p>
 <p align="center"><strong>Sprite criado para representar a opção de sair do jogo</strong></p>
-
 
 Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transição para uma nova tela onde uma mensagem de despedida é exibida. Após a mensagem a tela é apagada automaticamente e o jogo é encerrado, o gif abaixo demonstra o processo descrito anteriomente.
 
@@ -293,23 +292,23 @@ Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transi�
 </p>
 <p align="center"><strong> Tela de saída do jogo </strong></p>
 
-Escolhendo a opção para início da partida, o usuário é automaticamente direcionado para a partida, a transição pode ser vista no gif abaixo.
+Escolhendo a opção para início da partida, o usuário é automaticamente direcionado a tela padrão contendo todos os elementos do jogo.
 
 <p align="center">
-  <img src="Gifs/TelaInicialJogo.gif" width = "500" />
+  <img src="Imagens/TelaPartida.png" width = "500" />
 </p>
-<p align="center"><strong> Transição da tela inicial para a partida </strong></p>
+<p align="center"><strong> Tela padrão do jogo </strong></p>
 
 A tela de partida exibe de forma geral o mapa do jogo, todos os elementos ativos e passivos são exibidos automaticamente assim que a partida se inicia, as relíquias que devem ser roubadas pelo ladrão (representadas por troféus), os políciais, a porta de saída e o ladrão são os elementos principais desta tela. 
 
-Três sprites foram criados de forma exclusiva para a partida, o ladrao de relíquias que representa o jogador, os policias que estão em busca do ladrão e a porta de saída do jogador para fuga e finalização vitoriosa do jogo. Eles podem ser vistos na imagem abaixo.
+Quatro sprites foram criados de forma exclusiva para a partida, a porta que representa a saída do jogador para a vitória, o ladrão em seu modo normal, o ladrão quando esta utilizando sua habilidade furtiva e o policial.
 
 <p align="center">
-  <img src="Imagens/SpritesPartida.jpg" width = "500" />
+  <img src="Imagens/SpritesPartida.png" width = "500" />
 </p>
-<p align="center"><strong> Sprites criados (Porta, ladrão e policial) respectivamente </strong></p>
+<p align="center"><strong> Sprites criados (Porta, ladrão, ladrão com habilidade e policial) </strong></p>
 
-Durante a partida o jogador tem a opção de pausa-la ao clicar no botão 03 da placa, a transição para o pause pode ser vista abaixo.
+Durante a partida o jogador tem a opção de pausa-la ao clicar no botão 01 da placa, a transição para o pause pode ser vista abaixo.
 
 <p align="center">
   <img src="Gifs/PartidaPause.gif" width = "500" />
@@ -319,7 +318,7 @@ Durante a partida o jogador tem a opção de pausa-la ao clicar no botão 03 da 
 Assim que o jogo entra em pausa um sprite é exibido no canto superior direito da tela, ele basicamente indica com a utilização de duas barras paralelas verticalmente posicionadas, se o jogo se encontra pausado ou não. Na imagem abaixo podemos visualiza-lo com mais clareza.
 
 <p align="center">
-  <img src="Imagens/SpritePause.png" width="300" height="300" />
+  <img src="Imagens/SpritePause.jpg" width="200" height="200" />
 </p>
 <p align="center"><strong> Sprite de pause do jogo </strong></p>
 
@@ -339,14 +338,14 @@ Ao vencer o jogo, o usuário é direcionado para uma nova tela com uma mensagem 
 
 O número de vidas e poder especial disponíveis ao ladrão são apresentadas no display de 7 segmentos. Enquanto a partida não esta ocorrendo, o display não exibe nenhum tipo de informação válida para o jogo. Durante a partida as informações exibidas pelo display são atualizadas automaticamente.
 
-A imagem abaixo demonstra o display de 7 segmentos em uma situação em que a partida está inativa, ou seja, na tela inicial, em derrota ou vitória.
+A imagem abaixo demonstra o display em uma situação em que a partida está inativa, ou seja, na tela inicial, em derrota ou vitória.
 
 <p align="center">
   <img src="Imagens/DisplayNulo.jpg" width = "500" />
 </p>
 <p align="center"><strong> Display de sete segmentos em momento de partida inativa </strong></p>
 
-Em uma situação em que a partida esta ocorrendo, o display exibe o número de vezes que a habilidade furtiva ainda pode ser usada e o número de vidas disponíveis ao ladrão. Na imagem abaixo podemos visualizar o display nesta situação.
+Em uma situação em que a partida esta ocorrendo, o display exibe o número de vezes que a habilidade furtiva ainda pode ser usada e o número de vidas disponíveis ao ladrão. A seguir podemos visualizar esta situação.
 
 <p align="center">
   <img src="Imagens/DisplayDados.jpg" width = "500" />
@@ -368,8 +367,6 @@ Nesta seção, serão apresentadas todas as dinâmicas e regras presentes ao lon
 
 <h3>Jogabilidade: Controle do ladrão</h3>
 
-
-
 </div>
 </div>
 
@@ -385,30 +382,30 @@ Afim de verificar o correto funcionamento entre as transições de tela do jogo,
 
 Durante todos os testes deste tipo, buscamos bugs ou inconsistências no momento em que esta troca ocorre. Nenhum tipo de problema foi encontrado em quaisquer transição de tela
 
-* Na tela inicial o jogador tem a opção de sair do jogo, para fazer esta ação o usuário deve clicar no botão 02. No gif abaixo podemos analisar este cenário.
+* Na tela inicial o jogador tem a opção de sair do jogo, para fazer esta ação o usuário deve clicar no botão 04. No gif abaixo podemos analisar este cenário.
 
 <p align="center">
   <img src="Gifs/TelaInicialSair.gif" width = "400" />
 </p>
 <p align="center"><strong>Transição da tela inicial para a saída do jogo</strong></p>
 
-* Novamente na tela inicial, o usuário pode iniciar a partida. Este é um teste crucial pois todos os elementos passivos e ativos do jogo devem se fazer presentes de forma correta.
+* Novamente na tela inicial, o usuário pode iniciar a partida clicando no botão 03. Este é um teste crucial pois todos os elementos passivos e ativos do jogo devem se fazer presentes de forma correta.
 
 <p align="center">
   <img src="Gifs/TelaInicialJogo.gif" width = "400" />
 </p>
 <p align="center"><strong>Transição tela inicial para a partida</strong></p>
 
-* Durante a partida, é permitido ao usuário o comando de pause ativado pelo botão 03. Ao realizar esta ação todos os elementos ativos do jogo devem permanecer onde estão, e um novo sprite de aviso deve ser exibido no canto superior direito.
+* Durante a partida, é permitido ao usuário o comando de pause ativado pelo botão 01. Ao realizar esta ação todos os elementos ativos do jogo devem permanecer onde estão, e um novo sprite de aviso deve ser exibido no canto superior direito.
 
-* Ao desfazer a ação de pause, devemos observar todos os elementos ativos continuando seu fluxo normal do mesmo local onde estavam antes da ação.
+* Ao desfazer a ação de pause clicando no botão 02, devemos observar todos os elementos ativos continuando seu fluxo normal do mesmo local onde estavam antes da ação.
 
 <p align="center">
   <img src="Gifs/PartidaPause.gif" width = "400" />
 </p>
 <p align="center"><strong>Pausando a partida</strong></p>
 
-* Em uma situação de pause, o jogador poderá reiniciar a partida ou sair do jogo. Ao reiniciar a partida, é esperado que o ladrão retorne ao local de origem e ao encerrar o jogo é feita a transição para a tela de saída.
+* Em uma situação de pause, o jogador poderá reiniciar a partida ou sair do jogo. Ao reiniciar a partida (botão 03), é esperado que o ladrão retorne ao local de origem e ao encerrar o jogo é feita a transição para a tela de saída.
 
 <p align="center">
   <img src="Gifs/PauseReinicio.gif" width = "400" />
