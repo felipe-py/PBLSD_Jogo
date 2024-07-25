@@ -145,13 +145,6 @@ movimenta_mouse(void* arg) {
 
     int verificar, offset_ladrao = 25;
 
-    /* Abrir o dispositivo do mouse */
-    fd_mouse = open(MOUSE_DEVICE, O_RDONLY);
-    if (fd_mouse == -1) {
-        fprintf(stderr, "Erro ao abrir o mouse\n");
-        return -1;
-    }
-
     while (1) {
         n = read(fd_mouse, &ev, sizeof(ev));
             

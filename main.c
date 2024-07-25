@@ -5,6 +5,8 @@
 #include "carrega_telas_sprites.h"
 
 int main() {
+    int teste = 0;
+
     /* Abre arquivo de comunicação com o driver */
     if (open_driver() == -1) {
         return -1;
@@ -20,6 +22,9 @@ int main() {
         return -1;
     }
 
+    /* Inicializa display de 7 segmentos com caracteres padronizados */
+    inicia_display();
+
     /* Inicializa o mutex */
     pthread_mutex_init(&lock, NULL);
 
@@ -34,9 +39,6 @@ int main() {
     pthread_mutex_lock(&lock);
     tela_inicial();
     pthread_mutex_unlock(&lock);
-    
-    /* Inicializa display de 7 segmentos com caracteres padronizados */
-    inicia_display();
 
     /* Espera escolha do jogador entre jogar ou sair */
     while (1) {        
@@ -66,6 +68,13 @@ int main() {
             pthread_mutex_lock(&lock);
             inicia_ladrao();
             pthread_mutex_unlock(&lock);
+
+            /* Abrir o dispositivo do mouse */
+            fd_mouse = open(MOUSE_DEVICE, O_RDONLY);
+            if (fd_mouse == -1) {
+                fprintf(stderr, "Erro ao abrir o mouse\n");
+                return -1;
+            }
             
             /* Inicializa threads dos policiais e mouse */
             if (cria_threads_jogo()) {
@@ -94,7 +103,7 @@ int main() {
                 if (pausar == 0) {
                     
                     /* SE NÃO ESTIVER NO MODO FURTIVO, COLISÕES SÃO VERIFICADAS */
-                    if (furtivo == 0) {
+                    if (furtivo == 0 && teste == 0) {
                         pthread_mutex_lock(&lock);
                         /* VERIFICA SE LADRAO TEM 2 TROFÉUS E SAIU PELA PORTA - Condição de vitória */
                         if ((trofeu_dir == 1 && trofeu_esq == 1) && x_ladrao == PORTA_X && y_ladrao == PORTA_Y) {              
@@ -260,9 +269,6 @@ int main() {
             /* SE JOGO ESTAVA PAUSADO, É DESPAUSADO AUTOMATICAMENTE */
             pausar = 0;
             set_sprite_wbr(0, PAUSE_X, PAUSE_Y, 27, 4);
-
-            /* Atualiza display de 7 segmentos com as informações finais das vidas e habilidades */
-            att_display(vidas, habilidades);
             pthread_mutex_unlock(&lock);
 
             if (espera_cancelamento_threads_policias()) {
@@ -275,9 +281,15 @@ int main() {
                 return 1;
             }
 
+            //fecha comunicação com o mouse
+            close(fd_mouse);
+
             /* SE SAIU DO LOOP DO JOGO PORQUE GANHOU OU PERDEU, LIMPA TELA, EXIBE TELA INDICATIVA E AGUARDA CONFIRMAÇÃO */
             if (win || lose) {
                 pthread_mutex_lock(&lock);
+                /* Atualiza display de 7 segmentos com as informações finais das vidas e habilidades */
+                att_display(vidas, habilidades);
+
                 limpar_tela(0);
 
                 if (win) {
@@ -320,11 +332,8 @@ int main() {
             set_sprite_wbr(1, TROFEU_ESQ_X, TROFEU_ESQ_Y, 24, 2);
             set_sprite_wbr(1, TROFEU_DIR_X, TROFEU_DIR_Y, 24, 3);
             pthread_mutex_unlock(&lock);  
-            
-        } //LOOP JOGAR NOVAMENTE
 
-        //fecha comunicação com o mouse
-        close(fd_mouse);
+        } //LOOP JOGAR NOVAMENTE
     }
 
     /* Finaliza display de 7 segmentos com caracteres padronizados */
