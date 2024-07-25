@@ -318,7 +318,7 @@ Durante a partida o jogador tem a opção de pausa-la ao clicar no botão 01 da 
 Assim que o jogo entra em pausa um sprite é exibido no canto superior direito da tela, ele basicamente indica com a utilização de duas barras paralelas verticalmente posicionadas, se o jogo se encontra pausado ou não. Na imagem abaixo podemos visualiza-lo com mais clareza.
 
 <p align="center">
-  <img src="Imagens/SpritePause.jpg" width="300" height="300" />
+  <img src="Imagens/SpritePause.jpg" width="200" height="200" />
 </p>
 <p align="center"><strong> Sprite de pause do jogo </strong></p>
 
