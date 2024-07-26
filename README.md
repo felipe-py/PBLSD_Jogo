@@ -401,7 +401,28 @@ O objetivo principal do jogo Shadow Collision é fazer com que o ladrão roube a
 
 Nesta seção, serão apresentadas todas as dinâmicas e regras presentes ao longo de todo o jogo.
 
-<h3>Jogabilidade: Controle do ladrão</h3>
+<h3>Controle do ladrão</h3>
+
+No jogo, o jogador controla um ladrão que deve coletar troféus espalhados pelo mapa enquanto evita ser capturado por policiais. A movimentação é feita através do mouse que permite explorar o mapa e se esquivar dos policiais. Uma mecânica central é o "modo furtivo," que permite ao ladrão evitar ser detectado ao sacrifício de seus movimentos, facilitando a coleta de troféus em áreas de alta vigilância.
+
+<h3>Tomadas de decisão</h3>
+    
+A jogabilidade exige decisões estratégicas, como escolher a rota ideal e o momento certo para usar o modo furtivo. A cada colisão com policiais, o jogador perde uma vida e os troféus coletados, aumentando a tensão e a necessidade de uma estratégia cuidadosa. Com o avanço no jogo, os desafios aumentam, exigindo do jogador habilidades cada vez mais refinadas para concluir os objetivos.
+
+<h3>Recursos limitados</h3>
+   Durante o jogo será necessário um controle cuidado de seus recursos: suas vidas, suas cargas de habilidade e seus troféus. Nenhum deles é recarregável durante o jogo, sendo que os troféus ainda podem ser perdidos caso o jogador seja pego por um guarda, um controle adequado de seus recursos é a chave da vitória.
+
+<h3>Colisões</h3>
+    Como descrito na sessão <a href="#Algoritmos">Algoritmos</a> existem um total de 4 colisões no jogo, cada uma com suas respectivas consequencias: a colisão com a parede, que impede o movimento do jogador, a colisão com um guarda que faz o jogador perder uma vida, a colisão com um troféu que garante o recurso, e a colisão com a porta que, caso o jogador já tenha os troféus, finaliza o jogo.
+
+<h3>Pause e Continuar</h3>
+    Durante qualquer momento durante a gameplay o jogador pode executar um conjunto de ações a depender do botão que ele pressionar na FPGA: ele pode pausar o jogo, reiniciar o jogo ou até mesmo sair do jogo. Considere ,no entanto, que essas ações tem suas disponibilizadas a depender do estágio do jogo (você não pode pausar o menu por exemplo).
+
+<h3>Condição de vitória</h3>
+    Para vencer o jogo, é preciso que o jogador retorne ao ponto de extração com 2 troféus que estão dispostos pelo mapa, a ordem de coleta, bem como a rota tomada ambos estão a cargo do jogador, tendo apenas a limitação das paredes no mapa.
+
+<h3>Condição de derrota</h3>
+    O jagador perde o jogo ao cumprimento de uma condição simples: ser capturado sem ter nenhuma vida restante. Para o cumprimento dessa condição será necessário que o jogador tenha sido pêgo 4 vezes, 3 vezes com vidas na reserva, e uma vez com o contador de vidas zerado.
 
 </div>
 </div>
