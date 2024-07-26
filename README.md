@@ -59,6 +59,7 @@ Os requisitos do desenvolvimento do sistema seguem abaixo:
         </a></li>
         <li><a href="#Perifericos-utilizados"> Periféricos da Placa DE1-SoC Utilizados </a></li>
         <li><a href="#Drivers"> Drivers utilizados para o controle da GPU </a></li>
+        <li><a href="#Algoritmos"> Algoritmos </li>
         <li><a href="#GPU utilizada"> GPU utilizada no projeto </a></li>
         <li><a href="#solucao-geral"> Solução Geral do projeto </a></li>
         <li><a href="#Interface do Usuário"> Interface do Usuário </a></li>
@@ -138,6 +139,41 @@ Com a implementação do driver e o uso de uma biblioteca para facilitar o acess
 * set_triangulo_dp: resposável por desenhar um triângulo na tela.
 * limpar_tela: limpa a tela, removendo todas as estruturas já dispostas.
 * preenche_buffer: resposável por preencher um buffer com as informações dos barramentos e enviá-las para a GPU.
+
+</div>
+</div>
+
+<div id="Algoritmos">
+<h2>Algoritmos</h2>
+<div align="justify">
+
+Esses algoritmos permitem a detecção de colisões, esses por sua vez se subdividem em:
+
+* colisão com parede.
+
+* colisão com um guarda.
+    
+* colisão com um troféu.
+    
+* colisão com a porta.
+
+A colisão com parede não implica em penalidades para o jogador, caso ocorra ela apenas impede o avanço do ladrão, essa colisão é importante para garantir que o ladrão não poderá andar de forma completamente livre pelo mapa, o que aumentará o grau de desafio do jogo.
+
+A colisão com um guarda possui penalidades par ao jogador, sendo elas: a perda de uma vida, a perda de todos os troféus, e o reestabelecimento da posição do jogador na posição inicial do ladrão. Esses princípios se aplicam a colisão com todos os guardas, sendo que a verificação é feita de forma individual para cada guarda.
+
+A colisão com um troféu por sua vez tem um carácter recompensador, ao colidir com um trofeu o sprite do mesmo some e a contagem de troféus do ladrão aumenta, sendo que somente com todos os troféus o ladrão poderá concluir com sucesso sua missão.
+
+A colisão com a porta se divide em 2 possibilidades: o ladrão tem ambos os troféus, ou não tem. Caso os troféus tenham sido coletados o jogador ganha o jogo, do contrário nada acontece e o jogo continua.
+
+Todos os algoritmos de colisão funcionam de forma similar e registram a colisão no cumprimento de 2 requisitos, sendo eles: não estar em modo furtivo (usando a habilidade) e haver um contato entre o sprite do jogador com um determinado objeto do jogo. A primeira condição, apesar de estar sendo sempre verificada, só se efetiva na colisão com um guarda, afinal o ladrão não pode iniciar uma colisão sem se mover, e a movimentação é proibida no modo furtivo, logo caso o usuário colida com o troféu, por exemplo, a colisão é detectada antes da entrada em modo furtivo. A segunda condição já se apresenta em todas as colisões ao mesmo tempo, é necessário apenas uma variação das coordenadas que gere um contato contre os dois objetos para que se contretize.
+
+<h3>Algoritmo de Threads </h3>
+
+O algoritmo de threads é usado para gerenciar as interações do jogador com o jogo e os periféricos conectados à placa. São empregadas múltiplas threads para executar tarefas simultaneamente, como a interação com botões, manipulação de sprites e verificação de colisões. As threads são gerenciadas usando a biblioteca "pthread", o que permite a criação e sincronização de múltiplas linhas de execução dentro do programa.
+
+Uma das threads principais criadas é a thread_botao, que lida com as interações do jogador com os botões de controle na FPGA. Além disso, threads são usadas para lidar com movimentos de sprites, tanto a movimentação dos guardas que ocorre de forma independente do jogador quanto do ladrão controlado pelo mouse. A sincronização entre essas threads é crítica para garantir que as ações, como a atualização do estado do jogo ou o acesso a recursos compartilhados, sejam realizadas de maneira ordenada e segura. Isso é feito utilizando a abordagem de mutex, que aplica uma trava que impede que múltiplas threads acessem dados críticos ao mesmo tempo, prevenindo condições de corrida e inconsistências de dados.
+
+Este uso de threads e sincronização é fundamental para a execução eficiente do jogo, permitindo que o sistema responda rapidamente a entradas do jogador e eventos do jogo, enquanto realiza tarefas em segundo plano, como verificações de colisão e atualização de gráficos. As threads também permitem uma separação clara de responsabilidades dentro do código, onde diferentes threads são responsáveis por diferentes partes do jogo, facilitando a manutenção e a escalabilidade do software.
 
 </div>
 </div>
