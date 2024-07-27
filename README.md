@@ -143,41 +143,6 @@ Com a implementação do driver e o uso de uma biblioteca para facilitar o acess
 </div>
 </div>
 
-<div id="Algoritmos">
-<h2>Algoritmos</h2>
-<div align="justify">
-
-Esses algoritmos permitem a detecção de colisões, esses por sua vez se subdividem em:
-
-* colisão com parede.
-
-* colisão com um guarda.
-    
-* colisão com um troféu.
-    
-* colisão com a porta.
-
-A colisão com parede não implica em penalidades para o jogador, caso ocorra ela apenas impede o avanço do ladrão, essa colisão é importante para garantir que o ladrão não poderá andar de forma completamente livre pelo mapa, o que aumentará o grau de desafio do jogo.
-
-A colisão com um guarda possui penalidades par ao jogador, sendo elas: a perda de uma vida, a perda de todos os troféus, e o reestabelecimento da posição do jogador na posição inicial do ladrão. Esses princípios se aplicam a colisão com todos os guardas, sendo que a verificação é feita de forma individual para cada guarda.
-
-A colisão com um troféu por sua vez tem um carácter recompensador, ao colidir com um trofeu o sprite do mesmo some e a contagem de troféus do ladrão aumenta, sendo que somente com todos os troféus o ladrão poderá concluir com sucesso sua missão.
-
-A colisão com a porta se divide em 2 possibilidades: o ladrão tem ambos os troféus, ou não tem. Caso os troféus tenham sido coletados o jogador ganha o jogo, do contrário nada acontece e o jogo continua.
-
-Todos os algoritmos de colisão funcionam de forma similar e registram a colisão no cumprimento de 2 requisitos, sendo eles: não estar em modo furtivo (usando a habilidade) e haver um contato entre o sprite do jogador com um determinado objeto do jogo. A primeira condição, apesar de estar sendo sempre verificada, só se efetiva na colisão com um guarda, afinal o ladrão não pode iniciar uma colisão sem se mover, e a movimentação é proibida no modo furtivo, logo caso o usuário colida com o troféu, por exemplo, a colisão é detectada antes da entrada em modo furtivo. A segunda condição já se apresenta em todas as colisões ao mesmo tempo, é necessário apenas uma variação das coordenadas que gere um contato contre os dois objetos para que se contretize.
-
-<h3>Algoritmo de Threads </h3>
-
-O algoritmo de threads é usado para gerenciar as interações do jogador com o jogo e os periféricos conectados à placa. São empregadas múltiplas threads para executar tarefas simultaneamente, como a interação com botões, manipulação de sprites e verificação de colisões. As threads são gerenciadas usando a biblioteca "pthread", o que permite a criação e sincronização de múltiplas linhas de execução dentro do programa.
-
-Uma das threads principais criadas é a thread_botao, que lida com as interações do jogador com os botões de controle na FPGA. Além disso, threads são usadas para lidar com movimentos de sprites, tanto a movimentação dos guardas que ocorre de forma independente do jogador quanto do ladrão controlado pelo mouse. A sincronização entre essas threads é crítica para garantir que as ações, como a atualização do estado do jogo ou o acesso a recursos compartilhados, sejam realizadas de maneira ordenada e segura. Isso é feito utilizando a abordagem de mutex, que aplica uma trava que impede que múltiplas threads acessem dados críticos ao mesmo tempo, prevenindo condições de corrida e inconsistências de dados.
-
-Este uso de threads e sincronização é fundamental para a execução eficiente do jogo, permitindo que o sistema responda rapidamente a entradas do jogador e eventos do jogo, enquanto realiza tarefas em segundo plano, como verificações de colisão e atualização de gráficos. As threads também permitem uma separação clara de responsabilidades dentro do código, onde diferentes threads são responsáveis por diferentes partes do jogo, facilitando a manutenção e a escalabilidade do software.
-
-</div>
-</div>
-
 <div id="arq_CPU"> 
 <h2> Arquitetura da placa DE1-SoC</h2>
 <div align="justify">
@@ -304,12 +269,16 @@ Demonstraremos também a integração com os botões e display de sete segmentos
 
 O primeiro elemento que pode ser visualizado com a inicializaçao do jogo é a tela inicial abaixo, nela é aparesentado o nome do jogo e duas opções que podem ser seguidas pelo usuário, o início de uma partida ou o encerramento do jogo.
 
+Ao lado da tela presente no jogo, temos o esboço criado inicialmente para o projeto. Os sprites de play e sair são representados de forma ilustrativa por quadrados de cor verde e vermelha, respectivamente.
+
+O mesmo modelo de apresentação será utilizado para as outras telas desenvolvidas para o jogo.
+
 <p align="center">
   <img src="Imagens/TelaInicial.png" width = "500" />
 </p>
-<p align="center"><strong> Tela Inicial do jogo </strong></p>
+<p align="center"><strong> Tela Inicial do jogo (esboço/versão final)</strong></p>
 
-Dois sprites foram desenvolvidos para a tela inicial, um que representa um "play" para iniciar o jogo e outro que representa a opção de saída. Eles podem ser visualiados a seguir.
+A seguir podemos visualizar os dois sprite foram desenvolvidos para a tela inicial, um que representa um "play" para iniciar o jogo e outro que representa a opção de saída.
 
 <p align="center">
   <img src="Imagens/SpritePlay.jpg" width="300" height="200" />
@@ -321,7 +290,14 @@ Dois sprites foram desenvolvidos para a tela inicial, um que representa um "play
 </p>
 <p align="center"><strong>Sprite criado para representar a opção de sair do jogo</strong></p>
 
-Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transição para uma nova tela onde uma mensagem de despedida é exibida. Após a mensagem a tela é apagada automaticamente e o jogo é encerrado, o gif abaixo demonstra o processo descrito anteriomente.
+Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transição para uma nova tela onde uma mensagem de despedida é exibida. O esboço criado para esta tela pode ser visualizado abaixo.
+
+<p align="center">
+  <img src="Imagens/TelaSaidaEsboco.png" width = "500" />
+</p>
+<p align="center"><strong> Esboço da tela de saída do jogo </strong></p>
+
+A tela de saída permanece ativa por alguns segundos e após isso é apagada, indicando que o jogo foi encerrado. 
 
 <p align="center">
   <img src="Gifs/TelaSair.gif" width = "500" />
@@ -358,19 +334,17 @@ Assim que o jogo entra em pausa um sprite é exibido no canto superior direito d
 </p>
 <p align="center"><strong> Sprite de pause do jogo </strong></p>
 
-Em caso de derrota, o jogador é direcionado para a tela de "Game Over". Nela são apresentados os mesmos sprites da tela inicial, eles representam a opção de jogar novamente (play) ou sair do jogo.
+A seguir são apresentadas as telas de derrota e vitória de uma partida, as duas seguem a mesma metodologia da tela inicial com uma mensagem de derrota ("Game Over") ou vitória ("You Win"). São apresentadas as opçoes de jogar novamente ou sair do jogo, utilizando os mesmos sprites presentes na tela inicial.
 
 <p align="center">
   <img src="Imagens/TelaGameOver.png" width = "500" />
 </p>
-<p align="center"><strong> Tela de derrota do jogo </strong></p>
-
-Ao vencer o jogo, o usuário é direcionado para uma nova tela com uma mensagem de vitória. São apresentadas as mesmas opções com os sprites já vistos anteriormente, em ambos os casos as funções se repetem.
+<p align="center"><strong> Tela de derrota do jogo (esboço/versão final) </strong></p>
 
 <p align="center">
   <img src="Imagens/TelaVitoria.png" width = "500" />
 </p>
-<p align="center"><strong> Tela de vitória do jogo </strong></p>
+<p align="center"><strong> Tela de vitória do jogo (esboço/versão final)</strong></p>
 
 O número de vidas e poder especial disponíveis ao ladrão são apresentadas no display de 7 segmentos. Enquanto a partida não esta ocorrendo, o display não exibe nenhum tipo de informação válida para o jogo. Durante a partida as informações exibidas pelo display são atualizadas automaticamente.
 
@@ -423,6 +397,41 @@ A jogabilidade exige decisões estratégicas, como escolher a rota ideal e o mom
 
 <h3>Condição de derrota</h3>
     O jagador perde o jogo ao cumprimento de uma condição simples: ser capturado sem ter nenhuma vida restante. Para o cumprimento dessa condição será necessário que o jogador tenha sido pêgo 4 vezes, 3 vezes com vidas na reserva, e uma vez com o contador de vidas zerado.
+
+</div>
+</div>
+
+<div id="Algoritmos">
+<h2>Algoritmos</h2>
+<div align="justify">
+
+Esses algoritmos permitem a detecção de colisões, esses por sua vez se subdividem em:
+
+* colisão com parede.
+
+* colisão com um guarda.
+    
+* colisão com um troféu.
+    
+* colisão com a porta.
+
+A colisão com parede não implica em penalidades para o jogador, caso ocorra ela apenas impede o avanço do ladrão, essa colisão é importante para garantir que o ladrão não poderá andar de forma completamente livre pelo mapa, o que aumentará o grau de desafio do jogo.
+
+A colisão com um guarda possui penalidades par ao jogador, sendo elas: a perda de uma vida, a perda de todos os troféus, e o reestabelecimento da posição do jogador na posição inicial do ladrão. Esses princípios se aplicam a colisão com todos os guardas, sendo que a verificação é feita de forma individual para cada guarda.
+
+A colisão com um troféu por sua vez tem um carácter recompensador, ao colidir com um trofeu o sprite do mesmo some e a contagem de troféus do ladrão aumenta, sendo que somente com todos os troféus o ladrão poderá concluir com sucesso sua missão.
+
+A colisão com a porta se divide em 2 possibilidades: o ladrão tem ambos os troféus, ou não tem. Caso os troféus tenham sido coletados o jogador ganha o jogo, do contrário nada acontece e o jogo continua.
+
+Todos os algoritmos de colisão funcionam de forma similar e registram a colisão no cumprimento de 2 requisitos, sendo eles: não estar em modo furtivo (usando a habilidade) e haver um contato entre o sprite do jogador com um determinado objeto do jogo. A primeira condição, apesar de estar sendo sempre verificada, só se efetiva na colisão com um guarda, afinal o ladrão não pode iniciar uma colisão sem se mover, e a movimentação é proibida no modo furtivo, logo caso o usuário colida com o troféu, por exemplo, a colisão é detectada antes da entrada em modo furtivo. A segunda condição já se apresenta em todas as colisões ao mesmo tempo, é necessário apenas uma variação das coordenadas que gere um contato contre os dois objetos para que se contretize.
+
+<h3>Algoritmo de Threads </h3>
+
+O algoritmo de threads é usado para gerenciar as interações do jogador com o jogo e os periféricos conectados à placa. São empregadas múltiplas threads para executar tarefas simultaneamente, como a interação com botões, manipulação de sprites e verificação de colisões. As threads são gerenciadas usando a biblioteca "pthread", o que permite a criação e sincronização de múltiplas linhas de execução dentro do programa.
+
+Uma das threads principais criadas é a thread_botao, que lida com as interações do jogador com os botões de controle na FPGA. Além disso, threads são usadas para lidar com movimentos de sprites, tanto a movimentação dos guardas que ocorre de forma independente do jogador quanto do ladrão controlado pelo mouse. A sincronização entre essas threads é crítica para garantir que as ações, como a atualização do estado do jogo ou o acesso a recursos compartilhados, sejam realizadas de maneira ordenada e segura. Isso é feito utilizando a abordagem de mutex, que aplica uma trava que impede que múltiplas threads acessem dados críticos ao mesmo tempo, prevenindo condições de corrida e inconsistências de dados.
+
+Este uso de threads e sincronização é fundamental para a execução eficiente do jogo, permitindo que o sistema responda rapidamente a entradas do jogador e eventos do jogo, enquanto realiza tarefas em segundo plano, como verificações de colisão e atualização de gráficos. As threads também permitem uma separação clara de responsabilidades dentro do código, onde diferentes threads são responsáveis por diferentes partes do jogo, facilitando a manutenção e a escalabilidade do software.
 
 </div>
 </div>
