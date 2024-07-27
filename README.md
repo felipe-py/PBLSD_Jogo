@@ -58,10 +58,9 @@ Os requisitos do desenvolvimento do sistema seguem abaixo:
         <li><a href="#arq_CPU">  Arquitetura da placa DE1-SoC
         </a></li>
         <li><a href="#Perifericos-utilizados"> Periféricos da Placa DE1-SoC Utilizados </a></li>
-        <li><a href="#Drivers"> Drivers utilizados para o controle da GPU </a></li>
         <li><a href="#Algoritmos"> Algoritmos do jogo</li>
         <li><a href="#Mapeamento"> Mapeamento dos periféricos</li>
-        <li><a href="#GPU utilizada"> GPU utilizada no projeto </a></li>
+        <li><a href="#GPU utilizada"> GPU e driver utilizados no projeto </a></li>
         <li><a href="#solucao-geral"> Solução Geral do projeto </a></li>
         <li><a href="#Interface do Usuário"> Interface do Usuário </a></li>
         <li><a href="#Dinamica do jogo"> Dinâmica do jogo </a></li>  
@@ -115,31 +114,6 @@ O GCC, que significa "GNU Compiler Collection" (Coleção de Compiladores GNU), 
 <h3>Vscode</h3>
 
 O Visual Studio Code, também conhecido como VSCode, é um ambiente de desenvolvimento muito popular. Desenvolvido pela Microsoft, é um editor de código aberto e gratuito que oferece recursos como realce de sintaxe, conclusão automática de código e depuração integrada. Ele suporta uma variedade de linguagens de programação e possui um sistema de extensões que permite personalizar e estender suas funcionalidades. No projeto, o VSCode foi utilizado para desenvolver o código-fonte do jogo e formatar o README.
-
-</div>
-</div>
-
-<div id="Drivers">
-<h2>Drivers utilizados para o controle da GPU</h2>
-<div align="justify">
-
-Para que a imagem do jogo seja disponibilizada na tela do monitor é necessária a realização de um série de cálculos matemáticos que representarão as informações a serem exibidas na tela, bem como o transporte e a interpretação dos resultados desses cálculos. O transporte desses dados é realizado através de cabos que trocam informações nos barramentos e a interpretação da informação é feita através do comportamento de hardware específico, enquanto que a realização dos cálculos é delegada um hardware cujo comportamento será controlado por peças de software especiais, conhecidas como drivers, que na imprementação desse projeto serão do tipo "Kernel modules".
-
-A FPGA utilizada nesse projeto, a DE1-SoC, já goza de um sistema operacional baseado em Linux bem como uma série de módulos que permitem o controle dos recursos da placa, a exemplo dos botões, dado que o projeto foi desenvolvido em C o processo de inclusão desses módulos pode ser feito ao adicionar o comando "-intelfpgaup" na compilação do código, e dentro do mesmo realizando a inclusão da biblioteca na forma: "#include <intelfpgaup/<b>nome_do_driver.h</b>>".
-
-Com a implementação do driver e o uso de uma biblioteca para facilitar o acesso foram disponibilizadas as seguintes funções:
-
-* open_driver: reposável por abrir o driver.
-* close_driver: resposável por fechar o driver.
-* set_cor_background_wbr: resposável por definir a cor de fundo da tela.
-* set_sprite_wbr: resposável por exibir um sprite.
-* edit_bloco_background_wbm: resposáve por editar um bloco no background.
-* desabilita_bloco_background_wbm: resposável por desabilitar um bloco do background.
-* edit_sprite_wsm: resposável por editar um pixel de um sprite armazenado ou criar um pixel de um novo sprite.
-* set_quadrado_dp: reposável por desenhar um quadrado na tela.
-* set_triangulo_dp: resposável por desenhar um triângulo na tela.
-* limpar_tela: limpa a tela, removendo todas as estruturas já dispostas.
-* preenche_buffer: resposável por preencher um buffer com as informações dos barramentos e enviá-las para a GPU.
 
 </div>
 </div>
@@ -235,7 +209,7 @@ A placa é equipada com seis displays de sete segmentos dispostos em três pares
 </div>
 
 <div id="GPU utilizada"> 
-<h2> GPU utilizada no projeto</h2>
+<h2> GPU e driver utilizados no projeto</h2>
 <div align="justify">
 
 O projeto desenvolvido utiliza uma GPU desenvolvida por um ex-discente do curso de Engenharia de Computação da Universidade Estadual de Feira de Santana (UEFS), todos os elementos disponíveis para uso que a GPU possui são utilizados no jogo.
@@ -403,7 +377,7 @@ A jogabilidade exige decisões estratégicas, como escolher a rota ideal e o mom
 </div>
 
 <div id="Algoritmos">
-<h2>Algoritmos</h2>
+<h2>Algoritmos do jogo</h2>
 <div align="justify">
 
 Para implementar as regras do jogo a nível de software, foram desenvolvidos diversos algoritmos responsáveis por gerenciar o comportamento dos elementos do jogo. Nesta seção, serão apresentadas as sequências responsáveis pela colisão entre o ladrão e os elementos ativos ou passivos do mapa, além das threads utilizadas o correto funcionamento de todas as interaçoes do jogo.
@@ -635,13 +609,13 @@ Por fim, em uma situação em que ocorra alguma modificação nas informações 
 <h2> Execução do Projeto  </h2>
 <div align="justify">
 
-Para uso do driver e biblioteca, é necessário seguir os seguintes passos para obter o código-fonte, compilar o código em C, inserir o driver no kernel Linux, criar nó de acesso ao dispositivo de caractere e executá-lo em um dispositivo FPGA DE1-SoC acoplado com a GPU de Gabriel Sá Barreto Alves. Na criação do nó, é necessário ajustar o major number alocado dinamicamente ao driver pelo kernel. Ademais, também é preciso ajustar o caminho onde os arquivos gerados na compilação do módulo kernel serão armazenados.
+Para execução do jogo, é necessário seguir os seguintes passos para obter o código-fonte, compilar o código em C, inserir o driver no kernel Linux, criar nó de acesso ao dispositivo de caractere e executá-lo em um dispositivo FPGA DE1-SoC acoplado com a GPU de Gabriel Sá Barreto Alves. Na criação do nó, é necessário ajustar o major number alocado dinamicamente ao driver pelo kernel. Ademais, também é preciso ajustar o caminho onde os arquivos gerados na compilação do módulo kernel serão armazenados.
 
 **Passo 1: Clonar o Repositório**
 
 Abra o terminal e execute o seguinte comando para obter o código do repositório:
 
-    git clone https://github.com/felipe-py/PBLSD_Barramentos.git
+    git clone https://github.com/felipe-py/PBLSD_Jogo
 
 **Passo 1.1: Ajustando major number do nó para dispositivo de caractere**
 
@@ -663,7 +637,7 @@ Para compilar, inserir o módulo kernel (driver) e criar um nó para o dispositi
 
 **Passo 3: Compilar o Código em C**
 
-Para obter código teste da biblioteca, compile e execute o código usando o comando:
+Para obter o código do jogo, compile e execute o código usando o comando:
 
     make run
 
@@ -692,8 +666,8 @@ Intel® FPGA University Program DE1-SoC Computer Manual. Disponível em: https:/
 
 Using Linux on DE-Series Boards. Disponível em: https://github.com/fpgacademy/Tutorials/releases/download/v21.1/Linux_with_ARM_A9.pdf. Acessado em: 13 de maio de 2024.
 
+2D collision detection. Disponível em: <https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection>. Acessado em: 10 de julho de 2024
+
 
 </div>
 </div>
-
- 
