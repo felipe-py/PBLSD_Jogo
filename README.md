@@ -59,8 +59,8 @@ Os requisitos do desenvolvimento do sistema seguem abaixo:
         </a></li>
         <li><a href="#Perifericos-utilizados"> Periféricos da Placa DE1-SoC Utilizados </a></li>
         <li><a href="#Drivers"> Drivers utilizados para o controle da GPU </a></li>
-        <li><a href="#Algoritmos"> Algoritmos </li>
-        <li><a href="#Mapeamento"> Mapeamento </li>
+        <li><a href="#Algoritmos"> Algoritmos do jogo</li>
+        <li><a href="#Mapeamento"> Mapeamento dos periféricos</li>
         <li><a href="#GPU utilizada"> GPU utilizada no projeto </a></li>
         <li><a href="#solucao-geral"> Solução Geral do projeto </a></li>
         <li><a href="#Interface do Usuário"> Interface do Usuário </a></li>
@@ -388,7 +388,7 @@ A jogabilidade exige decisões estratégicas, como escolher a rota ideal e o mom
    Durante o jogo será necessário um controle cuidado de seus recursos: suas vidas, suas cargas de habilidade e seus troféus. Nenhum deles é recarregável durante o jogo, sendo que os troféus ainda podem ser perdidos caso o jogador seja pego por um guarda, um controle adequado de seus recursos é a chave da vitória.
 
 <h3>Colisões</h3>
-    Como descrito na sessão <a href="#Algoritmos">Algoritmos</a> existem um total de 4 colisões no jogo, cada uma com suas respectivas consequencias: a colisão com a parede, que impede o movimento do jogador, a colisão com um guarda que faz o jogador perder uma vida, a colisão com um troféu que garante o recurso, e a colisão com a porta que, caso o jogador já tenha os troféus, finaliza o jogo.
+    Como descrito na sessão <a href="#Algoritmos">Algoritmos do jogo</a> existem um total de 4 colisões no jogo, cada uma com suas respectivas consequencias: a colisão com a parede, que impede o movimento do jogador, a colisão com um guarda que faz o jogador perder uma vida, a colisão com um troféu que garante o recurso, e a colisão com a porta que, caso o jogador já tenha os troféus, finaliza o jogo.
 
 <h3>Pause e Continuar</h3>
     Durante qualquer momento durante a gameplay o jogador pode executar um conjunto de ações a depender do botão que ele pressionar na FPGA: ele pode pausar o jogo, reiniciar o jogo ou até mesmo sair do jogo. Considere ,no entanto, que essas ações tem suas disponibilizadas a depender do estágio do jogo (você não pode pausar o menu por exemplo).
@@ -406,6 +406,10 @@ A jogabilidade exige decisões estratégicas, como escolher a rota ideal e o mom
 <h2>Algoritmos</h2>
 <div align="justify">
 
+Para implementar as regras do jogo a nível de software, foram desenvolvidos diversos algoritmos responsáveis por gerenciar o comportamento dos elementos do jogo. Nesta seção, serão apresentadas as sequências responsáveis pela colisão entre o ladrão e os elementos ativos ou passivos do mapa, além das threads utilizadas o correto funcionamento de todas as interaçoes do jogo.
+
+<h3>Algoritmo de Colisões </h3>
+
 Esses algoritmos permitem a detecção de colisões, esses por sua vez se subdividem em:
 
 * colisão com parede.
@@ -418,13 +422,47 @@ Esses algoritmos permitem a detecção de colisões, esses por sua vez se subdiv
 
 A colisão com parede não implica em penalidades para o jogador, caso ocorra ela apenas impede o avanço do ladrão, essa colisão é importante para garantir que o ladrão não poderá andar de forma completamente livre pelo mapa, o que aumentará o grau de desafio do jogo.
 
-A colisão com um guarda possui penalidades par ao jogador, sendo elas: a perda de uma vida, a perda de todos os troféus, e o reestabelecimento da posição do jogador na posição inicial do ladrão. Esses princípios se aplicam a colisão com todos os guardas, sendo que a verificação é feita de forma individual para cada guarda.
+O cálculo de colisão entre ladrão e policial/troféu é feito de forma semelhante, basicamente deve-se garantir que não exista nenhuma lacuna entre os quadrados que abrigam os sprites. Neste caso a colisão é verificada em todos os lados: cima, baixo, esquerda e direita.
 
-A colisão com um troféu por sua vez tem um carácter recompensador, ao colidir com um trofeu o sprite do mesmo some e a contagem de troféus do ladrão aumenta, sendo que somente com todos os troféus o ladrão poderá concluir com sucesso sua missão.
+A seguir serão apresentadas as condições de colisao para cada lado do quadrado, sendo cada quadrado a representação de um sprite.
 
-A colisão com a porta se divide em 2 possibilidades: o ladrão tem ambos os troféus, ou não tem. Caso os troféus tenham sido coletados o jogador ganha o jogo, do contrário nada acontece e o jogo continua.
+<p align="center">
+  <img src="Imagens/ColisaoEsquerda.png" width="300" height="200" />
+</p>
+<p align="center"><strong> Representação da colisão à esquerda </strong></p>
 
-Todos os algoritmos de colisão funcionam de forma similar e registram a colisão no cumprimento de 2 requisitos, sendo eles: não estar em modo furtivo (usando a habilidade) e haver um contato entre o sprite do jogador com um determinado objeto do jogo. A primeira condição, apesar de estar sendo sempre verificada, só se efetiva na colisão com um guarda, afinal o ladrão não pode iniciar uma colisão sem se mover, e a movimentação é proibida no modo furtivo, logo caso o usuário colida com o troféu, por exemplo, a colisão é detectada antes da entrada em modo furtivo. A segunda condição já se apresenta em todas as colisões ao mesmo tempo, é necessário apenas uma variação das coordenadas que gere um contato contre os dois objetos para que se contretize.
+<p align="center">
+  <img src="Imagens/ColisaoDireita.png" width="300" height="200" />
+</p>
+<p align="center"><strong> Representaçao da colisão à direita </strong></p>
+
+<p align="center">
+  <img src="Imagens/ColisaoAcima.png" width="300" height="200" />
+</p>
+<p align="center"><strong> Representação da colisão no topo do sprite </strong></p>
+
+<p align="center">
+  <img src="Imagens/ColisaoAbaixo.png" width="300" height="200" />
+</p>
+<p align="center"><strong> Representação da colisão na base do sprite </strong></p>
+
+As seguintes verificações são realizadas para cada tipo de colisão apresentada acima, e quando elas acontecem temos uma colisão:
+
+* À esquerda, se X (VERMELHO) for menor ou igual X + 20 (AZUL).
+
+* À direita, se X + 20 (VERMELHO) for maior ou igual X (AZUL).
+
+* Na parte de cima, se Y (VERMELHO) for menor ou igual Y + 20 (AZUL).
+
+* Na parte de baixo, se Y + 20 (VERMELHO) for maior ou igual Y (AZUL).
+
+Com relação a porta é verificado apenas se a coordenada X e Y do ladrão é igual a da porta, o que de fato reproduz uma situação de o jogador saiu vitorioso.
+
+Portanto, podemos concluir que, todos os algoritmos de colisão funcionam de forma similar e registram a colisão no cumprimento de 2 requisitos, sendo eles: não estar em modo furtivo (usando a habilidade) e haver um contato entre o sprite do jogador com um determinado objeto do jogo. 
+
+A primeira condição, apesar de estar sendo sempre verificada, só se efetiva na colisão com um guarda, afinal o ladrão não pode iniciar uma colisão sem se mover, e a movimentação é proibida no modo furtivo, logo caso o usuário colida com o troféu, por exemplo, a colisão é detectada antes da entrada em modo furtivo. 
+
+A segunda condição já se apresenta em todas as colisões ao mesmo tempo, é necessário apenas uma variação das coordenadas que gere um contato contre os dois objetos para que se contretize.
 
 <h3>Algoritmo de Threads </h3>
 
@@ -438,7 +476,7 @@ Este uso de threads e sincronização é fundamental para a execução eficiente
 </div>
 
 <div id="Mapeamento">
-<h2> Mapeamento </h2>
+<h2> Mapeamento dos periféricos</h2>
 <div align="justify">
 
 Para realizar o acesso e o controle dos botões da FPGA foi utilizado mapeamento de memória com o uso do "mmap". Inicialmente, o arquivo especial /dev/mem é aberto, permitindo ao programa acessar diretamente a memória do sistema. Em seguida, a função mmap mapeia a região de memória que corresponde aos periféricos da FPGA para o espaço de endereço virtual do jogo. Isso inclui os registradores dos botões e dos displays de 7 segmentos, conectados à CPU através da "Lightweight Bridge". Assim, o programa pode interagir diretamente com o hardware da FPGA.
