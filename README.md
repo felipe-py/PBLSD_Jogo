@@ -338,7 +338,7 @@ Assim que o jogo entra em pausa um sprite é exibido no canto superior direito d
 A seguir são apresentadas as telas de derrota e vitória de uma partida, as duas seguem a mesma metodologia da tela inicial com uma mensagem de derrota ("Game Over") ou vitória ("You Win"). São apresentadas as opçoes de jogar novamente ou sair do jogo, utilizando os mesmos sprites presentes na tela inicial.
 
 <p align="center">
-  <img src="Imagens/TelaGameOver.png" width = "500" />
+  <img src="Imagens/TelaDerrota.png" width = "500" />
 </p>
 <p align="center"><strong> Tela de derrota do jogo (esboço/versão final) </strong></p>
 
@@ -531,17 +531,12 @@ Durante todos os testes deste tipo, buscamos bugs ou inconsistências no momento
 </p>
 <p align="center"><strong>Pausando a partida</strong></p>
 
-* Em uma situação de pause, o jogador poderá reiniciar a partida ou sair do jogo. Ao reiniciar a partida (botão 03), é esperado que o ladrão retorne ao local de origem e ao encerrar o jogo é feita a transição para a tela de saída.
+* Em uma situação de pause, o jogador poderá reiniciar a partida. Ao reiniciar a partida (botão 03), é esperado que o ladrão retorne ao local de origem.
 
 <p align="center">
   <img src="Gifs/PauseReinicio.gif" width = "400" />
 </p>
 <p align="center"><strong>Reiniciando o jogo em pause</strong></p>
-
-<p align="center">
-  <img src="Gifs/PauseSair.gif" width = "400" />
-</p>
-<p align="center"><strong>Encerrando o jogo em pause</strong></p>
 
 Seguindo o fluxo normal da partida, o jogador pode sair vitorioso ou derrotado. Nos gifs a seguir podemos observar estas situações, nas duas transições é esperado que as opções do menu em ambas as telas apareçam sem interferências.
 
