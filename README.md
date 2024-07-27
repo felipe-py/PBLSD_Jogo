@@ -277,7 +277,7 @@ O mesmo modelo de apresentação será utilizado para as outras telas desenvolvi
 <p align="center">
   <img src="Imagens/TelaInicial.png" width = "500" />
 </p>
-<p align="center"><strong> Tela Inicial do jogo (esboço/versão final)</strong></p>
+<p align="center"><strong> Tela Inicial do jogo (versão final/esboço)</strong></p>
 
 A seguir podemos visualizar os dois sprite foram desenvolvidos para a tela inicial, um que representa um "play" para iniciar o jogo e outro que representa a opção de saída.
 
@@ -294,7 +294,7 @@ A seguir podemos visualizar os dois sprite foram desenvolvidos para a tela inici
 Caso o usuário a partir da tela inicial decida sair do jogo, é feita a transição para uma nova tela onde uma mensagem de despedida é exibida. O esboço criado para esta tela pode ser visualizado abaixo.
 
 <p align="center">
-  <img src="Imagens/TelaSaidaEsboco.png" width = "500" />
+  <img src="Imagens/TelaSaidaEsboco.jpg" width = "500" />
 </p>
 <p align="center"><strong> Esboço da tela de saída do jogo </strong></p>
 
