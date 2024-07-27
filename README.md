@@ -60,6 +60,7 @@ Os requisitos do desenvolvimento do sistema seguem abaixo:
         <li><a href="#Perifericos-utilizados"> Periféricos da Placa DE1-SoC Utilizados </a></li>
         <li><a href="#Drivers"> Drivers utilizados para o controle da GPU </a></li>
         <li><a href="#Algoritmos"> Algoritmos </li>
+        <li><a href="#Mapeamento"> Mapeamento </li>
         <li><a href="#GPU utilizada"> GPU utilizada no projeto </a></li>
         <li><a href="#solucao-geral"> Solução Geral do projeto </a></li>
         <li><a href="#Interface do Usuário"> Interface do Usuário </a></li>
@@ -432,6 +433,21 @@ O algoritmo de threads é usado para gerenciar as interações do jogador com o 
 Uma das threads principais criadas é a thread_botao, que lida com as interações do jogador com os botões de controle na FPGA. Além disso, threads são usadas para lidar com movimentos de sprites, tanto a movimentação dos guardas que ocorre de forma independente do jogador quanto do ladrão controlado pelo mouse. A sincronização entre essas threads é crítica para garantir que as ações, como a atualização do estado do jogo ou o acesso a recursos compartilhados, sejam realizadas de maneira ordenada e segura. Isso é feito utilizando a abordagem de mutex, que aplica uma trava que impede que múltiplas threads acessem dados críticos ao mesmo tempo, prevenindo condições de corrida e inconsistências de dados.
 
 Este uso de threads e sincronização é fundamental para a execução eficiente do jogo, permitindo que o sistema responda rapidamente a entradas do jogador e eventos do jogo, enquanto realiza tarefas em segundo plano, como verificações de colisão e atualização de gráficos. As threads também permitem uma separação clara de responsabilidades dentro do código, onde diferentes threads são responsáveis por diferentes partes do jogo, facilitando a manutenção e a escalabilidade do software.
+
+</div>
+</div>
+
+<div id="Mapeamento">
+<h2> Mapeamento </h2>
+<div align="justify">
+
+Para realizar o acesso e o controle dos botões da FPGA foi utilizado mapeamento de memória com o uso do "mmap". Inicialmente, o arquivo especial /dev/mem é aberto, permitindo ao programa acessar diretamente a memória do sistema. Em seguida, a função mmap mapeia a região de memória que corresponde aos periféricos da FPGA para o espaço de endereço virtual do jogo. Isso inclui os registradores dos botões e dos displays de 7 segmentos, conectados à CPU através da "Lightweight Bridge". Assim, o programa pode interagir diretamente com o hardware da FPGA.
+
+Após o mapeamento, uma série de ponteiros são direcionados a endereços de memória específicos, uma das resposábilidades desses ponteiros é a leitura de um registrador que indica o atual estado dos botões, e através dele é possível determinar quais botões estão pressionados, e quais não estão a depender do valor retornado.
+
+O controle do display de 7 segmentos na FPGA é realizado através de ponteiros de endereço virtual que apontam para registradores específicos, representando cada um dos dígitos do display. Após o mapeamento da memória da FPGA esses ponteiros (HEX0_ptr até HEX5_ptr) são inicializados para o espaço de endereços do processo. Dessa forma o programa acesse diretamente os registradores de hardware responsáveis pelo controle dos displays.
+
+O vetor numeros contém valores que correspondem às codificações dos caracteres que serão utilizados no display de 7 segmentos. Ao início do jogo uma função utiliza esses valores para definir todos os dígitos do display com o caractere "-", que é representado pelo valor no índice 4 do vetor numeros. Para atualizar o conteúdo dos displays durante a execução do programa, uma outra função escreve diretamente nos registradores dos displays usando os outros valores do vetor numeros para representar números específicos referentes ao uso de habilidades e quantidade de vidas restantes.
 
 </div>
 </div>
