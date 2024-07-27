@@ -434,6 +434,12 @@ Uma das threads principais criadas é a thread_botao, que lida com as interaçõ
 
 Este uso de threads e sincronização é fundamental para a execução eficiente do jogo, permitindo que o sistema responda rapidamente a entradas do jogador e eventos do jogo, enquanto realiza tarefas em segundo plano, como verificações de colisão e atualização de gráficos. As threads também permitem uma separação clara de responsabilidades dentro do código, onde diferentes threads são responsáveis por diferentes partes do jogo, facilitando a manutenção e a escalabilidade do software.
 
+<h3>Algoritmo de renderização dos sprites</h3>
+
+A renderização dos sprites no jogo é feita por uma GPU por meio de um driver. O processo começa com a inicialização da comunicação com o driver da GPU, essencial para enviar comandos ao hardware. Em seguida, o código configura parâmetros como visibilidade, posição e seleção do sprite, no processo se assegurando que todos os valores estejam dentro dos intervalos permitidos. Isso é seguido pela preparação dos dados, onde informações são codificadas em um formato que a GPU possa interpretar.
+
+Uma vez que os dados estão preparados, eles são enviados para o hardware através de um buffer. Essa função capta os dados e os envia usando o descritor de arquivo do driver. Durante todo o processo, o código mantém um controle rigoroso dos recursos utilizados, como registradores de sprites e contagem de sprites configurados, para garantir que não haja conflitos ou uso indevido dos recursos gráficos. Após concluir o envio dos comandos, a comunicação com o driver é encerrada, liberando os recursos para futuras operações.
+
 </div>
 </div>
 
